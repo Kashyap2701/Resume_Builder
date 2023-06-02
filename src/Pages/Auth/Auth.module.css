@@ -1,0 +1,101 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--extra-light-color);
+  height: 100%;
+}
+
+.login-form-wrapper,
+.signup-form-wrapper {
+  background-color: var(--text-color-white);
+  display: flex;
+  margin: 2rem;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.login-form-wrapper {
+  max-width: 800px;
+}
+
+.signup-form-wrapper {
+  max-width: 900px;
+}
+
+.form-section,
+.image-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-section {
+  width: 45%;
+  padding: 1rem;
+  box-sizing: border-box;
+  justify-content: center;
+}
+
+.image-section {
+  width: 55%;
+}
+
+.form-section h2 {
+  margin-bottom: 0.5rem;
+}
+
+.form-section button {
+  margin: 1rem 0rem;
+}
+
+.image-section h2 {
+  margin: 2rem;
+  font-size: 2rem;
+  color: var(--primary-color);
+}
+
+.form-section button {
+  width: 100%;
+}
+
+.form-header {
+  margin-bottom: 2rem;
+}
+
+.form-header p {
+  color: var(--text-color-light);
+  font-size: large;
+}
+
+.form-footer {
+  margin: 1rem 0rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.form-footer a {
+  cursor: pointer;
+  color: var(--secondary-color);
+}
+
+.form-footer a:hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 480px) {
+  .login-form-wrapper {
+    width: 90%;
+    padding: 0.3rem;
+  }
+  .signup-form-wrapper {
+    width: 90%;
+    padding: 0.5rem;
+  }
+  .image-section {
+    display: none;
+  }
+  .form-section {
+    width: 100%;
+  }
+}

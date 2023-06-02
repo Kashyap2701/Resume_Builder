@@ -1,0 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap");
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+  --primary-color: #fe715b;
+  --secondary-color: #ea5a49;
+  --extra-light-color: #f4f4f4;
+  --light-color: #e1e1e1;
+  --extra-dark-color: #192d34;
+  --dark-color: #385a64;
+  --text-color-white: white;
+  --text-color-black: black;
+  --text-color-light: #8f8f8f;
+  --error: red;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style-type: none;
+}
+input {
+  padding: 0.5rem;
+  font-weight: 500;
+  border-radius: 3px;
+  border: 1px solid var(--light-color);
+  background-color: var(--extra-light-color);
+}
+
+input:focus {
+  outline-style: none;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  margin: 0 auto;
+}
+
+.primary-button {
+  color: var(--text-color-white);
+  border-radius: 3px;
+  padding: 0.5rem;
+  min-width: 100px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: medium;
+  background-color: var(--primary-color);
+}
+
+.primary-button:hover {
+  background-color: var(--secondary-color);
+}
