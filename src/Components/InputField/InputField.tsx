@@ -1,4 +1,3 @@
-import React from "react";
 import style from "./InputField.module.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
@@ -7,8 +6,8 @@ import { Field, ErrorMessage } from "formik";
 type InputFieldProps = {
   id: string;
   name: string;
-  label: string;
-  type: string;
+  label?: string;
+  type?: string;
   placeholder?: string;
 };
 
@@ -43,7 +42,7 @@ const InputField = (props: InputFieldProps) => {
   return (
     <div className={style["form-field"]}>
       <div>
-        <label htmlFor={props.id}>{props.label}</label>
+        {props.label && <label htmlFor={props.id}>{props.label}</label>}
         <ErrorMessage
           className={style["error-message"]}
           name={props.name}
@@ -56,7 +55,7 @@ const InputField = (props: InputFieldProps) => {
         <Field
           id={props.id}
           name={props.name}
-          type={props.type}
+          type={props.type || "text"}
           placeholder={props.placeholder}
         />
       )}
