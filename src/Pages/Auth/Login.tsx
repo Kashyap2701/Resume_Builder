@@ -47,7 +47,7 @@ const Login = () => {
           </Formik>
           <div className={style["form-footer"]}>
             <p>
-              Don't have Account? <Link to="/singup">Signup</Link>
+              Don't have Account? <Link to="/signup">Signup</Link>
             </p>
           </div>
         </div>
