@@ -9,6 +9,7 @@ type InputFieldProps = {
   label?: string;
   type?: string;
   placeholder?: string;
+  varient?: string;
 };
 
 const InputField = (props: InputFieldProps) => {
@@ -57,6 +58,8 @@ const InputField = (props: InputFieldProps) => {
           name={props.name}
           type={props.type || "text"}
           placeholder={props.placeholder}
+          as={props.varient}
+          rows={props.varient == "textarea" && 4}
         />
       )}
     </div>

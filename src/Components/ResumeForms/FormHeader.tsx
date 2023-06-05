@@ -4,8 +4,16 @@ import styled from "styled-components";
 
 const Header = styled.div`
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  padding: 1rem 0rem;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+  border-left: 3px solid var(--dark-color);
+  svg {
+    cursor: pointer;
+    font-size: large;
+  }
 `;
 
 type FormHeaderProps = {
