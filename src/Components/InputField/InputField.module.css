@@ -3,6 +3,7 @@
   flex-direction: column;
   margin-bottom: 1rem;
   user-select: none;
+  width: 100%;
 }
 .form-field div {
   display: flex;

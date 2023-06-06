@@ -1,0 +1,217 @@
+.container {
+  padding: 1em;
+  position: relative;
+}
+.strip {
+  width: 100%;
+  background-color: var(--light-color);
+  color: var(--extra-dark-color);
+  text-align: center;
+  padding: 0.2em 0.5em;
+}
+.strip h3 {
+  text-transform: capitalize;
+}
+
+.section-title {
+  width: 100%;
+  background-color: var(--primary-color);
+  color: var(--light-color);
+  text-align: left;
+  padding: 0.2em 0.5em;
+  border-radius: 0.2em;
+}
+
+.resume-action {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.resume-action button {
+  font-size: medium;
+  margin-bottom: 1rem;
+  /* border-radius: 50%; */
+}
+
+/* ------------------------------------------------------- */
+
+.resume-preview-wrapper {
+  --a4: 550px;
+  /* font-size: var(--a4); */
+  font-size: calc(var(--a4) / 50);
+  width: calc(var(--a4));
+  height: calc(var(--a4) * 1.41);
+  display: flex;
+  background-color: var(--light-color);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.left-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.right-section {
+  flex: 2;
+  padding: 2em;
+  background-color: var(--light-color);
+}
+
+.section {
+  padding: 1em;
+  color: var(--extra-dark-color);
+  font-weight: 500;
+}
+
+/* ------------------- profile-photo-section------------------ */
+
+.profile-photo-section {
+  width: 7em;
+  height: 7em;
+  margin: 0 auto;
+  border-radius: 50%;
+  background-color: var(--text-color-white);
+  margin: 2rem auto;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.profile-photo-section img {
+  border-radius: 50%;
+  -webkit-user-drag: none;
+}
+
+/* ------------------- contacts-section------------------ */
+
+.contacts-section {
+  padding: 1em;
+  color: var(--extra-light-color);
+}
+
+.contact {
+  display: flex;
+  align-items: center;
+  justify-items: flex-start;
+  margin-bottom: 0.5em;
+  width: 100%;
+}
+
+.contact .icon {
+  display: flex;
+  background-color: white;
+  border-radius: 50%;
+  padding: 0.3em;
+}
+
+.contact .icon svg {
+  color: var(--primary-color);
+}
+
+.contact span {
+  margin-left: 0.5em;
+  font-size: 0.8em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ------------------- skills-section & interests-section------------------ */
+
+.skills,
+.interests {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.skills li {
+  padding: 0.3rem;
+  background-color: var(--extra-light-color);
+  border-radius: 2px;
+  width: fit-content;
+  margin: 0.2em;
+}
+.interests li {
+  padding: 0.3rem;
+  color: var(--text-color-white);
+  border: 1px solid var(--text-color-white);
+  border-radius: 2px;
+  width: fit-content;
+  margin: 0.2em;
+}
+
+/* ------------------- profile-info-section------------------ */
+
+.profile-info {
+  margin-bottom: 1.5em;
+}
+.profile-info h1 {
+  margin-bottom: 0.5em;
+}
+
+.profile-info p {
+  font-size: larger;
+}
+
+.about-section {
+  margin: 0.5em 0;
+}
+
+/* ------ work-section & education-section -------------- */
+.work-experience-section,
+.education-section {
+  margin: 0.5em 0;
+}
+
+.work-experience-section ul,
+.education-section ul {
+  padding-left: 30px;
+  overflow: hidden;
+}
+
+.work-experience-section ul li,
+.education-section ul li {
+  position: relative;
+  margin-bottom: 0.3rem;
+}
+
+.work-experience-section ul li:after,
+.education-section ul li:after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: -25px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: 2px solid var(--primary-color);
+}
+
+.work-experience-section ul li:before,
+.education-section ul li:before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: -23px;
+  width: 2px;
+  height: 115px;
+  background: var(--primary-color);
+}
+
+.work-experience-section ul li .info .title,
+.education-section ul li .info .title {
+  font-weight: 600;
+}
+
+/* -------------------- languagages-section ----------------- */
+
+.languages-section {
+  display: flex;
+  margin: 0.5em 0;
+  font-weight: 500;
+}
+
+.languages-section p {
+  margin-right: 0.5em;
+}

@@ -35,8 +35,22 @@ input {
   background-color: var(--extra-light-color);
 }
 
-input:focus {
+textarea {
+  padding: 0.5rem;
+  font-weight: 500;
+  border-radius: 3px;
+  border: 1px solid var(--light-color);
+  background-color: var(--extra-light-color);
+}
+
+input:focus,
+textarea:focus {
   outline-style: none;
+}
+
+input::placeholder,
+textarea::placeholder {
+  opacity: 0.5;
 }
 
 img {
@@ -46,6 +60,10 @@ img {
 }
 
 button:active {
+  transform: scale(0.95);
+}
+
+svg:active {
   transform: scale(0.95);
 }
 
@@ -69,4 +87,18 @@ button:active {
 
 .primary-button:hover {
   background-color: var(--secondary-color);
+}
+
+.secondary-button {
+  color: var(--text-color-white);
+  border-radius: 3px;
+  padding: 0.5rem;
+  min-width: 70px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  background-color: var(--dark-color);
+}
+.secondary-button:hover {
+  background-color: var(--extra-dark-color);
 }
