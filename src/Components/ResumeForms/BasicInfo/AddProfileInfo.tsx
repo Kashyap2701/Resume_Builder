@@ -3,7 +3,12 @@ import { Formik, Form, Field } from "formik";
 import { initialValueforProfileInfo } from "../../../Utils/ResumeForm";
 import style from "./BasicInfo.module.css";
 import InputField from "../../InputField/InputField";
-import { AccordianForm, Divider, Row } from "../../../Utils/FormStyle";
+import {
+  AccordianForm,
+  ButtonRight,
+  Divider,
+  Row,
+} from "../../../Utils/FormStyle";
 import { FaUserEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import FormHeader from "../FormHeader";
@@ -75,6 +80,15 @@ const AddProfileInfo = () => {
                   <InputField id="lastname" name="lastname" label="LastName" />
                 </Row>
                 <InputField id="jobtitle" name="jobtitle" label="Job Title" />
+                <InputField
+                  id="short-bio"
+                  name="about"
+                  label="Short Bio"
+                  varient="textarea"
+                />
+                <ButtonRight>
+                  <button className="secondary-button">Save</button>
+                </ButtonRight>
               </Form>
             )}
           </Formik>

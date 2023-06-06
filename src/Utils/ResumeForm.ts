@@ -2,6 +2,7 @@ export const initialValueforProfileInfo = {
   jobTitle: "",
   firstName: "",
   lastName: "",
+  about: "",
   profilePhoto: "",
 };
 

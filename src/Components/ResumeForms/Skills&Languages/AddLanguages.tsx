@@ -3,7 +3,7 @@ import { useState } from "react";
 import FormHeader from "../FormHeader";
 import { Input, Wrapper, AccordianForm } from "../../../Utils/FormStyle";
 import { RxCross2 } from "react-icons/rx";
-import style from "./AddSkills.module.css";
+import style from "./Style.module.css";
 
 const AddLanguages = () => {
   const [isexpand, setIsExpand] = useState(false);
@@ -17,7 +17,7 @@ const AddLanguages = () => {
       />
       {isexpand && (
         <AccordianForm>
-          <Input type="text" placeholder="Type Your Skill Here" />
+          <Input type="text" placeholder="Type Languages that you can speak" />
           <Wrapper>
             <div className={style["container"]}>
               <div className={style["item"]}>

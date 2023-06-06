@@ -7,6 +7,7 @@ import AddSkills from "../../Components/ResumeForms/Skills&Languages/AddSkills";
 import AddWork from "../../Components/ResumeForms/Work&Education/AddWork";
 import style from "./CreateResume.module.css";
 import Preview from "../../Components/Resume Privew/Preview";
+import AddInterests from "../../Components/ResumeForms/Skills&Languages/AddInterests";
 
 const CreateResume = () => {
   return (
@@ -19,6 +20,7 @@ const CreateResume = () => {
           <AddEducation />
           <AddSkills />
           <AddLanguages />
+          <AddInterests />
         </div>
       </div>
       <div className={style["resume-preview"]}>

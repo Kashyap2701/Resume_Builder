@@ -3,7 +3,13 @@ import { useState } from "react";
 import { Formik, Form } from "formik";
 import FormHeader from "../FormHeader";
 import { initialValueforContactInfo } from "../../../Utils/ResumeForm";
-import { AccordianForm, Column, Divider, Row } from "../../../Utils/FormStyle";
+import {
+  AccordianForm,
+  ButtonRight,
+  Column,
+  Divider,
+  Row,
+} from "../../../Utils/FormStyle";
 import InputField from "../../InputField/InputField";
 
 const AddContactsForm = () => {
@@ -58,6 +64,9 @@ const AddContactsForm = () => {
                     placeholder="City Name"
                   />
                 </Row>
+                <ButtonRight>
+                  <button className="secondary-button">Save</button>
+                </ButtonRight>
               </Column>
             </Form>
           </Formik>

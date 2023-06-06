@@ -18,6 +18,7 @@
   width: 50%;
   height: 100%;
   background-color: var(--extra-light-color);
+  position: relative;
 }
 
 .form-section {
@@ -51,7 +52,7 @@
   justify-content: space-between;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
   .container {
     flex-direction: column;
   }

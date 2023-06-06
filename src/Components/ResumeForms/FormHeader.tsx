@@ -14,6 +14,10 @@ const Header = styled.div`
     cursor: pointer;
     font-size: large;
   }
+  &:hover {
+    background-color: var(--extra-light-color);
+    cursor: pointer;
+  }
 `;
 
 type FormHeaderProps = {
@@ -24,13 +28,13 @@ type FormHeaderProps = {
 
 const FormHeader = (props: FormHeaderProps) => {
   return (
-    <Header>
+    <Header
+      onClick={() => {
+        props.toggleSection(!props.isexpand);
+      }}
+    >
       <h3>{props.title}</h3>
-      <AiFillDownCircle
-        onClick={() => {
-          props.toggleSection(!props.isexpand);
-        }}
-      />
+      <AiFillDownCircle />
     </Header>
   );
 };

@@ -17,7 +17,6 @@
   --text-color-black: black;
   --text-color-light: #8f8f8f;
   --error: red;
-
 }
 
 a {
@@ -98,9 +97,7 @@ svg:active {
   border: none;
   cursor: pointer;
   font-weight: 500;
-  font-size: medium;
   background-color: var(--dark-color);
-  font-size: smaller;
 }
 .secondary-button:hover {
   background-color: var(--extra-dark-color);

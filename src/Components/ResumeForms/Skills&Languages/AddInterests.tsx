@@ -5,23 +5,27 @@ import { AccordianForm, Input, Wrapper } from "../../../Utils/FormStyle";
 import { RxCross2 } from "react-icons/rx";
 import style from "./Style.module.css";
 
-const AddSkills = () => {
+const AddInterests = () => {
   const [isexpand, setIsExpand] = useState(false);
 
   return (
     <div>
       <FormHeader
-        title="Skills"
+        title="Interests"
         isexpand={isexpand}
         toggleSection={setIsExpand}
       />
       {isexpand && (
         <AccordianForm>
-          <Input type="text" placeholder="Type Your Skill Here" />
+          <Input type="text" placeholder="Type Your Hobbies or Interest Here" />
           <Wrapper>
             <div className={style["container"]}>
               <div className={style["item"]}>
-                <span className={style["text"]}>HTML</span>
+                <span className={style["text"]}>Music</span>
+                <RxCross2 className={style["cancel-icon"]} />
+              </div>
+              <div className={style["item"]}>
+                <span className={style["text"]}>Traveling</span>
                 <RxCross2 className={style["cancel-icon"]} />
               </div>
             </div>
@@ -32,4 +36,4 @@ const AddSkills = () => {
   );
 };
 
-export default AddSkills;
+export default AddInterests;

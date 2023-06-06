@@ -1,5 +1,6 @@
 .container {
   padding: 1em;
+  position: relative;
 }
 .strip {
   width: 100%;
@@ -21,10 +22,22 @@
   border-radius: 0.2em;
 }
 
+.resume-action {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.resume-action button {
+  font-size: medium;
+  margin-bottom: 1rem;
+  /* border-radius: 50%; */
+}
+
 /* ------------------------------------------------------- */
 
 .resume-preview-wrapper {
-  --a4: 500px;
+  --a4: 550px;
   /* font-size: var(--a4); */
   font-size: calc(var(--a4) / 50);
   width: calc(var(--a4));
