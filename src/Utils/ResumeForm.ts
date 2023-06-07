@@ -14,6 +14,7 @@ export const initialValueforContactInfo = {
 };
 
 export const initialValueforWorkInfo = {
+  id: "",
   title: "",
   startedYear: "",
   endedYear: "",

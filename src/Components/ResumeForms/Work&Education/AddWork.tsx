@@ -1,7 +1,7 @@
 import React from "react";
 import FormHeader from "../FormHeader";
 import { useState } from "react";
-import { Formik, Form } from "formik";
+import { Formik, Form, FormikHelpers, FormikConfig } from "formik";
 import style from "./Style.module.css";
 import {
   Row,
@@ -11,16 +11,68 @@ import {
   AccordianForm,
 } from "../../../Utils/FormStyle";
 import { RxCross2 } from "react-icons/rx";
-import { GrFormAdd } from "react-icons/gr";
 import InputField from "../../InputField/InputField";
 import { initialValueforWorkInfo } from "../../../Utils/ResumeForm";
+import uuid from "react-uuid";
+
+type experience = {
+  id: string;
+  title: string;
+  startedYear: string | number;
+  endedYear: string | number;
+  jobTitle: string;
+  companyName: string;
+  desc: string;
+};
+
+const dummyExperiences: experience[] = [
+  {
+    id: uuid(),
+    title: "Experience 1",
+    startedYear: 2015,
+    endedYear: 2017,
+    jobTitle: "Software Engineer",
+    companyName: "Simform Solution",
+    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt, voluptas.",
+  },
+  {
+    id: uuid(),
+    title: "Experience 2",
+    startedYear: 2017,
+    endedYear: 2018,
+    jobTitle: "Software Engineer",
+    companyName: "Simform Solution",
+    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt, voluptas.",
+  },
+];
 
 const AddWork = () => {
   const [isexpand, setIsExpand] = useState(false);
+  const [experirences, setExperiences] = useState(dummyExperiences);
+  const [selectedExperience, setSelectedExperience] =
+    useState<experience | null>(null);
 
-  const submitHandler = () => {
-    // console.log(values);
+  // when save button is clicked
+  const submitHandler: FormikConfig<experience>["onSubmit"] = (
+    values: experience,
+    { resetForm }: FormikHelpers<experience>
+  ) => {
+    setExperiences([...experirences, values]);
+    resetForm();
   };
+
+  const editExperienceHandler = (e) => {
+    const id = e.target.id;
+    setSelectedExperience(experirences.filter((data) => data.id == id)[0]);
+  };
+
+  // delete single experience
+  const deleteHandler = (e) => {
+    const id = e.target.parentNode.id;
+    const newExperiences = experirences.filter((data) => data.id != id);
+    setExperiences(newExperiences);
+  };
+
   return (
     <div>
       <FormHeader
@@ -28,25 +80,31 @@ const AddWork = () => {
         isexpand={isexpand}
         toggleSection={setIsExpand}
       />
+      {console.log(selectedExperience)}
       {isexpand && (
         <AccordianForm>
+          {/* all the experiences that are added */}
           <div className={style["container"]}>
-            <div className={style["item"]}>
-              <span>Experience 1</span>
-              <RxCross2 />
-            </div>
-            <div className={style["item"]}>
-              <span>Experience 2</span>
-              <RxCross2 />
-            </div>
-            <div className={style["new-item"]}>
-              <GrFormAdd />
-              <span>New</span>
-            </div>
+            {experirences.map((data) => {
+              return (
+                <>
+                  <div
+                    key={data.id}
+                    id={data.id}
+                    className={style["item"]}
+                    onClick={editExperienceHandler}
+                  >
+                    <span>{data.title}</span>
+                    <RxCross2 onClick={deleteHandler} />
+                  </div>
+                </>
+              );
+            })}
           </div>
           <Formik
-            initialValues={initialValueforWorkInfo}
+            initialValues={selectedExperience || initialValueforWorkInfo}
             onSubmit={submitHandler}
+            enableReinitialize
           >
             <Form>
               <Column>
@@ -61,7 +119,7 @@ const AddWork = () => {
                   <Divider />
                   <InputField
                     id="company name"
-                    name="company name"
+                    name="companyName"
                     label="Company Name"
                   />
                 </Row>
