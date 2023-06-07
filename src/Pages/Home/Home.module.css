@@ -1,6 +1,6 @@
 .container {
   width: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh - 64.35px);
   background-color: var(--extra-light-color);
   display: flex;
   align-items: center;
