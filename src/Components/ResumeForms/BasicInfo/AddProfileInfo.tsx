@@ -15,19 +15,26 @@ import FormHeader from "../FormHeader";
 import noprofile from "../../../Assets/no-profile.png";
 
 const AddProfileInfo = () => {
-  const [isexpand, setIsExpand] = useState(false);
-  // const [previewImage, setPreviewImage] = useState<string>();
+  const [isexpand, setIsExpand] = useState(true);
+  const [profilePhoto, setProfilePhoto] = useState(noprofile);
+  const [previewImage, setPreviewImage] = useState(noprofile);
 
-  // const handlePreviewImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   let reader = new FileReader();
-  //   reader.addEventListener("load", (e) => {
-  //     setPreviewImage(e.target.result);
-  //   });
-  //   reader.readAsDataURL(e.target.files[0]);
-  // };
+  // Profile Preview Handler
+  const handlePreviewImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file: File | undefined = e.target.files?.[0];
+    const reader: FileReader = new FileReader();
 
-  const submitHandler = () => {
-    // console.log(values);
+    if (file) {
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        setPreviewImage(reader.result as string);
+      };
+      setProfilePhoto(file);
+    }
+  };
+
+  const submitHandler = (values: any) => {
+    console.log(values);
   };
 
   return (
@@ -48,9 +55,9 @@ const AddProfileInfo = () => {
                 <div className={style["profile-upload-container"]}>
                   <div className={style["profile-preview"]}>
                     <div className={style["profile-image"]}>
-                      <img src={noprofile} alt="" />
+                      <img src={previewImage} alt="" />
                     </div>
-                    <p>File Name.png</p>
+                    <p>{profilePhoto.name}</p>
                   </div>
                   <div className={style["profile-actions"]}>
                     <label htmlFor="profilePhoto">
@@ -60,9 +67,9 @@ const AddProfileInfo = () => {
                       id="profilePhoto"
                       name="profilePhoto"
                       value={undefined}
-                      onChange={(e: any) => {
-                        // setFieldValue("profilePhoto", e.target.files[0]);
-                        // handlePreviewImage(e);
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        setFieldValue("profilePhoto", e.target.files?.[0]);
+                        handlePreviewImage(e);
                       }}
                       type="file"
                       hidden

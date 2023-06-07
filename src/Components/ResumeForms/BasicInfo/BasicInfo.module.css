@@ -19,10 +19,14 @@
 
 .profile-preview p {
   margin-left: 1rem;
+  max-width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .profile-image {
   width: 4rem;
+  height: 4rem;
   object-fit: cover;
 }
 
