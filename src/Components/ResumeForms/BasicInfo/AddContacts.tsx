@@ -11,12 +11,15 @@ import {
   Row,
 } from "../../../Utils/FormStyle";
 import InputField from "../../InputField/InputField";
+import { Toaster } from "react-hot-toast";
+import { save } from "../../../Utils/Toster";
 
 const AddContactsForm = () => {
   const [isexpand, setIsExpand] = useState(false);
 
-  const submitHandler = () => {
-    // console.log(values);
+  const submitHandler = (values: object) => {
+    save("Contacts Added");
+    console.log(values);
   };
   return (
     <div>
@@ -52,7 +55,7 @@ const AddContactsForm = () => {
                 <Row>
                   <InputField
                     id="wesite"
-                    name="wesite"
+                    name="website"
                     label="Website"
                     placeholder="www.example.com"
                   />
@@ -65,7 +68,10 @@ const AddContactsForm = () => {
                   />
                 </Row>
                 <ButtonRight>
-                  <button className="secondary-button">Save</button>
+                  <button className="secondary-button" type="submit">
+                    Save
+                  </button>
+                  <Toaster position="bottom-center" />
                 </ButtonRight>
               </Column>
             </Form>

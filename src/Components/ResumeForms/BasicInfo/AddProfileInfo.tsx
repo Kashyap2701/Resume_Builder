@@ -13,13 +13,13 @@ import { FaUserEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import FormHeader from "../FormHeader";
 import noprofile from "../../../Assets/no-profile.png";
+import { Toaster } from "react-hot-toast";
+import { save } from "../../../Utils/Toster";
 
 const AddProfileInfo = () => {
   const [isexpand, setIsExpand] = useState(true);
-  const [profilePhoto, setProfilePhoto] = useState(noprofile);
   const [previewImage, setPreviewImage] = useState(noprofile);
 
-  // Profile Preview Handler
   const handlePreviewImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file: File | undefined = e.target.files?.[0];
     const reader: FileReader = new FileReader();
@@ -29,11 +29,11 @@ const AddProfileInfo = () => {
       reader.onload = () => {
         setPreviewImage(reader.result as string);
       };
-      setProfilePhoto(file);
     }
   };
 
-  const submitHandler = (values: any) => {
+  const submitHandler = (values: object) => {
+    save("Profile Info Added");
     console.log(values);
   };
 
@@ -50,16 +50,13 @@ const AddProfileInfo = () => {
             initialValues={initialValueforProfileInfo}
             onSubmit={submitHandler}
           >
-            {({ values, setFieldValue }) => (
+            {({ setFieldValue }) => (
               <Form>
                 <div className={style["profile-upload-container"]}>
                   <div className={style["profile-preview"]}>
                     <div className={style["profile-image"]}>
-                      <img src={previewImage} alt="" />
+                      <img src={previewImage} alt="profile-image" />
                     </div>
-                    <p>{profilePhoto.name}</p>
-                  </div>
-                  <div className={style["profile-actions"]}>
                     <label htmlFor="profilePhoto">
                       <FaUserEdit />
                     </label>
@@ -74,7 +71,12 @@ const AddProfileInfo = () => {
                       type="file"
                       hidden
                     />
-                    <MdDelete />
+                    <MdDelete
+                      onClick={() => {
+                        setFieldValue("profilePhoto", undefined);
+                        setPreviewImage(noprofile);
+                      }}
+                    />
                   </div>
                 </div>
                 <Row>
@@ -94,7 +96,10 @@ const AddProfileInfo = () => {
                   varient="textarea"
                 />
                 <ButtonRight>
-                  <button className="secondary-button">Save</button>
+                  <button className="secondary-button" type="submit">
+                    Save
+                  </button>
+                  <Toaster position="bottom-center" reverseOrder={false} />
                 </ButtonRight>
               </Form>
             )}
