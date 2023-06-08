@@ -11,66 +11,81 @@ import {
   AccordianForm,
 } from "../../../Utils/FormStyle";
 import { RxCross2 } from "react-icons/rx";
+import { GrFormAdd } from "react-icons/gr";
 import InputField from "../../InputField/InputField";
 import { initialValueforWorkInfo } from "../../../Utils/ResumeForm";
 import uuid from "react-uuid";
+import { save } from "../../../Utils/Toster";
+import { useAppDispatch, useAppSelector } from "../../../Service/hooks";
+import {
+  experience,
+  workActions,
+} from "../../../Service/ResumeSlices/workSlice";
+import { validationschemaforWork } from "../../../Utils/ValidationSchema";
 
-type experience = {
-  id: string;
-  title: string;
-  startedYear: string | number;
-  endedYear: string | number;
-  jobTitle: string;
-  companyName: string;
-  desc: string;
-};
-
-const dummyExperiences: experience[] = [
-  {
-    id: uuid(),
-    title: "Experience 1",
-    startedYear: 2015,
-    endedYear: 2017,
-    jobTitle: "Software Engineer",
-    companyName: "Simform Solution",
-    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt, voluptas.",
-  },
-  {
-    id: uuid(),
-    title: "Experience 2",
-    startedYear: 2017,
-    endedYear: 2018,
-    jobTitle: "Software Engineer",
-    companyName: "Simform Solution",
-    desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt, voluptas.",
-  },
-];
+//   {
+//     id: uuid(),
+//     title: "Experience 1",
+//     startedYear: 2015,
+//     endedYear: 2017,
+//     jobTitle: "Software Engineer",
+//     companyName: "Simform Solution",
+//     desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt, voluptas.",
+//   },
+//   {
+//     id: uuid(),
+//     title: "Experience 2",
+//     startedYear: 2017,
+//     endedYear: 2018,
+//     jobTitle: "Software Engineer",
+//     companyName: "Simform Solution",
+//     desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt, voluptas.",
+//   },
+// ];
 
 const AddWork = () => {
+  const experiences = useAppSelector((state) => state.work.experiences);
+  const dispatch = useAppDispatch();
   const [isexpand, setIsExpand] = useState(false);
-  const [experirences, setExperiences] = useState(dummyExperiences);
-  const [selectedExperience, setSelectedExperience] =
-    useState<experience | null>(null);
+  const [buttonText, setButtonText] = useState("Save");
+  const [selectedExperience, setSelectedExperience] = useState<experience>(
+    initialValueforWorkInfo
+  );
 
-  // when save button is clicked
+  // add or edit experience
   const submitHandler: FormikConfig<experience>["onSubmit"] = (
     values: experience,
     { resetForm }: FormikHelpers<experience>
   ) => {
-    setExperiences([...experirences, values]);
+    if (buttonText == "Save") {
+      dispatch(workActions.addExperience({ ...values, id: uuid() }));
+      save("Experience Added");
+    } else {
+      dispatch(workActions.updateExperience(values));
+      save("Experience Updated");
+      setSelectedExperience(initialValueforWorkInfo);
+      setButtonText("Save");
+    }
     resetForm();
   };
 
+  // create new experience
+  const newExperienceHandler = () => {
+    setButtonText("Save");
+    setSelectedExperience(initialValueforWorkInfo);
+  };
+
+  // edit single experience
   const editExperienceHandler = (e) => {
     const id = e.target.id;
-    setSelectedExperience(experirences.filter((data) => data.id == id)[0]);
+    setButtonText("Update");
+    setSelectedExperience(experiences.filter((data) => data.id == id)[0]);
   };
 
   // delete single experience
-  const deleteHandler = (e) => {
+  const deleteExperienceHandler = (e) => {
     const id = e.target.parentNode.id;
-    const newExperiences = experirences.filter((data) => data.id != id);
-    setExperiences(newExperiences);
+    dispatch(workActions.deleteExperience(id));
   };
 
   return (
@@ -80,12 +95,12 @@ const AddWork = () => {
         isexpand={isexpand}
         toggleSection={setIsExpand}
       />
-      {console.log(selectedExperience)}
+
       {isexpand && (
         <AccordianForm>
           {/* all the experiences that are added */}
           <div className={style["container"]}>
-            {experirences.map((data) => {
+            {experiences.map((data) => {
               return (
                 <>
                   <div
@@ -95,16 +110,23 @@ const AddWork = () => {
                     onClick={editExperienceHandler}
                   >
                     <span>{data.title}</span>
-                    <RxCross2 onClick={deleteHandler} />
+                    <RxCross2 onClick={deleteExperienceHandler} />
                   </div>
                 </>
               );
             })}
+            {experiences.length != 0 && (
+              <div className={style["new-item"]} onClick={newExperienceHandler}>
+                <GrFormAdd />
+                <span>New</span>
+              </div>
+            )}
           </div>
           <Formik
-            initialValues={selectedExperience || initialValueforWorkInfo}
+            initialValues={selectedExperience}
             onSubmit={submitHandler}
-            enableReinitialize
+            validationSchema={validationschemaforWork}
+            enableReinitialize={true}
           >
             <Form>
               <Column>
@@ -140,7 +162,9 @@ const AddWork = () => {
                 />
               </Column>
               <ButtonRight>
-                <button className="secondary-button">Save</button>
+                <button className="secondary-button" type="submit">
+                  {buttonText}
+                </button>
               </ButtonRight>
             </Form>
           </Formik>

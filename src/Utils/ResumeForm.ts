@@ -24,6 +24,8 @@ export const initialValueforWorkInfo = {
 };
 
 export const initialValuefoeEducationInfo = {
+  id: "",
+  title: "",
   startedYear: "",
   endedYear: "",
   courseName: "",
