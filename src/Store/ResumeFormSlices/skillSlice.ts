@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface skill {
+export interface skill {
   id: string;
   name: string;
 }

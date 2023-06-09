@@ -12,6 +12,7 @@ import { FaDownload, FaSave } from "react-icons/fa";
 import { Column } from "../../Utils/FormStyle";
 import { useAppSelector } from "../../Store/hooks";
 import uuid from "react-uuid";
+import jsPDF from "jspdf";
 
 const Preview = () => {
   const profileInfo = useAppSelector((state) => state.profile.profileInfo);
@@ -37,6 +38,10 @@ const Preview = () => {
     console.log(resume);
   };
 
+  const downloadresumeHandler = () => {
+    const docs = new jsPDF();
+  };
+
   return (
     <>
       <div className={style["container"]}>
@@ -58,10 +63,10 @@ const Preview = () => {
       </div>
       <div className={style["resume-action"]}>
         <Column>
-          <button className="secondary-button">
-            <FaSave onClick={saveresumeHandler} />
+          <button className="secondary-button" onClick={saveresumeHandler}>
+            <FaSave />
           </button>
-          <button className="secondary-button">
+          <button className="secondary-button" onClick={downloadresumeHandler}>
             <FaDownload />
           </button>
         </Column>

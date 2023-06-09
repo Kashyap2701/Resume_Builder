@@ -2,6 +2,7 @@
   padding: 1em;
   margin: 0 auto;
   overflow-y: auto;
+  overflow-x: hidden;
   height: 100%;
 }
 .strip {
@@ -41,8 +42,10 @@
 .resume-preview-wrapper {
   --a4: 800px;
   font-size: calc(var(--a4) / 50);
-  min-width: calc(var(--a4));
+  width: calc(var(--a4));
   height: calc(var(--a4) * 1.41);
+
+  /* min-height: 100vh; */
   display: flex;
   background-color: var(--light-color);
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;

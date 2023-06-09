@@ -4,7 +4,6 @@ import RightSectionTitle from "../RightSectionTitle";
 
 const WorkExperience = () => {
   const experiences = useAppSelector((state) => state.work.experiences);
-
   return (
     <>
       {experiences.length !== 0 && (
