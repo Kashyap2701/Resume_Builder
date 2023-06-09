@@ -14,11 +14,11 @@ import { GrFormAdd } from "react-icons/gr";
 import InputField from "../../InputField/InputField";
 import style from "./Style.module.css";
 import { initialValuefoeEducationInfo } from "../../../Utils/ResumeForm";
-import { useAppDispatch, useAppSelector } from "../../../Service/hooks";
+import { useAppDispatch, useAppSelector } from "../../../Store/hooks";
 import {
   degree,
   educationAction,
-} from "../../../Service/ResumeSlices/educationSlice";
+} from "../../../Store/ResumeSlices/educationSlice";
 import uuid from "react-uuid";
 import { save } from "../../../Utils/Toster";
 import { validationschemaforEducation } from "../../../Utils/ValidationSchema";

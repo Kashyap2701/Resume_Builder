@@ -16,11 +16,8 @@ import InputField from "../../InputField/InputField";
 import { initialValueforWorkInfo } from "../../../Utils/ResumeForm";
 import uuid from "react-uuid";
 import { save } from "../../../Utils/Toster";
-import { useAppDispatch, useAppSelector } from "../../../Service/hooks";
-import {
-  experience,
-  workActions,
-} from "../../../Service/ResumeSlices/workSlice";
+import { useAppDispatch, useAppSelector } from "../../../Store/hooks";
+import { experience, workActions } from "../../../Store/ResumeSlices/workSlice";
 import { validationschemaforWork } from "../../../Utils/ValidationSchema";
 
 //   {

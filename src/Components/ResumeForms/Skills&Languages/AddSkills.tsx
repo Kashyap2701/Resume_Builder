@@ -1,12 +1,33 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 import { useState } from "react";
 import FormHeader from "../FormHeader";
 import { AccordianForm, Input, Wrapper } from "../../../Utils/FormStyle";
 import { RxCross2 } from "react-icons/rx";
 import style from "./Style.module.css";
+import { useAppDispatch, useAppSelector } from "../../../Store/hooks";
+import { skillActions } from "../../../Store/ResumeSlices/skillSlice";
+import uuid from "react-uuid";
 
 const AddSkills = () => {
   const [isexpand, setIsExpand] = useState(false);
+  const skills = useAppSelector((state) => state.skill.skills);
+  const dispatch = useAppDispatch();
+
+  const addSkillhandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const skillName = e.target as HTMLInputElement;
+    if (e.key === "Enter" && skillName.value.trim() != "") {
+      const newskill = {
+        id: uuid(),
+        name: skillName.value,
+      };
+      dispatch(skillActions.addskill(newskill));
+      (e.target as HTMLInputElement).value = "";
+    }
+  };
+
+  const deleteSkillHandler = (e) => {
+    dispatch(skillActions.deleteSkill(e.target.parentNode.id));
+  };
 
   return (
     <div>
@@ -17,13 +38,25 @@ const AddSkills = () => {
       />
       {isexpand && (
         <AccordianForm>
-          <Input type="text" placeholder="Type Your Skill Here" />
+          <Input
+            type="text"
+            defaultValue=""
+            placeholder="Type Your Skill Here & Press 'Enter'"
+            onKeyDown={addSkillhandler}
+          />
           <Wrapper>
             <div className={style["container"]}>
-              <div className={style["item"]}>
-                <span className={style["text"]}>HTML</span>
-                <RxCross2 className={style["cancel-icon"]} />
-              </div>
+              {skills.map((skill) => {
+                return (
+                  <div key={skill.id} id={skill.id} className={style["item"]}>
+                    <span className={style["text"]}>{skill.name}</span>
+                    <RxCross2
+                      className={style["cancel-icon"]}
+                      onClick={deleteSkillHandler}
+                    />
+                  </div>
+                );
+              })}
             </div>
           </Wrapper>
         </AccordianForm>
