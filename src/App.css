@@ -19,6 +19,10 @@
   --error: red;
 }
 
+body {
+  background-color: var(--extra-light-color);
+}
+
 a {
   text-decoration: none;
   color: inherit;

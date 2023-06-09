@@ -1,44 +1,40 @@
+import { useAppSelector } from "../../../Store/hooks";
 import style from "../Preview.module.css";
 import RightSectionTitle from "../RightSectionTitle";
 
 const Education = () => {
+  const education = useAppSelector((state) => state.education.educations);
+
   return (
     <>
-      <RightSectionTitle title="EDUCATION" />
-      <div className={style["education-section"]}>
-        <ul>
-          <li>
-            <div className={style["date"]}>
-              <i>2004 - 2008</i>
-            </div>
-            <div className={style["info"]}>
-              <p className={style["title"]}>
-                Degree<span> | </span>
-                University
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Nostrum, voluptatibus!
-              </p>
-            </div>
-          </li>
-          <li>
-            <div className={style["date"]}>
-              <i>2002 - 2004</i>
-            </div>
-            <div className={style["info"]}>
-              <p className={style["title"]}>
-                Degree<span> | </span>
-                University
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Nostrum, voluptatibus!
-              </p>
-            </div>
-          </li>
-        </ul>
-      </div>
+      {education.length !== 0 && (
+        <>
+          <RightSectionTitle title="EDUCATION" />
+          <div className={style["education-section"]}>
+            <ul>
+              {education.map((degree) => {
+                return (
+                  <li>
+                    <div className={style["date"]}>
+                      <i>
+                        {degree.startedYear} - {degree.endedYear}
+                      </i>
+                    </div>
+                    <div className={style["info"]}>
+                      <p className={style["title"]}>
+                        {degree.courseName}
+                        <span> | </span>
+                        {degree.university}
+                      </p>
+                      <p>{degree.desc}</p>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </>
+      )}
     </>
   );
 };

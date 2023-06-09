@@ -9,9 +9,34 @@ import WorkExperience from "./Resume Sections/WorkExperience";
 import Education from "./Resume Sections/Education";
 import Languages from "./Resume Sections/Languages";
 import { FaDownload, FaSave } from "react-icons/fa";
-import { Column, Row } from "../../Utils/FormStyle";
+import { Column } from "../../Utils/FormStyle";
+import { useAppSelector } from "../../Store/hooks";
+import uuid from "react-uuid";
 
 const Preview = () => {
+  const profileInfo = useAppSelector((state) => state.profile.profileInfo);
+  const contacts = useAppSelector((state) => state.contact.contacts);
+  const interests = useAppSelector((state) => state.interest.interests);
+  const languages = useAppSelector((state) => state.language.languages);
+  const skills = useAppSelector((state) => state.skill.skills);
+  const experiences = useAppSelector((state) => state.work.experiences);
+  const education = useAppSelector((state) => state.education.educations);
+
+  const saveresumeHandler = () => {
+    const resume = {
+      id: uuid(),
+      ...profileInfo,
+      ...contacts,
+      ...interests,
+      ...languages,
+      ...skills,
+      ...education,
+      ...experiences,
+    };
+
+    console.log(resume);
+  };
+
   return (
     <>
       <div className={style["container"]}>
@@ -34,7 +59,7 @@ const Preview = () => {
       <div className={style["resume-action"]}>
         <Column>
           <button className="secondary-button">
-            <FaSave />
+            <FaSave onClick={saveresumeHandler} />
           </button>
           <button className="secondary-button">
             <FaDownload />

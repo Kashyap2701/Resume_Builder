@@ -1,6 +1,8 @@
 .container {
   padding: 1em;
-  position: relative;
+  margin: 0 auto;
+  overflow-y: auto;
+  height: 100%;
 }
 .strip {
   width: 100%;
@@ -37,14 +39,14 @@
 /* ------------------------------------------------------- */
 
 .resume-preview-wrapper {
-  --a4: 550px;
-  /* font-size: var(--a4); */
+  --a4: 800px;
   font-size: calc(var(--a4) / 50);
-  width: calc(var(--a4));
+  min-width: calc(var(--a4));
   height: calc(var(--a4) * 1.41);
   display: flex;
   background-color: var(--light-color);
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin: 0px !important;
 }
 
 .left-section {

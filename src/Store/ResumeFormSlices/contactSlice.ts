@@ -8,15 +8,17 @@ export interface contact {
 
 interface contactState {
   contacts: contact;
+  isempty: boolean;
 }
 
 const initialState: contactState = {
   contacts: {
-    mobileno: "0989753453534",
+    mobileno: "",
     email: "",
     website: "",
     address: "",
   },
+  isempty: true,
 };
 
 const contactslice = createSlice({
@@ -24,6 +26,7 @@ const contactslice = createSlice({
   initialState,
   reducers: {
     addContacts: (state, action: PayloadAction<contact>) => {
+      state.isempty = false;
       state.contacts = action.payload;
     },
   },
