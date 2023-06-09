@@ -1,12 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
-import educationSlice from "./ResumeSlices/educationSlice";
-import interestSlice from "./ResumeSlices/interest";
-import languageSlice from "./ResumeSlices/languageSlice";
-import skillSlice from "./ResumeSlices/skillSlice";
-import workSlice from "./ResumeSlices/workSlice";
+import contactslice from "./ResumeFormSlices/contactSlice";
+import educationSlice from "./ResumeFormSlices/educationSlice";
+import interestSlice from "./ResumeFormSlices/interest";
+import languageSlice from "./ResumeFormSlices/languageSlice";
+import profileslice from "./ResumeFormSlices/profileSlice";
+import skillSlice from "./ResumeFormSlices/skillSlice";
+import workSlice from "./ResumeFormSlices/workSlice";
 
 const store = configureStore({
   reducer: {
+    profile: profileslice.reducer,
+    contact: contactslice.reducer,
     work: workSlice.reducer,
     education: educationSlice.reducer,
     skill: skillSlice.reducer,

@@ -17,7 +17,10 @@ import { initialValueforWorkInfo } from "../../../Utils/ResumeForm";
 import uuid from "react-uuid";
 import { save } from "../../../Utils/Toster";
 import { useAppDispatch, useAppSelector } from "../../../Store/hooks";
-import { experience, workActions } from "../../../Store/ResumeSlices/workSlice";
+import {
+  experience,
+  workActions,
+} from "../../../Store/ResumeFormSlices/workSlice";
 import { validationschemaforWork } from "../../../Utils/ValidationSchema";
 
 //   {

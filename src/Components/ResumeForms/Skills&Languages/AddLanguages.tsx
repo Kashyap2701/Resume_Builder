@@ -5,7 +5,7 @@ import { Input, Wrapper, AccordianForm } from "../../../Utils/FormStyle";
 import { RxCross2 } from "react-icons/rx";
 import style from "./Style.module.css";
 import { useAppDispatch, useAppSelector } from "../../../Store/hooks";
-import { languageActions } from "../../../Store/ResumeSlices/languageSlice";
+import { languageActions } from "../../../Store/ResumeFormSlices/languageSlice";
 import uuid from "react-uuid";
 
 const AddLanguages = () => {

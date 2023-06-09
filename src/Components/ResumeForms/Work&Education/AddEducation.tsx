@@ -18,7 +18,7 @@ import { useAppDispatch, useAppSelector } from "../../../Store/hooks";
 import {
   degree,
   educationAction,
-} from "../../../Store/ResumeSlices/educationSlice";
+} from "../../../Store/ResumeFormSlices/educationSlice";
 import uuid from "react-uuid";
 import { save } from "../../../Utils/Toster";
 import { validationschemaforEducation } from "../../../Utils/ValidationSchema";

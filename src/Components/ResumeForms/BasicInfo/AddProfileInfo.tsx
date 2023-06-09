@@ -15,10 +15,17 @@ import FormHeader from "../FormHeader";
 import noprofile from "../../../Assets/no-profile.png";
 import { Toaster } from "react-hot-toast";
 import { save } from "../../../Utils/Toster";
+import { useAppDispatch, useAppSelector } from "../../../Store/hooks";
+import {
+  profile,
+  profileActions,
+} from "../../../Store/ResumeFormSlices/profileSlice";
 
 const AddProfileInfo = () => {
   const [isexpand, setIsExpand] = useState(true);
   const [previewImage, setPreviewImage] = useState(noprofile);
+  const profileInfo = useAppSelector((state) => state.profile.profileInfo);
+  const dispatch = useAppDispatch();
 
   const handlePreviewImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file: File | undefined = e.target.files?.[0];
@@ -32,9 +39,11 @@ const AddProfileInfo = () => {
     }
   };
 
-  const submitHandler = (values: object) => {
+  const submitHandler = (values: profile) => {
+    dispatch(
+      profileActions.addprofileInfo({ ...values, profilePhoto: previewImage })
+    );
     save("Profile Info Added");
-    console.log(values);
   };
 
   return (

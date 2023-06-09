@@ -13,13 +13,19 @@ import {
 import InputField from "../../InputField/InputField";
 import { Toaster } from "react-hot-toast";
 import { save } from "../../../Utils/Toster";
+import { useAppDispatch } from "../../../Store/hooks";
+import {
+  contact,
+  contactActions,
+} from "../../../Store/ResumeFormSlices/contactSlice";
 
 const AddContactsForm = () => {
   const [isexpand, setIsExpand] = useState(false);
+  const dispatch = useAppDispatch();
 
-  const submitHandler = (values: object) => {
+  const submitHandler = (values: contact) => {
+    dispatch(contactActions.addContacts(values));
     save("Contacts Added");
-    console.log(values);
   };
   return (
     <div>
