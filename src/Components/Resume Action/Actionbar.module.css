@@ -1,5 +1,6 @@
 .container {
-  width: 100%;
+  width: 100vw;
+  height: 50px;
   background-color: var(--dark-color);
   position: sticky;
   top: 0;
@@ -17,10 +18,24 @@
   justify-content: end;
 }
 .resume-actions button {
-  background-color: var(--dark-color);
+  background-color: var(--primary-color);
   color: var(--text-color-white);
   border: none;
-  margin-right: 1rem;
+  margin-left: 1rem;
   padding: 0.5rem;
   cursor: pointer;
+  border-radius: 3px;
 }
+.resume-actions button span {
+  display: flex;
+  align-items: center;
+}
+.resume-actions button span svg {
+  margin-right: 0.5rem;
+}
+/* 
+@media screen and(max-width:1024px) {
+  .container {
+    display: none;
+  }
+} */

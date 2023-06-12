@@ -1,9 +1,6 @@
 .container {
   padding: 1em;
   margin: 0 auto;
-  overflow-y: auto;
-  overflow-x: auto;
-  height: 100%;
 }
 .strip {
   width: 100%;
@@ -40,7 +37,7 @@
 /* ------------------------------------------------------- */
 
 .resume-preview-wrapper {
-  --a4: 800px;
+  --a4: 500px;
   font-size: calc(var(--a4) / 50);
   width: calc(var(--a4));
   height: calc(var(--a4) * 1.41);

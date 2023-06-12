@@ -38,10 +38,14 @@ const ActionBar = () => {
       </div>
       <div className={style["resume-actions"]}>
         <button onClick={saveresumeHandler}>
-          <FaSave />
+          <span>
+            <FaSave /> Save
+          </span>
         </button>
         <button>
-          <FaDownload />
+          <span>
+            <FaDownload /> Download
+          </span>
         </button>
       </div>
     </div>

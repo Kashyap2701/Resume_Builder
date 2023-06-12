@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import AddContactsForm from "../../Components/ResumeForms/BasicInfo/AddContacts";
 import AddEducation from "../../Components/ResumeForms/Work&Education/AddEducation";
 import AddLanguages from "../../Components/ResumeForms/Skills&Languages/AddLanguages";
@@ -13,20 +13,22 @@ import ActionBar from "../../Components/Resume Action/ActionBar";
 const CreateResume = () => {
   return (
     <div className={style["container"]}>
-      <div className={style["resume-form"]}>
-        <ActionBar />
-        <div className={style["form-section"]}>
-          <AddProfileInfo />
-          <AddContactsForm />
-          <AddWork />
-          <AddEducation />
-          <AddSkills />
-          <AddLanguages />
-          <AddInterests />
+      <ActionBar />
+      <div className={style["resume-container"]}>
+        <div className={style["resume-form"]}>
+          <div className={style["form-section"]}>
+            <AddProfileInfo />
+            <AddContactsForm />
+            <AddWork />
+            <AddEducation />
+            <AddSkills />
+            <AddLanguages />
+            <AddInterests />
+          </div>
         </div>
-      </div>
-      <div className={style["resume-preview"]}>
-        <Preview />
+        <div className={style["resume-preview"]}>
+          <Preview />
+        </div>
       </div>
     </div>
   );

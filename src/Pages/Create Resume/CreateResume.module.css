@@ -1,20 +1,25 @@
 .container {
-  height: 100vh;
+  height: calc(100vh - 50px);
   width: 100%;
+  position: relative;
+}
+
+.resume-container {
   display: flex;
 }
 
 .resume-form {
   width: 50%;
   height: 100%;
-  /* padding: 2rem; */
   background-color: white;
   position: relative;
 }
 
 .resume-preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 50%;
-  height: 100%;
   background-color: var(--extra-light-color);
   position: relative;
 }
@@ -61,5 +66,9 @@
 
   .resume-preview {
     display: none;
+  }
+
+  .form-section {
+    padding: 1rem;
   }
 }

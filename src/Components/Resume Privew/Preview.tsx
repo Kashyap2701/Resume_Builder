@@ -28,49 +28,49 @@ const Preview = () => {
   const dispatch = useAppDispatch();
   const resumeRef = useRef(null);
 
-  const saveresumeHandler = () => {
-    const newResume: resumeData = {
-      id: uuid(),
-      profileInfo: profileInfo,
-      contacts: contacts,
-      experiences: experiences,
-      education: education,
-      skills: skills,
-      interests: interests,
-      languages: languages,
-    };
+  // const saveresumeHandler = () => {
+  //   const newResume: resumeData = {
+  //     id: uuid(),
+  //     profileInfo: profileInfo,
+  //     contacts: contacts,
+  //     experiences: experiences,
+  //     education: education,
+  //     skills: skills,
+  //     interests: interests,
+  //     languages: languages,
+  //   };
 
-    dispatch(resumeActions.addResume(newResume));
-  };
+  //   dispatch(resumeActions.addResume(newResume));
+  // };
 
-  const downloadresumeHandler = useReactToPrint({
-    content: () => resumeRef.current,
-  });
+  // const downloadresumeHandler = useReactToPrint({
+  //   content: () => resumeRef.current,
+  // });
 
   return (
     <>
-      <div className={style["container"]}>
-        <div
-          id="resume"
-          className={style["resume-preview-wrapper"]}
-          ref={resumeRef}
-        >
-          <div className={style["left-section"]}>
-            <ProfilePhoto />
-            <Contacts />
-            <Skills />
-            <Interest />
-          </div>
-          <div className={style["right-section"]}>
-            <ProfileInfo />
-            <About />
-            <WorkExperience />
-            <Education />
-            <Languages />
-          </div>
+      {/* <div className={style["container"]}> */}
+      <div
+        id="resume"
+        className={style["resume-preview-wrapper"]}
+        ref={resumeRef}
+      >
+        <div className={style["left-section"]}>
+          <ProfilePhoto />
+          <Contacts />
+          <Skills />
+          <Interest />
+        </div>
+        <div className={style["right-section"]}>
+          <ProfileInfo />
+          <About />
+          <WorkExperience />
+          <Education />
+          <Languages />
         </div>
       </div>
-      <div className={style["resume-action"]}>
+      {/* </div> */}
+      {/* <div className={style["resume-action"]}>
         <Column>
           <button className="secondary-button" onClick={saveresumeHandler}>
             <FaSave />
@@ -79,7 +79,7 @@ const Preview = () => {
             <FaDownload />
           </button>
         </Column>
-      </div>
+      </div> */}
     </>
   );
 };
