@@ -8,14 +8,15 @@ import { interest } from "./ResumeFormSlices/interest";
 import { language } from "./ResumeFormSlices/languageSlice";
 import { skill } from "./ResumeFormSlices/skillSlice";
 
-interface resumeData {
+export interface resumeData {
+  id: string;
   profileInfo: profile;
-  contact: profile;
+  contacts: contact;
   experiences: experience[];
   education: degree[];
   skills: skill[];
   interests: interest[];
-  language: language[];
+  languages: language[];
 }
 
 interface ResumeState {
@@ -34,7 +35,12 @@ const resumeSlice = createSlice({
       state.resume.push(action.payload);
     },
     deleteResume: (state, action: PayloadAction<string>) => {
-      state;
+      state.resume = state.resume.filter(
+        (resumeData) => resumeData.id != action.payload
+      );
     },
   },
 });
+
+export const resumeActions = resumeSlice.actions;
+export default resumeSlice;

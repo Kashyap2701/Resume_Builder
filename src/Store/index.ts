@@ -6,6 +6,7 @@ import languageSlice from "./ResumeFormSlices/languageSlice";
 import profileslice from "./ResumeFormSlices/profileSlice";
 import skillSlice from "./ResumeFormSlices/skillSlice";
 import workSlice from "./ResumeFormSlices/workSlice";
+import resumeSlice from "./resumeSlice";
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     skill: skillSlice.reducer,
     language: languageSlice.reducer,
     interest: interestSlice.reducer,
+    resume: resumeSlice.reducer,
   },
 });
 

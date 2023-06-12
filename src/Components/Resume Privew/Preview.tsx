@@ -10,9 +10,11 @@ import Education from "./Resume Sections/Education";
 import Languages from "./Resume Sections/Languages";
 import { FaDownload, FaSave } from "react-icons/fa";
 import { Column } from "../../Utils/FormStyle";
-import { useAppSelector } from "../../Store/hooks";
+import { useAppDispatch, useAppSelector } from "../../Store/hooks";
 import uuid from "react-uuid";
-import jsPDF from "jspdf";
+import { resumeActions, resumeData } from "../../Store/resumeSlice";
+import { useReactToPrint } from "react-to-print";
+import { useRef } from "react";
 
 const Preview = () => {
   const profileInfo = useAppSelector((state) => state.profile.profileInfo);
@@ -23,29 +25,36 @@ const Preview = () => {
   const experiences = useAppSelector((state) => state.work.experiences);
   const education = useAppSelector((state) => state.education.educations);
 
+  const dispatch = useAppDispatch();
+  const resumeRef = useRef(null);
+
   const saveresumeHandler = () => {
-    const resume = {
+    const newResume: resumeData = {
       id: uuid(),
-      ...profileInfo,
-      ...contacts,
-      ...interests,
-      ...languages,
-      ...skills,
-      ...education,
-      ...experiences,
+      profileInfo: profileInfo,
+      contacts: contacts,
+      experiences: experiences,
+      education: education,
+      skills: skills,
+      interests: interests,
+      languages: languages,
     };
 
-    console.log(resume);
+    dispatch(resumeActions.addResume(newResume));
   };
 
-  const downloadresumeHandler = () => {
-    const docs = new jsPDF();
-  };
+  const downloadresumeHandler = useReactToPrint({
+    content: () => resumeRef.current,
+  });
 
   return (
     <>
       <div className={style["container"]}>
-        <div className={style["resume-preview-wrapper"]}>
+        <div
+          id="resume"
+          className={style["resume-preview-wrapper"]}
+          ref={resumeRef}
+        >
           <div className={style["left-section"]}>
             <ProfilePhoto />
             <Contacts />

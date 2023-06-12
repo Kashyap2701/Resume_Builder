@@ -7,8 +7,9 @@
 .resume-form {
   width: 50%;
   height: 100%;
-  padding: 2rem;
+  /* padding: 2rem; */
   background-color: white;
+  position: relative;
 }
 
 .resume-preview {
@@ -19,10 +20,10 @@
 }
 
 .form-section {
-  height: 100%;
+  height: 100vh;
   overflow-y: auto;
   position: relative;
-  padding-right: 1rem;
+  padding: 2rem;
 }
 
 .form-section::-webkit-scrollbar {
@@ -36,7 +37,7 @@
 }
 
 .form-section::-webkit-scrollbar-thumb {
-  background-color: var(--extra-light-color);
+  background-color: var(----primary-color-opacity-light);
   border-radius: 7px;
 }
 
@@ -58,7 +59,7 @@
     width: 100%;
   }
 
-  /* .resume-preview {
+  .resume-preview {
     display: none;
-  } */
+  }
 }

@@ -8,11 +8,13 @@ import AddWork from "../../Components/ResumeForms/Work&Education/AddWork";
 import style from "./CreateResume.module.css";
 import Preview from "../../Components/Resume Privew/Preview";
 import AddInterests from "../../Components/ResumeForms/Skills&Languages/AddInterests";
+import ActionBar from "../../Components/Resume Action/ActionBar";
 
 const CreateResume = () => {
   return (
     <div className={style["container"]}>
       <div className={style["resume-form"]}>
+        <ActionBar />
         <div className={style["form-section"]}>
           <AddProfileInfo />
           <AddContactsForm />

@@ -1,0 +1,26 @@
+.container {
+  width: 100%;
+  background-color: var(--dark-color);
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  display: flex;
+  padding: 0.5rem;
+}
+
+.resume-title {
+  flex: 2;
+}
+.resume-actions {
+  flex: 1;
+  display: flex;
+  justify-content: end;
+}
+.resume-actions button {
+  background-color: var(--dark-color);
+  color: var(--text-color-white);
+  border: none;
+  margin-right: 1rem;
+  padding: 0.5rem;
+  cursor: pointer;
+}
