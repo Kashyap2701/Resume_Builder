@@ -1,0 +1,42 @@
+.resumePage {
+  padding: 20px;
+}
+
+.resumePage h1 {
+  color: var(--primary-color);
+  margin-bottom: 2rem;
+}
+
+.resumeActions {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.resumeList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.resumeCard {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+}
+
+.resumeTitle {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.resumeDescription {
+  font-size: 16px;
+  color: #777;
+}
+
+.resumeActions button {
+  margin-bottom: 0.5rem;
+}
