@@ -7,9 +7,11 @@ import profileslice from "./ResumeFormSlices/profileSlice";
 import skillSlice from "./ResumeFormSlices/skillSlice";
 import workSlice from "./ResumeFormSlices/workSlice";
 import resumeSlice from "./resumeSlice";
+import userSlice from "./userSlice";
 
 const store = configureStore({
   reducer: {
+    user: userSlice.reducer,
     profile: profileslice.reducer,
     contact: contactslice.reducer,
     work: workSlice.reducer,

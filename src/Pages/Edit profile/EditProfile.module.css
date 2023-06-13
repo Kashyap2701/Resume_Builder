@@ -1,5 +1,5 @@
 .container {
-  height: 100vh;
+  height: calc(100vh - 64px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,12 +9,12 @@
   max-width: 600px;
   padding: 2rem;
   background-color: var(--extra-light-color);
-  border-radius: 8px;
+  border-radius: 3px;
   margin: 0.5rem;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
-h2 {
+.formContainer h2 {
   color: var(--dark-color);
   margin-bottom: 20px;
 }

@@ -16,3 +16,8 @@ export const validationschemaforWork = Yup.object().shape({
 export const validationschemaforEducation = Yup.object().shape({
   title: Yup.string().required("Required!"),
 });
+
+export const validationschemaforUser = Yup.object().shape({
+  email: Yup.string().email("Invalid").required("Required!"),
+  password: Yup.string().required("Required!"),
+});
