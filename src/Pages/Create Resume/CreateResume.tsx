@@ -9,11 +9,18 @@ import style from "./CreateResume.module.css";
 import Preview from "../../Components/Resume Privew/Preview";
 import AddInterests from "../../Components/ResumeForms/Skills&Languages/AddInterests";
 import ActionBar from "../../Components/Resume Action/ActionBar";
+import { useReactToPrint } from "react-to-print";
 
 const CreateResume = () => {
+  const resumeRef = useRef(null);
+
+  const downloadresumeHandler = useReactToPrint({
+    content: () => resumeRef.current,
+  });
+
   return (
     <div className={style["container"]}>
-      <ActionBar />
+      <ActionBar downloadresumeHandler={downloadresumeHandler} />
       <div className={style["resume-container"]}>
         <div className={style["resume-form"]}>
           <div className={style["form-section"]}>
@@ -27,7 +34,7 @@ const CreateResume = () => {
           </div>
         </div>
         <div className={style["resume-preview"]}>
-          <Preview />
+          <Preview ref={resumeRef} />
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef, MutableRefObject } from "react";
 import { FaDownload, FaSave } from "react-icons/fa";
 import uuid from "react-uuid";
 import { useAppDispatch, useAppSelector } from "../../Store/hooks";
@@ -7,7 +7,11 @@ import { Input } from "../../Utils/FormStyle";
 import { save } from "../../Utils/Toster";
 import style from "./Actionbar.module.css";
 
-const ActionBar = () => {
+type ActionBarProps = {
+  downloadresumeHandler: () => void;
+};
+
+const ActionBar = (props: ActionBarProps) => {
   const profileInfo = useAppSelector((state) => state.profile.profileInfo);
   const contacts = useAppSelector((state) => state.contact.contacts);
   const interests = useAppSelector((state) => state.interest.interests);
@@ -31,6 +35,7 @@ const ActionBar = () => {
     dispatch(resumeActions.addResume(newResume));
     save("Resume Saved");
   };
+
   return (
     <div className={style["container"]}>
       <div className={style["resume-title"]}>
@@ -42,7 +47,7 @@ const ActionBar = () => {
             <FaSave /> Save
           </span>
         </button>
-        <button>
+        <button onClick={props.downloadresumeHandler}>
           <span>
             <FaDownload /> Download
           </span>
