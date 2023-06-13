@@ -35,3 +35,8 @@
   color: var(--dark-color);
   cursor: pointer;
 }
+
+input:focus,
+textarea:focus {
+  border: 2px solid var(--primary-color-opacity-light);
+}
