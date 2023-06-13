@@ -1,6 +1,6 @@
 .container {
   padding: 1em;
-  position: relative;
+  margin: 0 auto;
 }
 .strip {
   width: 100%;
@@ -33,18 +33,22 @@
   margin-bottom: 1rem;
   /* border-radius: 50%; */
 }
-
 /* ------------------------------------------------------- */
 
+.black {
+  background-color: var(--dark-color);
+}
+
 .resume-preview-wrapper {
-  --a4: 550px;
-  /* font-size: var(--a4); */
+  --a4: 500px;
   font-size: calc(var(--a4) / 50);
   width: calc(var(--a4));
   height: calc(var(--a4) * 1.41);
+  /* min-height: 100vh; */
   display: flex;
   background-color: var(--light-color);
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin: 0px !important;
 }
 
 .left-section {

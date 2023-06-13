@@ -1,31 +1,34 @@
 .container {
-  height: 100%;
+  height: calc(100vh - 50px);
   width: 100%;
+  position: relative;
+}
+
+.resume-container {
   display: flex;
 }
 
 .resume-form {
   width: 50%;
   height: 100%;
-  padding: 2rem;
   background-color: white;
+  position: relative;
 }
 
 .resume-preview {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   width: 50%;
-  height: 100%;
   background-color: var(--extra-light-color);
   position: relative;
 }
 
 .form-section {
-  height: 100%;
+  height: 100vh;
   overflow-y: auto;
   position: relative;
-  padding-right: 1rem;
+  padding: 2rem;
 }
 
 .form-section::-webkit-scrollbar {
@@ -39,7 +42,7 @@
 }
 
 .form-section::-webkit-scrollbar-thumb {
-  background-color: var(--extra-light-color);
+  background-color: var(----primary-color-opacity-light);
   border-radius: 7px;
 }
 
@@ -61,7 +64,11 @@
     width: 100%;
   }
 
-  /* .resume-preview {
+  .resume-preview {
     display: none;
-  } */
+  }
+
+  .form-section {
+    padding: 1rem;
+  }
 }

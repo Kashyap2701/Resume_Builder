@@ -13,21 +13,37 @@ import { FaUserEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import FormHeader from "../FormHeader";
 import noprofile from "../../../Assets/no-profile.png";
+import { Toaster } from "react-hot-toast";
+import { save } from "../../../Utils/Toster";
+import { useAppDispatch, useAppSelector } from "../../../Store/hooks";
+import {
+  profile,
+  profileActions,
+} from "../../../Store/ResumeFormSlices/profileSlice";
 
 const AddProfileInfo = () => {
-  const [isexpand, setIsExpand] = useState(false);
-  // const [previewImage, setPreviewImage] = useState<string>();
+  const [isexpand, setIsExpand] = useState(true);
+  const [previewImage, setPreviewImage] = useState(noprofile);
+  const profileInfo = useAppSelector((state) => state.profile.profileInfo);
+  const dispatch = useAppDispatch();
 
-  // const handlePreviewImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   let reader = new FileReader();
-  //   reader.addEventListener("load", (e) => {
-  //     setPreviewImage(e.target.result);
-  //   });
-  //   reader.readAsDataURL(e.target.files[0]);
-  // };
+  const handlePreviewImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file: File | undefined = e.target.files?.[0];
+    const reader: FileReader = new FileReader();
 
-  const submitHandler = () => {
-    // console.log(values);
+    if (file) {
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        setPreviewImage(reader.result as string);
+      };
+    }
+  };
+
+  const submitHandler = (values: profile) => {
+    dispatch(
+      profileActions.addprofileInfo({ ...values, profilePhoto: previewImage })
+    );
+    save("Profile Info Added");
   };
 
   return (
@@ -43,16 +59,13 @@ const AddProfileInfo = () => {
             initialValues={initialValueforProfileInfo}
             onSubmit={submitHandler}
           >
-            {({ values, setFieldValue }) => (
+            {({ setFieldValue }) => (
               <Form>
                 <div className={style["profile-upload-container"]}>
                   <div className={style["profile-preview"]}>
                     <div className={style["profile-image"]}>
-                      <img src={noprofile} alt="" />
+                      <img src={previewImage} alt="profile-image" />
                     </div>
-                    <p>File Name.png</p>
-                  </div>
-                  <div className={style["profile-actions"]}>
                     <label htmlFor="profilePhoto">
                       <FaUserEdit />
                     </label>
@@ -60,14 +73,19 @@ const AddProfileInfo = () => {
                       id="profilePhoto"
                       name="profilePhoto"
                       value={undefined}
-                      onChange={(e: any) => {
-                        // setFieldValue("profilePhoto", e.target.files[0]);
-                        // handlePreviewImage(e);
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        setFieldValue("profilePhoto", e.target.files?.[0]);
+                        handlePreviewImage(e);
                       }}
                       type="file"
                       hidden
                     />
-                    <MdDelete />
+                    <MdDelete
+                      onClick={() => {
+                        setFieldValue("profilePhoto", undefined);
+                        setPreviewImage(noprofile);
+                      }}
+                    />
                   </div>
                 </div>
                 <Row>
@@ -87,7 +105,10 @@ const AddProfileInfo = () => {
                   varient="textarea"
                 />
                 <ButtonRight>
-                  <button className="secondary-button">Save</button>
+                  <button className="secondary-button" type="submit">
+                    Save
+                  </button>
+                  <Toaster position="bottom-center" reverseOrder={false} />
                 </ButtonRight>
               </Form>
             )}

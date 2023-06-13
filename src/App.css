@@ -17,6 +17,11 @@
   --text-color-black: black;
   --text-color-light: #8f8f8f;
   --error: red;
+  --primary-color-opacity-light: #fe715bc8;
+}
+
+body {
+  /* background-color: var(--extra-light-color); */
 }
 
 a {

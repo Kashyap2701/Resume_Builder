@@ -59,7 +59,7 @@ const InputField = (props: InputFieldProps) => {
           type={props.type || "text"}
           placeholder={props.placeholder}
           as={props.varient}
-          rows={props.varient == "textarea" && 4}
+          rows={props.varient == "textarea" ? 4 : null}
         />
       )}
     </div>

@@ -1,7 +1,7 @@
 export const initialValueforProfileInfo = {
-  jobTitle: "",
-  firstName: "",
-  lastName: "",
+  jobtitle: "",
+  firstname: "",
+  lastname: "",
   about: "",
   profilePhoto: "",
 };
@@ -14,6 +14,7 @@ export const initialValueforContactInfo = {
 };
 
 export const initialValueforWorkInfo = {
+  id: "",
   title: "",
   startedYear: "",
   endedYear: "",
@@ -23,6 +24,8 @@ export const initialValueforWorkInfo = {
 };
 
 export const initialValuefoeEducationInfo = {
+  id: "",
+  title: "",
   startedYear: "",
   endedYear: "",
   courseName: "",

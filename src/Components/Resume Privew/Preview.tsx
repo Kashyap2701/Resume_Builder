@@ -8,14 +8,17 @@ import About from "./Resume Sections/About";
 import WorkExperience from "./Resume Sections/WorkExperience";
 import Education from "./Resume Sections/Education";
 import Languages from "./Resume Sections/Languages";
-import { FaDownload, FaSave } from "react-icons/fa";
-import { Column, Row } from "../../Utils/FormStyle";
+import { forwardRef } from "react";
 
-const Preview = () => {
+type PreviewType = {
+  ref: React.MutableRefObject<HTMLDivElement | null>;
+};
+
+const Preview = forwardRef<null, PreviewType>((props, ref) => {
   return (
     <>
       <div className={style["container"]}>
-        <div className={style["resume-preview-wrapper"]}>
+        <div id="resume" className={style["resume-preview-wrapper"]} ref={ref}>
           <div className={style["left-section"]}>
             <ProfilePhoto />
             <Contacts />
@@ -31,18 +34,8 @@ const Preview = () => {
           </div>
         </div>
       </div>
-      <div className={style["resume-action"]}>
-        <Column>
-          <button className="secondary-button">
-            <FaSave />
-          </button>
-          <button className="secondary-button">
-            <FaDownload />
-          </button>
-        </Column>
-      </div>
     </>
   );
-};
+});
 
 export default Preview;

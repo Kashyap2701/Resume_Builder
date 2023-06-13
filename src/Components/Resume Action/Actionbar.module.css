@@ -1,0 +1,41 @@
+.container {
+  width: 100vw;
+  height: 50px;
+  background-color: var(--dark-color);
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  display: flex;
+  padding: 0.5rem;
+}
+
+.resume-title {
+  flex: 2;
+}
+.resume-actions {
+  flex: 1;
+  display: flex;
+  justify-content: end;
+}
+.resume-actions button {
+  background-color: var(--primary-color);
+  color: var(--text-color-white);
+  border: none;
+  margin-left: 1rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 3px;
+}
+.resume-actions button span {
+  display: flex;
+  align-items: center;
+}
+.resume-actions button span svg {
+  margin-right: 1rem;
+}
+/* 
+@media screen and(max-width:1024px) {
+  .container {
+    display: none;
+  }
+} */

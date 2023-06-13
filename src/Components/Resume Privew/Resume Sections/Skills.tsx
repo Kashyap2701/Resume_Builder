@@ -1,24 +1,25 @@
 import React from "react";
+import { useAppSelector } from "../../../Store/hooks";
 import style from "../Preview.module.css";
 import Strip from "../Strip";
 
 const Skills = () => {
+  const skills = useAppSelector((state) => state.skill.skills);
+
   return (
     <>
-      <Strip title="SKILLS" />
-      <div className={`${style["section"]}`}>
-        <ul className={style["skills"]}>
-          <li>HTML</li>
-          <li>CSS</li>
-          <li>Javascript</li>
-          <li>Typescript</li>
-          <li>React</li>
-          <li>Github</li>
-          <li>Redux</li>
-          <li>AWS</li>
-          <li>Git</li>
-        </ul>
-      </div>
+      {skills.length != 0 && (
+        <>
+          <Strip title="SKILLS" />
+          <div className={`${style["section"]}`}>
+            <ul className={style["skills"]}>
+              {skills.map((skill) => {
+                return <li key={skill.id}>{skill.name}</li>;
+              })}
+            </ul>
+          </div>
+        </>
+      )}
     </>
   );
 };
