@@ -11,8 +11,6 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  console.log(profile);
-
   const logoutHandler = () => {
     dispatch(userActions.loggedOut());
     navigate("/login");

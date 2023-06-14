@@ -7,6 +7,7 @@ import CreateResume from "./Pages/Create Resume/CreateResume";
 import Home from "./Pages/Home/Home";
 import { MyResumes } from "./Pages/My Resume/MyResumes";
 import EditProfile from "./Pages/Edit profile/EditProfile";
+import ProtectedRoutes from "./Components/ProtectedRoutes";
 
 function App() {
   return (
@@ -15,9 +16,18 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/my-resumes" element={<MyResumes />} />
-        <Route path="/edit-profile" element={<EditProfile />} />
-        <Route path="/create-resume" element={<CreateResume />} />
+        <Route
+          path="/my-resumes"
+          element={<ProtectedRoutes Component={MyResumes} />}
+        />
+        <Route
+          path="/edit-profile"
+          element={<ProtectedRoutes Component={EditProfile} />}
+        />
+        <Route
+          path="/create-resume"
+          element={<ProtectedRoutes Component={CreateResume} />}
+        />
       </Routes>
     </div>
   );
