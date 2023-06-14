@@ -3,11 +3,16 @@ import style from "./Auth.module.css";
 import InputField from "../../Components/InputField/InputField";
 import signupImg from "../../Assets/signup-image.jpg";
 import { Form, Formik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   initialValuesForSignupForm,
   validationSchemaForSignup,
 } from "./AuthFormUtil";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "../../Service/firebase";
+import { error, save } from "../../Utils/Toster";
+import { Toaster } from "react-hot-toast";
+import { FirebaseError } from "firebase/app";
 
 type FormData = {
   fullName: string;
@@ -16,9 +21,26 @@ type FormData = {
   confirmPassword: string;
 };
 
-export const Signup = () => {
-  const submitHandler = (values: FormData) => {
-    console.log(values);
+const Signup = () => {
+  const navigate = useNavigate();
+
+  const submitHandler = async (values: FormData) => {
+    try {
+      const response = await createUserWithEmailAndPassword(
+        auth,
+        values.email,
+        values.password
+      );
+      const user = response.user;
+      await updateProfile(user, {
+        displayName: values.fullName,
+      });
+      console.log(user);
+      save("User Successfully Registered");
+      navigate("/login");
+    } catch (e) {
+      if (e instanceof FirebaseError) error(e.message);
+    }
   };
 
   return (
@@ -60,6 +82,7 @@ export const Signup = () => {
               <button className="primary-button" type="submit">
                 Singup
               </button>
+              <Toaster position="bottom-center" reverseOrder={false} />
             </Form>
           </Formik>
           <div className={style["form-footer"]}>
@@ -72,3 +95,5 @@ export const Signup = () => {
     </div>
   );
 };
+
+export default Signup;
