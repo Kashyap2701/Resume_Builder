@@ -16,9 +16,9 @@ import { updateProfile } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 
 const EditProfile = () => {
-  const id = useAppSelector((state) => state.user.id);
   const currentUser = useAppSelector((state) => state.user.user);
   const [previewImage, setPreviewImage] = useState(currentUser?.profilePhoto);
+  const [isPhotoUpdated, setPhotoUpdate] = useState(false);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const EditProfile = () => {
   const profileUpdateHandler = async (values: user) => {
     const curUser = auth.currentUser;
     try {
-      if (values.profilePhoto != "") {
+      if (isPhotoUpdated) {
         console.log(values);
         const imageURL = await uploadPhoto(values.profilePhoto);
         await updateProfile(curUser, {
@@ -101,6 +101,7 @@ const EditProfile = () => {
                     name="profilePhoto"
                     value={undefined}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      setPhotoUpdate(true);
                       setFieldValue("profilePhoto", e.target.files?.[0]);
                       handlePreviewImage(e);
                     }}
