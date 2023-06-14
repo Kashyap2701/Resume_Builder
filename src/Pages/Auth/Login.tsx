@@ -37,7 +37,10 @@ const Login = () => {
         email: response.user.email,
         profilePhoto: response.user.photoURL,
       };
-      dispatch(userActions.loggedIn(currentUser));
+
+      dispatch(
+        userActions.loggedIn({ id: response.user.uid, user: currentUser })
+      );
       navigate("/");
       console.log(response);
     } catch (e) {

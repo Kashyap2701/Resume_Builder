@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import noprofile from "../Assets/no-profile.png";
 
 type AvatarProps = {
@@ -9,19 +8,15 @@ type AvatarProps = {
 };
 
 const Avatar = ({ size, src = noprofile, classname }: AvatarProps) => {
-  const ProfilePhoto = styled.div`
-    width: ${size};
-    height: ${size};
-    img {
-      object-fit: "cover";
-      border-radius: 50%;
-    }
-  `;
+  const profile = {
+    width: size,
+    height: size,
+  };
 
   return (
-    <ProfilePhoto className={classname}>
+    <div className={classname} style={profile}>
       <img src={src} alt="profile-photo" />
-    </ProfilePhoto>
+    </div>
   );
 };
 

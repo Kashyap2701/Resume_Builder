@@ -1,28 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form, Field } from "formik";
 import styles from "./EditProfile.module.css";
 import InputField from "../../Components/InputField/InputField";
 import Avatar from "../../Components/Avatar";
-import { Divider, Row } from "../../Utils/FormStyle";
+import { Column } from "../../Utils/FormStyle";
 import noprofile from "../../Assets/no-profile.png";
 import { user, userActions } from "../../Store/userSlice";
 import { useAppDispatch, useAppSelector } from "../../Store/hooks";
-import { save } from "../../Utils/Toster";
+import { error, save } from "../../Utils/Toster";
 import { Toaster } from "react-hot-toast";
 import { validationschemaforUser } from "../../Utils/ValidationSchema";
 import Navbar from "../../Components/Navbar/Navbar";
+import { auth, uploadPhoto } from "../../Service/firebase";
+import { updateProfile } from "firebase/auth";
+import { FirebaseError } from "firebase/app";
 
 const EditProfile = () => {
-  const [previewImage, setPreviewImage] = useState(noprofile);
-
-  const user = useAppSelector((state) => state.user.user);
+  const id = useAppSelector((state) => state.user.id);
+  const currentUser = useAppSelector((state) => state.user.user);
+  const [previewImage, setPreviewImage] = useState(currentUser?.profilePhoto);
   const dispatch = useAppDispatch();
 
-  const initialValues: user = user || {
-    firstname: "",
-    lastname: "",
+  useEffect(() => {
+    const user = auth.currentUser;
+    console.log(user);
+  }, []);
+
+  const initialValues: user = currentUser || {
+    fullname: "",
     email: "",
-    password: "",
     profilePhoto: "",
   };
 
@@ -38,9 +44,37 @@ const EditProfile = () => {
     }
   };
 
-  const handleSubmit = (values: user) => {
-    save("User Updated");
-    dispatch(userActions.editUser({ ...values, profilePhoto: previewImage }));
+  const profileUpdateHandler = async (values: user) => {
+    const curUser = auth.currentUser;
+    try {
+      if (values.profilePhoto != "") {
+        console.log(values);
+        const imageURL = await uploadPhoto(values.profilePhoto);
+        await updateProfile(curUser, {
+          email: values.email,
+          displayName: values.fullname,
+          photoURL: imageURL,
+        });
+        dispatch(
+          userActions.editUser({
+            ...values,
+            profilePhoto: imageURL,
+          })
+        );
+      } else {
+        await updateProfile(curUser, {
+          email: values.email,
+          displayName: values.fullname,
+        });
+        dispatch(userActions.editUser(values));
+      }
+      save("User Updated");
+    } catch (e) {
+      if (e instanceof FirebaseError) {
+        console.log(e);
+        error(e.message);
+      }
+    }
   };
 
   return (
@@ -52,14 +86,14 @@ const EditProfile = () => {
           <Formik
             initialValues={initialValues}
             validationSchema={validationschemaforUser}
-            onSubmit={handleSubmit}
+            onSubmit={profileUpdateHandler}
           >
             {({ setFieldValue }) => (
               <Form>
-                <Row className={styles.profile}>
+                <Column className={styles.profile}>
                   <Avatar
                     size="3rem"
-                    src={previewImage}
+                    src={previewImage as string}
                     classname={styles.profilephoto}
                   />
                   <Field
@@ -72,24 +106,9 @@ const EditProfile = () => {
                     }}
                     type="file"
                   />
-                </Row>
-                <Row>
-                  <InputField
-                    id="firstname"
-                    name="firstname"
-                    label="Firstname"
-                  />
-                  <Divider />
-                  <InputField id="lastname" name="lastname" label="Lastname" />
-                </Row>
+                </Column>
+                <InputField id="fullname" name="fullname" label="Full Name" />
                 <InputField id="email" name="email" label="Email" />
-                <InputField
-                  id="password"
-                  name="password"
-                  label="Password"
-                  type="password"
-                />
-
                 <button className="primary-button" type="submit">
                   Update
                 </button>

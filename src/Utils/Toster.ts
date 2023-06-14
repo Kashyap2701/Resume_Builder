@@ -16,3 +16,4 @@ export const error = (message: string) => {
     style: TosterStyle,
   });
 };
+

@@ -22,7 +22,14 @@
 .profile {
   justify-content: space-between;
   margin-bottom: 1rem;
+  align-items: center;
 }
+
 .profilephoto {
   margin-bottom: 1rem;
+}
+
+.profilephoto img {
+  object-fit: cover;
+  border-radius: 50%;
 }
