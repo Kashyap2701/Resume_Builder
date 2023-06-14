@@ -15,7 +15,7 @@ export const initialValuesForSignupForm = {
 export const validationSchemaForSignup = Yup.object().shape({
   fullName: Yup.string().required("Required!"),
   email: Yup.string().email("Invalid").required("Required!"),
-  password: Yup.string().required("Required!"),
+  password: Yup.string().min(6).required("Required!"),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password"), undefined], "Password don't match!")
     .required("Required!"),
