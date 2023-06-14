@@ -32,6 +32,11 @@
   cursor: pointer;
 }
 
+.icon img {
+  object-fit: cover;
+  border-radius: 50%;
+}
+
 .dropdown {
 }
 
