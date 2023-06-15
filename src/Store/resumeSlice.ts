@@ -1,4 +1,4 @@
-import { PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import { profile } from "./ResumeFormSlices/profileSlice";
 import { contact } from "./ResumeFormSlices/contactSlice";
@@ -7,40 +7,79 @@ import { degree } from "./ResumeFormSlices/educationSlice";
 import { interest } from "./ResumeFormSlices/interest";
 import { language } from "./ResumeFormSlices/languageSlice";
 import { skill } from "./ResumeFormSlices/skillSlice";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../Service/firebase";
 
-export interface resumeData {
+export interface resume {
   id: string;
-  profileInfo: profile;
-  contacts: contact;
-  experiences: experience[];
-  education: degree[];
-  skills: skill[];
-  interests: interest[];
-  languages: language[];
+  resume_title: string;
+  userId: string;
+  resumeData: {
+    profileInfo: profile;
+    contacts: contact;
+    experiences: experience[];
+    education: degree[];
+    skills: skill[];
+    interests: interest[];
+    languages: language[];
+  };
 }
 
+export type resumeData = Extract<resume, { resumeData: unknown }>["resumeData"];
+
 interface ResumeState {
-  resume: resumeData[];
+  resumeList: resume[];
 }
 
 const initialState: ResumeState = {
-  resume: [],
+  resumeList: [],
 };
 
 const resumeSlice = createSlice({
   name: "resume",
   initialState,
   reducers: {
-    addResume: (state, action: PayloadAction<resumeData>) => {
-      state.resume.push(action.payload);
+    addResume: (state, action: PayloadAction<resume>) => {
+      state.resumeList.push(action.payload);
     },
     deleteResume: (state, action: PayloadAction<string>) => {
-      state.resume = state.resume.filter(
-        (resumeData) => resumeData.id != action.payload
+      state.resumeList = state.resumeList.filter(
+        (resume) => resume.id != action.payload
       );
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(
+      fetchResumeList.fulfilled,
+      (state, action: PayloadAction<any>) => {
+        state.resumeList = action.payload;
+      }
+    );
+  },
 });
+
+export const fetchResumeList = createAsyncThunk(
+  "resume/fetchResumeList",
+  async (userId: string) => {
+    const resumeCollectionRef = collection(db, "resume");
+    try {
+      const data = await getDocs(resumeCollectionRef);
+      const filteredData = data.docs
+        .map((doc) => {
+          return {
+            ...doc.data(),
+            id: doc.id,
+          } as resume;
+        })
+        .filter((doc) => {
+          if (doc.userId == userId) return doc;
+        });
+      return filteredData;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 
 export const resumeActions = resumeSlice.actions;
 export default resumeSlice;

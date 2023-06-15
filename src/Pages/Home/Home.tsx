@@ -14,7 +14,7 @@ const Home = () => {
             <h1>
               Create your Resume with free <span>Resume.io</span>
             </h1>
-            <Link to="/create-resume">
+            <Link to={`/create-resume`}>
               <button className="primary-button">Create Resume</button>
             </Link>
           </div>

@@ -28,6 +28,10 @@ function App() {
           path="/create-resume"
           element={<ProtectedRoutes Component={CreateResume} />}
         />
+        <Route
+          path="/edit-resume/:id"
+          element={<ProtectedRoutes Component={CreateResume} />}
+        />
       </Routes>
     </div>
   );

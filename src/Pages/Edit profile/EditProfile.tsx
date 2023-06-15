@@ -4,7 +4,6 @@ import styles from "./EditProfile.module.css";
 import InputField from "../../Components/InputField/InputField";
 import Avatar from "../../Components/Avatar";
 import { Column } from "../../Utils/FormStyle";
-import noprofile from "../../Assets/no-profile.png";
 import { user, userActions } from "../../Store/userSlice";
 import { useAppDispatch, useAppSelector } from "../../Store/hooks";
 import { error, save } from "../../Utils/Toster";
@@ -17,6 +16,8 @@ import { FirebaseError } from "firebase/app";
 
 const EditProfile = () => {
   const currentUser = useAppSelector((state) => state.user.user);
+  console.log(currentUser);
+
   const [previewImage, setPreviewImage] = useState(currentUser?.profilePhoto);
   const [isPhotoUpdated, setPhotoUpdate] = useState(false);
   const dispatch = useAppDispatch();
