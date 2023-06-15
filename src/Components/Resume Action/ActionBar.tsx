@@ -2,6 +2,7 @@ import { addDoc, collection } from "firebase/firestore";
 import React, { ChangeEvent, useState } from "react";
 import { FaDownload, FaSave } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router";
+import uuid from "react-uuid";
 
 import { db } from "../../Service/firebase";
 import { useAppDispatch, useAppSelector } from "../../Store/hooks";
@@ -33,29 +34,31 @@ const ActionBar = (props: ActionBarProps) => {
   };
 
   const saveresumeHandler = async () => {
-    const resumeCollectionRef = collection(db, "resume");
-    const newResume: resume = {
-      id: resume_id as string,
-      resume_title: title,
-      userId: id,
-      resumeData: {
-        profileInfo: profileInfo,
-        contacts: contacts,
-        experiences: experiences,
-        education: education,
-        skills: skills,
-        interests: interests,
-        languages: languages,
-      },
-    };
-    try {
-      const response = await addDoc(resumeCollectionRef, newResume);
-      save("Resume Saved");
-      console.log(response);
-      dispatch(resumeActions.addResume(newResume));
-      navigate("/my-resumes");
-    } catch (error) {
-      console.log(error);
+    if (resume_id == undefined) {
+      const resumeCollectionRef = collection(db, "resume");
+      const newResume: resume = {
+        id: uuid(),
+        resume_title: title,
+        userId: id,
+        resumeData: {
+          profileInfo: profileInfo,
+          contacts: contacts,
+          experiences: experiences,
+          education: education,
+          skills: skills,
+          interests: interests,
+          languages: languages,
+        },
+      };
+      try {
+        const response = await addDoc(resumeCollectionRef, newResume);
+        save("Resume Saved");
+        console.log(response);
+        dispatch(resumeActions.addResume(newResume));
+        navigate("/my-resumes");
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 

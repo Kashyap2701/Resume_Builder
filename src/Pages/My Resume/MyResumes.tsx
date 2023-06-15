@@ -7,6 +7,8 @@ import { useAppDispatch, useAppSelector } from "../../Store/hooks";
 import { fetchResumeList } from "../../Store/resumeSlice";
 import { Row } from "../../Utils/FormStyle";
 import styles from "./MyResume.module.css";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "../../Service/firebase";
 
 export const MyResumes = () => {
   const id = useAppSelector((state) => state.user.id);
@@ -15,7 +17,11 @@ export const MyResumes = () => {
 
   useEffect(() => {
     dispatch(fetchResumeList(id));
-  }, []);
+  }, [resumeList]);
+
+  const deleteResumeHandler = async (id: string) => {
+    await deleteDoc(doc(db, "resume", id));
+  };
 
   return (
     <>
@@ -34,6 +40,7 @@ export const MyResumes = () => {
               key={resume.id}
               id={resume.id}
               title={resume.resume_title}
+              deleteHandler={deleteResumeHandler}
             />
           ))}
         </div>
