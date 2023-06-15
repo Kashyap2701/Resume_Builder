@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { getFirestore } from "firebase/firestore";
 import uuid from "react-uuid";
 
 const firebaseConfig = {
@@ -23,4 +24,5 @@ export const uploadPhoto = async (uploadImg) => {
 };
 
 export const auth = getAuth(app);
+export const db = getFirestore(app);
 export default app;
