@@ -30,10 +30,13 @@ const ActionBar = (props: ActionBarProps) => {
   const education = useAppSelector((state) => state.education.educations);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  // Handler for title input change
   const onchangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
 
+  // Handler for saving new resume
   const saveresumeHandler = async () => {
     const resumeCollectionRef = collection(db, "resume");
     const newResume: resume = {
@@ -41,13 +44,13 @@ const ActionBar = (props: ActionBarProps) => {
       resume_title: title,
       userId: id,
       resumeData: {
-        profileInfo: profileInfo,
-        contacts: contacts,
-        experiences: experiences,
-        education: education,
-        skills: skills,
-        interests: interests,
-        languages: languages,
+        profileInfo,
+        contacts,
+        experiences,
+        education,
+        skills,
+        interests,
+        languages,
       },
     };
     try {
@@ -61,20 +64,20 @@ const ActionBar = (props: ActionBarProps) => {
     }
   };
 
+  // Handler for updating an existing resume
   const updateresumeHandler = async () => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const resumeRef = doc(db, "resume", resume_id!);
     const newResume = {
       resume_title: title,
-      userId: id,
       resumeData: {
-        profileInfo: profileInfo,
-        contacts: contacts,
-        experiences: experiences,
-        education: education,
-        skills: skills,
-        interests: interests,
-        languages: languages,
+        profileInfo,
+        contacts,
+        experiences,
+        education,
+        skills,
+        interests,
+        languages,
       },
     };
     try {
@@ -90,27 +93,30 @@ const ActionBar = (props: ActionBarProps) => {
   return (
     <div className={style["container"]}>
       <div className={style["resume-title"]}>
+        {/* Input field for the resume title */}
         <Input
           placeholder="Ex. Resume For Amazon"
           value={title}
-          required
           onChange={onchangeHandler}
         />
       </div>
       <div className={style["resume-actions"]}>
         {resume_id !== undefined ? (
+          // Button for updating an existing resume
           <button onClick={updateresumeHandler}>
             <span>
               <FaSave /> Update
             </span>
           </button>
         ) : (
+          // Button for saving a new resume
           <button onClick={saveresumeHandler}>
             <span>
               <FaSave /> Save
             </span>
           </button>
         )}
+        {/* Button for downloading the resume */}
         <button onClick={props.downloadresumeHandler}>
           <span>
             <FaDownload /> Download
