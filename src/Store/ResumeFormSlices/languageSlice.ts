@@ -17,6 +17,9 @@ const languageSlice = createSlice({
   name: "language",
   initialState,
   reducers: {
+    loadLanguage: (state, action: PayloadAction<language[]>) => {
+      state.languages = action.payload;
+    },
     addlanguage: (state, action: PayloadAction<language>) => {
       state.languages.push(action.payload);
     },
@@ -24,6 +27,9 @@ const languageSlice = createSlice({
       state.languages = state.languages.filter(
         (language) => language.id != action.payload
       );
+    },
+    resetState: () => {
+      return initialState;
     },
   },
 });

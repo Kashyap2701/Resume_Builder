@@ -76,17 +76,15 @@ const AddEducation = () => {
           <div className={style["container"]}>
             {educations.map((data) => {
               return (
-                <>
-                  <div
-                    key={data.id}
-                    id={data.id}
-                    className={style["item"]}
-                    onClick={editEducationHandler}
-                  >
-                    <span>{data.title}</span>
-                    <RxCross2 onClick={deleteEducationHandler} />
-                  </div>
-                </>
+                <div
+                  key={data.id}
+                  id={data.id}
+                  className={style["item"]}
+                  onClick={editEducationHandler}
+                >
+                  <span>{data.title}</span>
+                  <RxCross2 onClick={deleteEducationHandler} />
+                </div>
               );
             })}
             {educations.length != 0 && (

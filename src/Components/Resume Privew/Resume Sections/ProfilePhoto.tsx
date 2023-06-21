@@ -7,9 +7,18 @@ const ProfilePhoto = () => {
     (state) => state.profile.profileInfo.profilePhoto
   );
   return (
-    <div className={`${style["profile-photo-section"]}`}>
-      <img src={profilePhtoto || defaultProfilePhoto} alt="profile-photo" />
-    </div>
+    <>
+      {profilePhtoto && (
+        <>
+          <div className={`${style["profile-photo-section"]}`}>
+            <img
+              src={profilePhtoto || defaultProfilePhoto}
+              alt="profile-photo"
+            />
+          </div>
+        </>
+      )}
+    </>
   );
 };
 

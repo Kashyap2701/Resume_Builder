@@ -29,6 +29,9 @@ const contactslice = createSlice({
       state.isempty = false;
       state.contacts = action.payload;
     },
+    resetState: () =>{
+      return initialState;
+    }
   },
 });
 

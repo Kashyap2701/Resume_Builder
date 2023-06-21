@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { initialValueforProfileInfo } from "../../../Utils/ResumeForm";
 import style from "./BasicInfo.module.css";
@@ -20,11 +20,16 @@ import {
   profile,
   profileActions,
 } from "../../../Store/ResumeFormSlices/profileSlice";
+import { useParams } from "react-router";
 
 const AddProfileInfo = () => {
   const [isexpand, setIsExpand] = useState(true);
   const [previewImage, setPreviewImage] = useState(noprofile);
-  const profileInfo = useAppSelector((state) => state.profile.profileInfo);
+  const resumeId = useParams().id;
+  const resume = useAppSelector(
+    (state) =>
+      state.resume.resumeList.filter((resume) => resume.id == resumeId)[0]
+  );
   const dispatch = useAppDispatch();
 
   const handlePreviewImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,7 +61,9 @@ const AddProfileInfo = () => {
       {isexpand && (
         <AccordianForm>
           <Formik
-            initialValues={initialValueforProfileInfo}
+            initialValues={
+              resume?.resumeData.profileInfo || initialValueforProfileInfo
+            }
             onSubmit={submitHandler}
           >
             {({ setFieldValue }) => (

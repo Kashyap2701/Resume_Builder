@@ -1,18 +1,21 @@
 import React, { useRef } from "react";
-import AddContactsForm from "../../Components/ResumeForms/BasicInfo/AddContacts";
-import AddEducation from "../../Components/ResumeForms/Work&Education/AddEducation";
-import AddLanguages from "../../Components/ResumeForms/Skills&Languages/AddLanguages";
-import AddProfileInfo from "../../Components/ResumeForms/BasicInfo/AddProfileInfo";
-import AddSkills from "../../Components/ResumeForms/Skills&Languages/AddSkills";
-import AddWork from "../../Components/ResumeForms/Work&Education/AddWork";
 import style from "./CreateResume.module.css";
 import Preview from "../../Components/Resume Privew/Preview";
-import AddInterests from "../../Components/ResumeForms/Skills&Languages/AddInterests";
 import ActionBar from "../../Components/Resume Action/ActionBar";
 import { useReactToPrint } from "react-to-print";
+import { useParams } from "react-router";
+import { useAppSelector } from "../../Store/hooks";
+import ResumeForms from "../../Components/ResumeForms/ResumeForms";
 
 const CreateResume = () => {
   const resumeRef = useRef(null);
+  const resumeId = useParams().id as string;
+  const iseditMode = resumeId ? true : false;
+  const resume = useAppSelector(
+    (state) =>
+      state.resume.resumeList.filter((resume) => resume.id == resumeId)[0]
+  );
+  console.log(resume);
 
   const downloadresumeHandler = useReactToPrint({
     content: () => resumeRef.current,
@@ -20,17 +23,14 @@ const CreateResume = () => {
 
   return (
     <div className={style["container"]}>
-      <ActionBar downloadresumeHandler={downloadresumeHandler} />
+      <ActionBar
+        downloadresumeHandler={downloadresumeHandler}
+        title={resume ? resume.resume_title : ""}
+      />
       <div className={style["resume-container"]}>
         <div className={style["resume-form"]}>
           <div className={style["form-section"]}>
-            <AddProfileInfo />
-            <AddContactsForm />
-            <AddWork />
-            <AddEducation />
-            <AddSkills />
-            <AddLanguages />
-            <AddInterests />
+            <ResumeForms editMode={iseditMode} currentResume={resume} />
           </div>
         </div>
         <div className={style["resume-preview"]}>

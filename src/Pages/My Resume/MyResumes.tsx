@@ -1,154 +1,39 @@
-import React, { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../../Components/Navbar/Navbar";
 import ResumeCard from "../../Components/ResumeCard/ResumeCard";
-import { Column, Row } from "../../Utils/FormStyle";
+import { useAppDispatch, useAppSelector } from "../../Store/hooks";
+import { fetchResumeList, resume } from "../../Store/resumeSlice";
+import { Row } from "../../Utils/FormStyle";
 import styles from "./MyResume.module.css";
-
-type resume = {
-  id: string;
-  title: string;
-  description: string;
-};
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "../../Service/firebase";
 
 export const MyResumes = () => {
-  const [resumes, setResumes] = useState<resume[]>([
-    {
-      id: "1",
-      title: "Resume 1",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: "2",
-      title: "Resume 2",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: "3",
-      title: "Resume 3",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: "1",
-      title: "Resume 1",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: "2",
-      title: "Resume 2",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: "3",
-      title: "Resume 3",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: "1",
-      title: "Resume 1",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: "2",
-      title: "Resume 2",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: "3",
-      title: "Resume 3",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: "1",
-      title: "Resume 1",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: "2",
-      title: "Resume 2",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: "3",
-      title: "Resume 3",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: "1",
-      title: "Resume 1",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: "2",
-      title: "Resume 2",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: "3",
-      title: "Resume 3",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: "1",
-      title: "Resume 1",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: "2",
-      title: "Resume 2",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: "3",
-      title: "Resume 3",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: "1",
-      title: "Resume 1",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: "2",
-      title: "Resume 2",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: "3",
-      title: "Resume 3",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: "1",
-      title: "Resume 1",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: "2",
-      title: "Resume 2",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: "3",
-      title: "Resume 3",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: "1",
-      title: "Resume 1",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: "2",
-      title: "Resume 2",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: "3",
-      title: "Resume 3",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-  ]);
+  const id = useAppSelector((state) => state.user.id);
+  const resumeList = useAppSelector((state) => state.resume.resumeList);
+  const dispatch = useAppDispatch();
+  const [isDelete, setIsDelete] = useState(false);
+  const [searchedResume, setSearchedResume] = useState<resume[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
+
+  useEffect(() => {
+    dispatch(fetchResumeList(id));
+  }, [isDelete]);
+
+  const deleteResumeHandler = async (id: string) => {
+    await deleteDoc(doc(db, "resume", id));
+    setIsDelete(!isDelete);
+  };
+
+  const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const filteredResumeList = resumeList.filter((resume) =>
+      resume.resume_title.toLocaleLowerCase().includes(e.target.value)
+    );
+    setSearchedResume(filteredResumeList);
+    setIsSearching(true);
+  };
 
   return (
     <>
@@ -157,19 +42,25 @@ export const MyResumes = () => {
         <h1>My Resumes</h1>
         <Row className={styles.resumeActions}>
           <button className="secondary-button">
-            <Link to="/create-resume">Create Resume</Link>
+            <Link to={`/create-resume`}>Create Resume</Link>
           </button>
-          <input type="text" placeholder="Search by Title" />
+          <input
+            type="text"
+            placeholder="Search by Title"
+            onChange={changeHandler}
+          />
         </Row>
         <div className={styles.resumeList}>
-          {resumes.map((resume) => (
-            <ResumeCard
-              key={resume.id}
-              id={resume.id}
-              title={resume.title}
-              description={resume.description}
-            />
-          ))}
+          {((isSearching == true && searchedResume) || resumeList).map(
+            (resume) => (
+              <ResumeCard
+                key={resume.id}
+                id={resume.id}
+                title={resume.resume_title}
+                deleteHandler={deleteResumeHandler}
+              />
+            )
+          )}
         </div>
       </div>
     </>

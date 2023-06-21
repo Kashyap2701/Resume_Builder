@@ -22,6 +22,9 @@ const workSlice = createSlice({
   name: "work",
   initialState,
   reducers: {
+    loadExperiences: (state, action: PayloadAction<experience[]>) => {
+      state.experiences = action.payload;
+    },
     addExperience: (state, action: PayloadAction<experience>) => {
       state.experiences.push(action.payload);
     },
@@ -35,6 +38,9 @@ const workSlice = createSlice({
       state.experiences = state.experiences.map((data) =>
         data.id == action.payload.id ? { ...action.payload, id: data.id } : data
       );
+    },
+    resetState: () => {
+      return initialState;
     },
   },
 });

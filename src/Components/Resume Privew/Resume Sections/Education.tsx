@@ -14,7 +14,7 @@ const Education = () => {
             <ul>
               {education.map((degree) => {
                 return (
-                  <li>
+                  <li key={degree.id}>
                     <div className={style["date"]}>
                       <i>
                         {degree.startedYear} - {degree.endedYear}

@@ -29,6 +29,9 @@ const profileslice = createSlice({
     addprofileInfo: (state, action: PayloadAction<profile>) => {
       state.profileInfo = action.payload;
     },
+    resetState: () => {
+      return initialState;
+    },
   },
 });
 

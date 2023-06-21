@@ -5,7 +5,7 @@ import { AccordianForm, Input, Wrapper } from "../../../Utils/FormStyle";
 import { RxCross2 } from "react-icons/rx";
 import style from "./Style.module.css";
 import { useAppDispatch, useAppSelector } from "../../../Store/hooks";
-import { interestActions } from "../../../Store/ResumeFormSlices/interest";
+import { interestActions } from "../../../Store/ResumeFormSlices/interestSlice";
 import uuid from "react-uuid";
 
 const AddInterests = () => {

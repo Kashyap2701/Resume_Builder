@@ -21,6 +21,9 @@ const educationSlice = createSlice({
   name: "education",
   initialState,
   reducers: {
+    loadEducation: (state, action: PayloadAction<degree[]>) => {
+      state.educations = action.payload;
+    },
     addEducation: (state, action: PayloadAction<degree>) => {
       state.educations.push(action.payload);
     },
@@ -34,6 +37,9 @@ const educationSlice = createSlice({
       state.educations = state.educations.map((data) =>
         data.id == action.payload.id ? { ...action.payload, id: data.id } : data
       );
+    },
+    resetState: () => {
+      return initialState;
     },
   },
 });
