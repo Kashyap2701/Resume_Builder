@@ -13,16 +13,21 @@ import {
 import InputField from "../../InputField/InputField";
 import { Toaster } from "react-hot-toast";
 import { save } from "../../../Utils/Toster";
-import { useAppDispatch } from "../../../Store/hooks";
+import { useAppDispatch, useAppSelector } from "../../../Store/hooks";
 import {
   contact,
   contactActions,
 } from "../../../Store/ResumeFormSlices/contactSlice";
+import { useParams } from "react-router";
 
 const AddContactsForm = () => {
   const [isexpand, setIsExpand] = useState(false);
   const dispatch = useAppDispatch();
-
+  const resumeId = useParams().id;
+  const resume = useAppSelector(
+    (state) =>
+      state.resume.resumeList.filter((resume) => resume.id == resumeId)[0]
+  );
   const submitHandler = (values: contact) => {
     dispatch(contactActions.addContacts(values));
     save("Contacts Added");
@@ -37,7 +42,7 @@ const AddContactsForm = () => {
       {isexpand && (
         <AccordianForm>
           <Formik
-            initialValues={initialValueforContactInfo}
+            initialValues={resume?.resumeData.contacts || initialValueforContactInfo}
             onSubmit={submitHandler}
           >
             <Form>

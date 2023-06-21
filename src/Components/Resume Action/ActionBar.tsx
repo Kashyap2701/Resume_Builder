@@ -1,9 +1,8 @@
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import React, { ChangeEvent, useState } from "react";
 import { FaDownload, FaSave } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router";
 import uuid from "react-uuid";
-
 import { db } from "../../Service/firebase";
 import { useAppDispatch, useAppSelector } from "../../Store/hooks";
 import { resume, resumeActions } from "../../Store/resumeSlice";
@@ -17,7 +16,9 @@ type ActionBarProps = {
 };
 
 const ActionBar = (props: ActionBarProps) => {
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState(
+    props.title || `Resume Title ${(Math.random() * 100).toFixed(0)}`
+  );
   const id = useAppSelector((state) => state.user.id);
   const resume_id = useParams().id;
   const profileInfo = useAppSelector((state) => state.profile.profileInfo);
@@ -34,31 +35,55 @@ const ActionBar = (props: ActionBarProps) => {
   };
 
   const saveresumeHandler = async () => {
-    if (resume_id == undefined) {
-      const resumeCollectionRef = collection(db, "resume");
-      const newResume: resume = {
-        id: uuid(),
-        resume_title: title,
-        userId: id,
-        resumeData: {
-          profileInfo: profileInfo,
-          contacts: contacts,
-          experiences: experiences,
-          education: education,
-          skills: skills,
-          interests: interests,
-          languages: languages,
-        },
-      };
-      try {
-        const response = await addDoc(resumeCollectionRef, newResume);
-        save("Resume Saved");
-        console.log(response);
-        dispatch(resumeActions.addResume(newResume));
-        navigate("/my-resumes");
-      } catch (error) {
-        console.log(error);
-      }
+    const resumeCollectionRef = collection(db, "resume");
+    const newResume: resume = {
+      id: uuid(),
+      resume_title: title,
+      userId: id,
+      resumeData: {
+        profileInfo: profileInfo,
+        contacts: contacts,
+        experiences: experiences,
+        education: education,
+        skills: skills,
+        interests: interests,
+        languages: languages,
+      },
+    };
+    try {
+      const response = await addDoc(resumeCollectionRef, newResume);
+      save("Resume Saved");
+      console.log(response);
+      dispatch(resumeActions.addResume(newResume));
+      navigate("/my-resumes");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateresumeHandler = async () => {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const resumeRef = doc(db, "resume", resume_id!);
+    const newResume = {
+      resume_title: title,
+      userId: id,
+      resumeData: {
+        profileInfo: profileInfo,
+        contacts: contacts,
+        experiences: experiences,
+        education: education,
+        skills: skills,
+        interests: interests,
+        languages: languages,
+      },
+    };
+    try {
+      const response = await updateDoc(resumeRef, newResume);
+      save("Resume Saved");
+      console.log(response);
+      navigate("/my-resumes");
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -67,16 +92,25 @@ const ActionBar = (props: ActionBarProps) => {
       <div className={style["resume-title"]}>
         <Input
           placeholder="Ex. Resume For Amazon"
-          value={resume_id !== undefined ? props.title : title}
+          value={title}
+          required
           onChange={onchangeHandler}
         />
       </div>
       <div className={style["resume-actions"]}>
-        <button onClick={saveresumeHandler}>
-          <span>
-            <FaSave /> {resume_id !== undefined ? "Update" : "Save"}
-          </span>
-        </button>
+        {resume_id !== undefined ? (
+          <button onClick={updateresumeHandler}>
+            <span>
+              <FaSave /> Update
+            </span>
+          </button>
+        ) : (
+          <button onClick={saveresumeHandler}>
+            <span>
+              <FaSave /> Save
+            </span>
+          </button>
+        )}
         <button onClick={props.downloadresumeHandler}>
           <span>
             <FaDownload /> Download

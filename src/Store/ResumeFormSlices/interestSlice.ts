@@ -17,6 +17,9 @@ const interestSlice = createSlice({
   name: "interest",
   initialState,
   reducers: {
+    loadInterest: (state, action: PayloadAction<interest[]>) => {
+      state.interests = action.payload;
+    },
     addinterest: (state, action: PayloadAction<interest>) => {
       state.interests.push(action.payload);
     },
@@ -24,6 +27,9 @@ const interestSlice = createSlice({
       state.interests = state.interests.filter(
         (interest) => interest.id != action.payload
       );
+    },
+    resetState: () => {
+      return initialState;
     },
   },
 });

@@ -14,20 +14,22 @@ export const MyResumes = () => {
   const id = useAppSelector((state) => state.user.id);
   const resumeList = useAppSelector((state) => state.resume.resumeList);
   const dispatch = useAppDispatch();
+  const [isDelete, setIsDelete] = useState(false);
   const [searchedResume, setSearchedResume] = useState<resume[]>([]);
   const [isSearching, setIsSearching] = useState(false);
 
   useEffect(() => {
     dispatch(fetchResumeList(id));
-  }, [resumeList]);
+  }, [isDelete]);
 
   const deleteResumeHandler = async (id: string) => {
     await deleteDoc(doc(db, "resume", id));
+    setIsDelete(!isDelete);
   };
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const filteredResumeList = resumeList.filter((resume) =>
-      resume.resume_title.includes(e.target.value)
+      resume.resume_title.toLocaleLowerCase().includes(e.target.value)
     );
     setSearchedResume(filteredResumeList);
     setIsSearching(true);

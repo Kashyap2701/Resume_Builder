@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import contactslice from "./ResumeFormSlices/contactSlice";
 import educationSlice from "./ResumeFormSlices/educationSlice";
-import interestSlice from "./ResumeFormSlices/interest";
+import interestSlice from "./ResumeFormSlices/interestSlice";
 import languageSlice from "./ResumeFormSlices/languageSlice";
 import profileslice from "./ResumeFormSlices/profileSlice";
 import skillSlice from "./ResumeFormSlices/skillSlice";

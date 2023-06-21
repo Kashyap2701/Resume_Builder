@@ -50,7 +50,7 @@ const EditProfile = () => {
     try {
       if (isPhotoUpdated) {
         console.log(isPhotoUpdated);
-        const imageURL = await uploadPhoto(values.profilePhoto);
+
         await updateProfile(curUser, {
           email: values.email,
           displayName: values.fullname,

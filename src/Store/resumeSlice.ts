@@ -4,7 +4,7 @@ import { profile } from "./ResumeFormSlices/profileSlice";
 import { contact } from "./ResumeFormSlices/contactSlice";
 import { experience } from "./ResumeFormSlices/workSlice";
 import { degree } from "./ResumeFormSlices/educationSlice";
-import { interest } from "./ResumeFormSlices/interest";
+import { interest } from "./ResumeFormSlices/interestSlice";
 import { language } from "./ResumeFormSlices/languageSlice";
 import { skill } from "./ResumeFormSlices/skillSlice";
 import { collection, getDocs } from "firebase/firestore";

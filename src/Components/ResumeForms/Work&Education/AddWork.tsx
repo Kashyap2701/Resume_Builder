@@ -102,17 +102,15 @@ const AddWork = () => {
           <div className={style["container"]}>
             {experiences.map((data) => {
               return (
-                <>
-                  <div
-                    key={data.id}
-                    id={data.id}
-                    className={style["item"]}
-                    onClick={editExperienceHandler}
-                  >
-                    <span>{data.title}</span>
-                    <RxCross2 onClick={deleteExperienceHandler} />
-                  </div>
-                </>
+                <div
+                  key={data.id}
+                  id={data.id}
+                  className={style["item"]}
+                  onClick={editExperienceHandler}
+                >
+                  <span>{data.title}</span>
+                  <RxCross2 onClick={deleteExperienceHandler} />
+                </div>
               );
             })}
             {experiences.length != 0 && (
