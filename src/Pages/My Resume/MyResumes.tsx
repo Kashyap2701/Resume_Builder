@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../../Components/Navbar/Navbar";
 import ResumeCard from "../../Components/ResumeCard/ResumeCard";
 import { useAppDispatch, useAppSelector } from "../../Store/hooks";
-import { fetchResumeList } from "../../Store/resumeSlice";
+import { fetchResumeList, resume } from "../../Store/resumeSlice";
 import { Row } from "../../Utils/FormStyle";
 import styles from "./MyResume.module.css";
 import { deleteDoc, doc } from "firebase/firestore";
@@ -14,6 +14,8 @@ export const MyResumes = () => {
   const id = useAppSelector((state) => state.user.id);
   const resumeList = useAppSelector((state) => state.resume.resumeList);
   const dispatch = useAppDispatch();
+  const [searchedResume, setSearchedResume] = useState<resume[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
 
   useEffect(() => {
     dispatch(fetchResumeList(id));
@@ -21,6 +23,14 @@ export const MyResumes = () => {
 
   const deleteResumeHandler = async (id: string) => {
     await deleteDoc(doc(db, "resume", id));
+  };
+
+  const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const filteredResumeList = resumeList.filter((resume) =>
+      resume.resume_title.includes(e.target.value)
+    );
+    setSearchedResume(filteredResumeList);
+    setIsSearching(true);
   };
 
   return (
@@ -32,17 +42,23 @@ export const MyResumes = () => {
           <button className="secondary-button">
             <Link to={`/create-resume`}>Create Resume</Link>
           </button>
-          <input type="text" placeholder="Search by Title" />
+          <input
+            type="text"
+            placeholder="Search by Title"
+            onChange={changeHandler}
+          />
         </Row>
         <div className={styles.resumeList}>
-          {resumeList.map((resume) => (
-            <ResumeCard
-              key={resume.id}
-              id={resume.id}
-              title={resume.resume_title}
-              deleteHandler={deleteResumeHandler}
-            />
-          ))}
+          {((isSearching == true && searchedResume) || resumeList).map(
+            (resume) => (
+              <ResumeCard
+                key={resume.id}
+                id={resume.id}
+                title={resume.resume_title}
+                deleteHandler={deleteResumeHandler}
+              />
+            )
+          )}
         </div>
       </div>
     </>
