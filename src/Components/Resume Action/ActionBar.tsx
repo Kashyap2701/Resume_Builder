@@ -1,6 +1,11 @@
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
-import React, { ChangeEvent, useState } from "react";
-import { FaDownload, FaSave } from "react-icons/fa";
+import React, {
+  ChangeEvent,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
+import { FaDownload, FaEye, FaSave } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router";
 import uuid from "react-uuid";
 import { db } from "../../Service/firebase";
@@ -13,6 +18,7 @@ import style from "./Actionbar.module.css";
 type ActionBarProps = {
   downloadresumeHandler: () => void;
   title: string | undefined;
+  openModal: () => void;
 };
 
 const ActionBar = (props: ActionBarProps) => {
@@ -28,8 +34,18 @@ const ActionBar = (props: ActionBarProps) => {
   const skills = useAppSelector((state) => state.skill.skills);
   const experiences = useAppSelector((state) => state.work.experiences);
   const education = useAppSelector((state) => state.education.educations);
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      setScreenWidth(window.innerWidth);
+    });
+    return window.removeEventListener("resize", () => {
+      setScreenWidth(window.innerWidth);
+    });
+  }, []);
 
   // Handler for title input change
   const onchangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -68,7 +84,7 @@ const ActionBar = (props: ActionBarProps) => {
   const updateresumeHandler = async () => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const resumeRef = doc(db, "resume", resume_id!);
-    const newResume = {
+    const updatedResume = {
       resume_title: title,
       resumeData: {
         profileInfo,
@@ -81,7 +97,7 @@ const ActionBar = (props: ActionBarProps) => {
       },
     };
     try {
-      const response = await updateDoc(resumeRef, newResume);
+      const response = await updateDoc(resumeRef, updatedResume);
       save("Resume Saved");
       console.log(response);
       navigate("/my-resumes");
@@ -101,25 +117,32 @@ const ActionBar = (props: ActionBarProps) => {
         />
       </div>
       <div className={style["resume-actions"]}>
+        {screenWidth <= 1024 && (
+          <button onClick={() => props.openModal()}>
+            <span>
+              <FaEye /> <span>Preview</span>
+            </span>
+          </button>
+        )}
         {resume_id !== undefined ? (
           // Button for updating an existing resume
           <button onClick={updateresumeHandler}>
             <span>
-              <FaSave /> Update
+              <FaSave /> <span>Update</span>
             </span>
           </button>
         ) : (
           // Button for saving a new resume
           <button onClick={saveresumeHandler}>
             <span>
-              <FaSave /> Save
+              <FaSave /> <span>Save</span>
             </span>
           </button>
         )}
         {/* Button for downloading the resume */}
         <button onClick={props.downloadresumeHandler}>
           <span>
-            <FaDownload /> Download
+            <FaDownload /> <span>Download</span>
           </span>
         </button>
       </div>

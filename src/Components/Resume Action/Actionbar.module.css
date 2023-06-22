@@ -33,9 +33,12 @@
 .resume-actions button span svg {
   margin-right: 1rem;
 }
-/* 
-@media screen and(max-width:1024px) {
-  .container {
+
+@media screen and (max-width: 480px) {
+  .resume-actions button span svg {
+    margin-right: 0rem;
+  }
+  .resume-actions button span span {
     display: none;
   }
-} */
+}
