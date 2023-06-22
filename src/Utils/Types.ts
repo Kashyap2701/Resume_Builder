@@ -41,3 +41,17 @@ export interface interest {
   id: string;
   name: string;
 }
+export interface resume {
+  id: string;
+  resume_title: string;
+  userId: string;
+  resumeData: {
+    profileInfo: profile;
+    contacts: contact;
+    experiences: experience[];
+    education: degree[];
+    skills: skill[];
+    interests: interest[];
+    languages: language[];
+  };
+}

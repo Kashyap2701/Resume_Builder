@@ -3,7 +3,9 @@ import style from "../Preview.module.css";
 import RightSectionTitle from "../RightSectionTitle";
 
 const About = () => {
-  const about = useAppSelector((state) => state.profile.profileInfo.about);
+  const about = useAppSelector(
+    (state) => state.curResume.resumeDetails.resumeData.profileInfo.about
+  );
 
   return (
     <>

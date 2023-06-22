@@ -5,12 +5,14 @@ import { AccordianForm, Input, Wrapper } from "../../../Utils/FormStyle";
 import { RxCross2 } from "react-icons/rx";
 import style from "./Style.module.css";
 import { useAppDispatch, useAppSelector } from "../../../Store/hooks";
-import { interestActions } from "../../../Store/ResumeFormSlices/interestSlice";
 import uuid from "react-uuid";
+import { curResumeActions } from "../../../Store/curResumeSlice";
 
 const AddInterests = () => {
   const [isexpand, setIsExpand] = useState(false);
-  const interests = useAppSelector((state) => state.interest.interests);
+  const interests = useAppSelector(
+    (state) => state.curResume.resumeDetails.resumeData.interests
+  );
   const dispatch = useAppDispatch();
 
   const addinteresthandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -20,14 +22,14 @@ const AddInterests = () => {
         id: uuid(),
         name: interestName.value,
       };
-      dispatch(interestActions.addinterest(newInterest));
+      dispatch(curResumeActions.addinterest(newInterest));
       (e.target as HTMLInputElement).value = "";
     }
   };
 
   const deleteHandler = (e) => {
     console.log(e.target.parentNode?.id);
-    dispatch(interestActions.deleteinterest(e.target.parentNode.id));
+    dispatch(curResumeActions.deleteinterest(e.target.parentNode.id));
   };
 
   return (

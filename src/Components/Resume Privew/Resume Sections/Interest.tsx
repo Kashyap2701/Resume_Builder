@@ -3,7 +3,9 @@ import style from "../Preview.module.css";
 import Strip from "../Strip";
 
 const Interest = () => {
-  const interests = useAppSelector((state) => state.interest.interests);
+  const interests = useAppSelector(
+    (state) => state.curResume.resumeDetails.resumeData.interests
+  );
 
   return (
     <>

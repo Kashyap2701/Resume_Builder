@@ -3,7 +3,9 @@ import style from "../Preview.module.css";
 import RightSectionTitle from "../RightSectionTitle";
 
 const Languages = () => {
-  const languages = useAppSelector((state) => state.language.languages);
+  const languages = useAppSelector(
+    (state) => state.curResume.resumeDetails.resumeData.languages
+  );
 
   return (
     <>

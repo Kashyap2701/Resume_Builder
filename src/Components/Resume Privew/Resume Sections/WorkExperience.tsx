@@ -3,7 +3,9 @@ import style from "../Preview.module.css";
 import RightSectionTitle from "../RightSectionTitle";
 
 const WorkExperience = () => {
-  const experiences = useAppSelector((state) => state.work.experiences);
+  const experiences = useAppSelector(
+    (state) => state.curResume.resumeDetails.resumeData.experiences
+  );
   return (
     <>
       {experiences.length !== 0 && (

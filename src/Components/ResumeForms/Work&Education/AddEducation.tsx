@@ -22,11 +22,14 @@ import {
 import uuid from "react-uuid";
 import { save } from "../../../Utils/Toster";
 import { validationschemaforEducation } from "../../../Utils/ValidationSchema";
+import { curResumeActions } from "../../../Store/curResumeSlice";
 
 const AddEducation = () => {
   const [isexpand, setIsExpand] = useState(false);
   const [buttonText, setButtonText] = useState("Save");
-  const educations = useAppSelector((state) => state.education.educations);
+  const educations = useAppSelector(
+    (state) => state.curResume.resumeDetails.resumeData.education
+  );
   const dispatch = useAppDispatch();
   const [currentEducation, setCurrentEducation] = useState<degree>(
     initialValuefoeEducationInfo
@@ -37,10 +40,10 @@ const AddEducation = () => {
     { resetForm }: FormikHelpers<degree>
   ) => {
     if (buttonText == "Save") {
-      dispatch(educationAction.addEducation({ ...values, id: uuid() }));
+      dispatch(curResumeActions.addEducation({ ...values, id: uuid() }));
       save("Education Added");
     } else {
-      dispatch(educationAction.updateEducation(values));
+      dispatch(curResumeActions.updateEducation(values));
       save("Education Updated");
       setCurrentEducation(initialValuefoeEducationInfo);
       setButtonText("Save");
@@ -56,7 +59,7 @@ const AddEducation = () => {
 
   const deleteEducationHandler = (e) => {
     const id = e.target.parentNode.id;
-    dispatch(educationAction.deleteEducation(id));
+    dispatch(curResumeActions.deleteEducation(id));
   };
 
   const newEducationHandler = (e) => {

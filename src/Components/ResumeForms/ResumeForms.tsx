@@ -1,5 +1,7 @@
-import React from "react";
-import { useAppDispatch } from "../../Store/hooks";
+import React, { useEffect } from "react";
+import { ProgressBar } from "react-loader-spinner";
+import { fetchResumeDetails } from "../../Store/curResumeSlice";
+import { useAppDispatch, useAppSelector } from "../../Store/hooks";
 import { contactActions } from "../../Store/ResumeFormSlices/contactSlice";
 import { educationAction } from "../../Store/ResumeFormSlices/educationSlice";
 import { interestActions } from "../../Store/ResumeFormSlices/interestSlice";
@@ -22,27 +24,31 @@ type resumeForm = {
 };
 
 const ResumeForms = ({ editMode, currentResume }: resumeForm) => {
+  const status = useAppSelector((state) => state.curResume.status);
   const dispatch = useAppDispatch();
 
-  if (editMode) {
-    dispatch(
-      profileActions.addprofileInfo(currentResume.resumeData.profileInfo)
-    );
-    dispatch(contactActions.addContacts(currentResume.resumeData.contacts));
-    dispatch(workActions.loadExperiences(currentResume.resumeData.experiences));
-    dispatch(educationAction.loadEducation(currentResume.resumeData.education));
-    dispatch(skillActions.loadSkill(currentResume.resumeData.skills));
-    dispatch(languageActions.loadLanguage(currentResume.resumeData.languages));
-    dispatch(interestActions.loadInterest(currentResume.resumeData.interests));
-  } else {
-    dispatch(profileActions.resetState());
-    dispatch(contactActions.resetState());
-    dispatch(workActions.resetState());
-    dispatch(educationAction.resetState());
-    dispatch(skillActions.resetState());
-    dispatch(languageActions.resetState());
-    dispatch(interestActions.resetState());
-  }
+  
+
+  // if (editMode) {
+  //   dispatch(fetchResumeDetails(currentResume.id));
+  //   // dispatch(
+  //   //   profileActions.addprofileInfo(currentResume.resumeData.profileInfo)
+  //   // );
+  //   // dispatch(contactActions.addContacts(currentResume.resumeData.contacts));
+  //   // dispatch(workActions.loadExperiences(currentResume.resumeData.experiences));
+  //   // dispatch(educationAction.loadEducation(currentResume.resumeData.education));
+  //   // dispatch(skillActions.loadSkill(currentResume.resumeData.skills));
+  //   // dispatch(languageActions.loadLanguage(currentResume.resumeData.languages));
+  //   // dispatch(interestActions.loadInterest(currentResume.resumeData.interests));
+  // } else {
+  //   dispatch(profileActions.resetState());
+  //   dispatch(contactActions.resetState());
+  //   dispatch(workActions.resetState());
+  //   dispatch(educationAction.resetState());
+  //   dispatch(skillActions.resetState());
+  //   dispatch(languageActions.resetState());
+  //   dispatch(interestActions.resetState());
+  // }
 
   return (
     <>

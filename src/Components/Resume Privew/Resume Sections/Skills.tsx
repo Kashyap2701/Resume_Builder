@@ -4,7 +4,7 @@ import style from "../Preview.module.css";
 import Strip from "../Strip";
 
 const Skills = () => {
-  const skills = useAppSelector((state) => state.skill.skills);
+  const skills = useAppSelector((state) => state.curResume.resumeDetails.resumeData.skills);
 
   return (
     <>

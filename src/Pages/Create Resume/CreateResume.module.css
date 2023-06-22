@@ -55,10 +55,6 @@
   justify-content: space-between;
 }
 
-.preview-modal {
-  
-}
-
 @media screen and (max-width: 1024px) {
   .container {
     flex-direction: column;
