@@ -1,16 +1,16 @@
-import React, { MouseEventHandler } from "react";
+import React from "react";
 import { useState } from "react";
 import FormHeader from "../FormHeader";
 import { AccordianForm, Input, Wrapper } from "../../../Utils/FormStyle";
 import { RxCross2 } from "react-icons/rx";
 import style from "./Style.module.css";
 import { useAppDispatch, useAppSelector } from "../../../Store/hooks";
-import { skillActions } from "../../../Store/ResumeFormSlices/skillSlice";
 import uuid from "react-uuid";
+import { curResumeActions } from "../../../Store/curResumeSlice";
 
 const AddSkills = () => {
   const [isexpand, setIsExpand] = useState(false);
-  const skills = useAppSelector((state) => state.skill.skills);
+  const skills = useAppSelector((state) => state.curResume.resumeDetails.resumeData.skills);
   const dispatch = useAppDispatch();
 
   const addSkillhandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -20,13 +20,13 @@ const AddSkills = () => {
         id: uuid(),
         name: skillName.value,
       };
-      dispatch(skillActions.addskill(newskill));
+      dispatch(curResumeActions.addskill(newskill));
       (e.target as HTMLInputElement).value = "";
     }
   };
 
   const deleteSkillHandler = (e) => {
-    dispatch(skillActions.deleteSkill(e.target.parentNode.id));
+    dispatch(curResumeActions.deleteSkill(e.target.parentNode.id));
   };
 
   return (

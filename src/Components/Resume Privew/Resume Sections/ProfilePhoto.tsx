@@ -4,7 +4,7 @@ import style from "../Preview.module.css";
 
 const ProfilePhoto = () => {
   const profilePhtoto = useAppSelector(
-    (state) => state.profile.profileInfo.profilePhoto
+    (state) => state.curResume.resumeDetails.resumeData.profileInfo.profilePhoto
   );
   return (
     <>

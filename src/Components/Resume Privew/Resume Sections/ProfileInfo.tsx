@@ -2,7 +2,9 @@ import { useAppSelector } from "../../../Store/hooks";
 import style from "../Preview.module.css";
 
 export const ProfileInfo = () => {
-  const profileInfo = useAppSelector((state) => state.profile.profileInfo);
+  const profileInfo = useAppSelector(
+    (state) => state.curResume.resumeDetails.resumeData.profileInfo
+  );
 
   return (
     <>

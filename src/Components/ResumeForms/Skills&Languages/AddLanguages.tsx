@@ -5,12 +5,14 @@ import { Input, Wrapper, AccordianForm } from "../../../Utils/FormStyle";
 import { RxCross2 } from "react-icons/rx";
 import style from "./Style.module.css";
 import { useAppDispatch, useAppSelector } from "../../../Store/hooks";
-import { languageActions } from "../../../Store/ResumeFormSlices/languageSlice";
 import uuid from "react-uuid";
+import { curResumeActions } from "../../../Store/curResumeSlice";
 
 const AddLanguages = () => {
   const [isexpand, setIsExpand] = useState(false);
-  const languages = useAppSelector((state) => state.language.languages);
+  const languages = useAppSelector(
+    (state) => state.curResume.resumeDetails.resumeData.languages
+  );
   const dispatch = useAppDispatch();
 
   const addLanguagehandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -20,14 +22,14 @@ const AddLanguages = () => {
         id: uuid(),
         name: languageName.value,
       };
-      dispatch(languageActions.addlanguage(newLanguage));
+      dispatch(curResumeActions.addlanguage(newLanguage));
       (e.target as HTMLInputElement).value = "";
     }
   };
 
   const deleteLanguageHandler = (e) => {
     console.log(e.target.parentNode?.id);
-    dispatch(languageActions.deletelanguage(e.target.parentNode.id));
+    dispatch(curResumeActions.deletelanguage(e.target.parentNode.id));
   };
 
   return (

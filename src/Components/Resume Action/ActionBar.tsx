@@ -27,13 +27,27 @@ const ActionBar = (props: ActionBarProps) => {
   );
   const id = useAppSelector((state) => state.user.id);
   const resume_id = useParams().id;
-  const profileInfo = useAppSelector((state) => state.profile.profileInfo);
-  const contacts = useAppSelector((state) => state.contact.contacts);
-  const interests = useAppSelector((state) => state.interest.interests);
-  const languages = useAppSelector((state) => state.language.languages);
-  const skills = useAppSelector((state) => state.skill.skills);
-  const experiences = useAppSelector((state) => state.work.experiences);
-  const education = useAppSelector((state) => state.education.educations);
+  const profileInfo = useAppSelector(
+    (state) => state.curResume.resumeDetails.resumeData.profileInfo
+  );
+  const contacts = useAppSelector(
+    (state) => state.curResume.resumeDetails.resumeData.contacts
+  );
+  const interests = useAppSelector(
+    (state) => state.curResume.resumeDetails.resumeData.interests
+  );
+  const languages = useAppSelector(
+    (state) => state.curResume.resumeDetails.resumeData.languages
+  );
+  const skills = useAppSelector(
+    (state) => state.curResume.resumeDetails.resumeData.skills
+  );
+  const experiences = useAppSelector(
+    (state) => state.curResume.resumeDetails.resumeData.experiences
+  );
+  const education = useAppSelector(
+    (state) => state.curResume.resumeDetails.resumeData.education
+  );
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

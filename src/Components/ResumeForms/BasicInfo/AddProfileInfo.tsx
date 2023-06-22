@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { initialValueforProfileInfo } from "../../../Utils/ResumeForm";
 import style from "./BasicInfo.module.css";
@@ -16,11 +16,9 @@ import noprofile from "../../../Assets/no-profile.png";
 import { Toaster } from "react-hot-toast";
 import { save } from "../../../Utils/Toster";
 import { useAppDispatch, useAppSelector } from "../../../Store/hooks";
-import {
-  profile,
-  profileActions,
-} from "../../../Store/ResumeFormSlices/profileSlice";
+import { profile } from "../../../Store/ResumeFormSlices/profileSlice";
 import { useParams } from "react-router";
+import { curResumeActions } from "../../../Store/curResumeSlice";
 
 const AddProfileInfo = () => {
   const [isexpand, setIsExpand] = useState(true);
@@ -32,10 +30,10 @@ const AddProfileInfo = () => {
   );
   const dispatch = useAppDispatch();
 
+  // Handler to see preview Image
   const handlePreviewImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file: File | undefined = e.target.files?.[0];
     const reader: FileReader = new FileReader();
-
     if (file) {
       reader.readAsDataURL(file);
       reader.onload = () => {
@@ -44,15 +42,17 @@ const AddProfileInfo = () => {
     }
   };
 
+  // Handler to submit profile Details
   const submitHandler = (values: profile) => {
     dispatch(
-      profileActions.addprofileInfo({ ...values, profilePhoto: previewImage })
+      curResumeActions.addprofileInfo({ ...values, profilePhoto: previewImage })
     );
     save("Profile Info Added");
   };
 
   return (
     <div>
+      {/* Profile Info section */}
       <FormHeader
         title="Profile Info"
         isexpand={isexpand}
@@ -69,6 +69,7 @@ const AddProfileInfo = () => {
             {({ setFieldValue }) => (
               <Form>
                 <div className={style["profile-upload-container"]}>
+                  {/* profile photo section */}
                   <div className={style["profile-preview"]}>
                     <div className={style["profile-image"]}>
                       <img src={previewImage} alt="profile-image" />

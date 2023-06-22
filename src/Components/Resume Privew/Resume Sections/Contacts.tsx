@@ -8,11 +8,13 @@ import { ImLink } from "react-icons/im";
 import { useAppSelector } from "../../../Store/hooks";
 
 function Contacts() {
-  const contacts = useAppSelector((state) => state.contact.contacts);
-  const isEmpty = useAppSelector((state) => state.contact.isempty);
+  const contacts = useAppSelector(
+    (state) => state.curResume.resumeDetails.resumeData.contacts
+  );
+  // const isEmpty = useAppSelector((state) => state.contact.isempty);
   return (
     <>
-      {!isEmpty && (
+      {contacts.email != "" && (
         <>
           <Strip title="CONTACTS" />
           <div className={`${style["section"]} ${style["contacts-section"]}`}>

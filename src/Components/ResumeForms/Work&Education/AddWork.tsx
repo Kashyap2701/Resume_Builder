@@ -17,34 +17,14 @@ import { initialValueforWorkInfo } from "../../../Utils/ResumeForm";
 import uuid from "react-uuid";
 import { save } from "../../../Utils/Toster";
 import { useAppDispatch, useAppSelector } from "../../../Store/hooks";
-import {
-  experience,
-  workActions,
-} from "../../../Store/ResumeFormSlices/workSlice";
+import { experience } from "../../../Store/ResumeFormSlices/workSlice";
 import { validationschemaforWork } from "../../../Utils/ValidationSchema";
-
-//   {
-//     id: uuid(),
-//     title: "Experience 1",
-//     startedYear: 2015,
-//     endedYear: 2017,
-//     jobTitle: "Software Engineer",
-//     companyName: "Simform Solution",
-//     desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt, voluptas.",
-//   },
-//   {
-//     id: uuid(),
-//     title: "Experience 2",
-//     startedYear: 2017,
-//     endedYear: 2018,
-//     jobTitle: "Software Engineer",
-//     companyName: "Simform Solution",
-//     desc: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt, voluptas.",
-//   },
-// ];
+import { curResumeActions } from "../../../Store/curResumeSlice";
 
 const AddWork = () => {
-  const experiences = useAppSelector((state) => state.work.experiences);
+  const experiences = useAppSelector(
+    (state) => state.curResume.resumeDetails.resumeData.experiences
+  );
   const dispatch = useAppDispatch();
   const [isexpand, setIsExpand] = useState(false);
   const [buttonText, setButtonText] = useState("Save");
@@ -58,10 +38,10 @@ const AddWork = () => {
     { resetForm }: FormikHelpers<experience>
   ) => {
     if (buttonText == "Save") {
-      dispatch(workActions.addExperience({ ...values, id: uuid() }));
+      dispatch(curResumeActions.addExperience({ ...values, id: uuid() }));
       save("Experience Added");
     } else {
-      dispatch(workActions.updateExperience(values));
+      dispatch(curResumeActions.updateExperience(values));
       save("Experience Updated");
       setSelectedExperience(initialValueforWorkInfo);
       setButtonText("Save");
@@ -85,7 +65,7 @@ const AddWork = () => {
   // delete single experience
   const deleteExperienceHandler = (e) => {
     const id = e.target.parentNode.id;
-    dispatch(workActions.deleteExperience(id));
+    dispatch(curResumeActions.deleteExperience(id));
   };
 
   return (

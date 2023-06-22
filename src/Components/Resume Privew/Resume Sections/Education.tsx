@@ -3,7 +3,9 @@ import style from "../Preview.module.css";
 import RightSectionTitle from "../RightSectionTitle";
 
 const Education = () => {
-  const education = useAppSelector((state) => state.education.educations);
+  const education = useAppSelector(
+    (state) => state.curResume.resumeDetails.resumeData.education
+  );
 
   return (
     <>
