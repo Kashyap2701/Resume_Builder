@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import style from "./CreateResume.module.css";
+import previewStyle from "../../Components/Resume Privew/Preview.module.css";
 import Preview from "../../Components/Resume Privew/Preview";
 import ActionBar from "../../Components/Resume Action/ActionBar";
 import { useReactToPrint } from "react-to-print";
@@ -52,6 +53,11 @@ const CreateResume = () => {
 
   const downloadresumeHandler = useReactToPrint({
     content: () => resumeRef.current,
+    pageStyle: `
+    @page {
+      size: ${500}px ${500 * 1.41}px;
+    }
+  `,
   });
 
   return status == "fulfilled" || status == "" ? (
