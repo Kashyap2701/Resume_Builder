@@ -110,10 +110,6 @@
   padding: 0.3em;
 }
 
-.contact .icon svg {
-  color: var(--primary-color);
-}
-
 .contact span {
   margin-left: 0.5em;
   font-size: 0.8em;
@@ -180,7 +176,7 @@
   margin-bottom: 0.3rem;
 }
 
-.work-experience-section ul li:after,
+/* .work-experience-section ul li:after,
 .education-section ul li:after {
   content: "";
   position: absolute;
@@ -201,7 +197,7 @@
   width: 2px;
   height: 115px;
   background: var(--primary-color);
-}
+} */
 
 .work-experience-section ul li .info .title,
 .education-section ul li .info .title {

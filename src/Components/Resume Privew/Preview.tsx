@@ -9,17 +9,35 @@ import WorkExperience from "./Resume Sections/WorkExperience";
 import Education from "./Resume Sections/Education";
 import Languages from "./Resume Sections/Languages";
 import { forwardRef } from "react";
+import ColorPicker from "../Color Picker/ColorPicker";
+import { useAppSelector } from "../../Store/hooks";
+import { useDispatch } from "react-redux";
+import { curResumeActions } from "../../Store/curResumeSlice";
 
 type PreviewType = {
   ref: React.MutableRefObject<HTMLDivElement | null>;
 };
 
 const Preview = forwardRef<null, PreviewType>((props, ref) => {
+  const resumeColor = useAppSelector(
+    (state) => state.curResume.resumeDetails.color
+  );
+  const dispatch = useDispatch();
+
+  const colorHandler = (e) => {
+    // console.log(e.target.style.backgroundColor);
+    dispatch(curResumeActions.changeColor(e.target.style.backgroundColor));
+  };
+
   return (
     <>
       <div className={style["container"]}>
+        <ColorPicker colorHandler={colorHandler} />
         <div id="resume" className={style["resume-preview-wrapper"]} ref={ref}>
-          <div className={style["left-section"]}>
+          <div
+            className={style["left-section"]}
+            style={{ backgroundColor: `${resumeColor}` }}
+          >
             <ProfilePhoto />
             <Contacts />
             <Skills />

@@ -45,6 +45,7 @@ export interface resume {
   id: string;
   resume_title: string;
   userId: string;
+  color: string;
   resumeData: {
     profileInfo: profile;
     contacts: contact;

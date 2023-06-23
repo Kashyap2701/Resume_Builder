@@ -23,6 +23,7 @@ const initialState: curResumeState = {
     id: "",
     resume_title: "",
     userId: "",
+    color: "#fe715b",
     resumeData: {
       profileInfo: {
         profilePhoto: "",
@@ -116,6 +117,9 @@ const curResumeSlice = createSlice({
         state.resumeDetails.resumeData.interests.filter(
           (interest) => interest.id != action.payload
         );
+    },
+    changeColor: (state, action: PayloadAction<string>) => {
+      state.resumeDetails.color = action.payload;
     },
     resetState: () => {
       return initialState;
