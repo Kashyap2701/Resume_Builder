@@ -10,6 +10,7 @@ type InputFieldProps = {
   type?: string;
   placeholder?: string;
   varient?: string;
+  readOnly?: boolean;
 };
 
 const InputField = (props: InputFieldProps) => {
@@ -58,6 +59,7 @@ const InputField = (props: InputFieldProps) => {
           name={props.name}
           type={props.type || "text"}
           placeholder={props.placeholder}
+          readOnly={props.readOnly}
           as={props.varient}
           rows={props.varient == "textarea" ? 4 : null}
         />

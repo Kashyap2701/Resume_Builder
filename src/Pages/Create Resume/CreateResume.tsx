@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import style from "./CreateResume.module.css";
-import previewStyle from "../../Components/Resume Privew/Preview.module.css";
 import Preview from "../../Components/Resume Privew/Preview";
 import ActionBar from "../../Components/Resume Action/ActionBar";
 import { useReactToPrint } from "react-to-print";
