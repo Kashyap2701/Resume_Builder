@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../Store/hooks";
@@ -7,7 +8,7 @@ import style from "./Navbar.module.css";
 
 const Navbar = () => {
   const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
-  const profile = useAppSelector((state) => state.user.user?.profilePhoto);
+  const profile = JSON.parse(localStorage.getItem("user")!).profilePhoto;
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 

@@ -3,7 +3,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 export interface user {
   fullname: string | null;
   email: string | null;
-  profilePhoto: string | null | Promise<string>;
+  profilePhoto: string | null | Promise<string> | Blob;
 }
 
 interface UserState {
@@ -28,17 +28,19 @@ const userSlice = createSlice({
       state.isLoggedIn = true;
       localStorage.setItem("id", state.id);
       localStorage.setItem("isLoggedIn", "true");
-      // localStorage.setItem("user", JSON.stringify(state.user));
+      localStorage.setItem("user", JSON.stringify(state.user));
     },
     loggedOut: (state) => {
       state.user = null;
-      state.isLoggedIn = true;
+      state.isLoggedIn = false;
+      state.id = "";
       localStorage.setItem("id", "");
       localStorage.setItem("isLoggedIn", "false");
-      // localStorage.setItem("user", "null");
+      localStorage.setItem("user", "null");
     },
     editUser: (state, action: PayloadAction<user>) => {
       state.user = action.payload;
+      localStorage.setItem("user", JSON.stringify(state.user));
     },
   },
 });

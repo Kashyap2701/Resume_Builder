@@ -16,7 +16,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const storage = getStorage();
 
-export const uploadPhoto = async (uploadImg) => {
+export const uploadPhoto = async (uploadImg:Blob) => {
   const imageRef = ref(storage, `profilePhoto/${uuid() + uploadImg.name}`);
   await uploadBytes(imageRef, uploadImg);
   const downloadURL = await getDownloadURL(imageRef);
