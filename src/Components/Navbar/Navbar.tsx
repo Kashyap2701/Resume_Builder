@@ -8,10 +8,11 @@ import style from "./Navbar.module.css";
 
 const Navbar = () => {
   const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
-  const profile = JSON.parse(localStorage.getItem("user")!).profilePhoto;
+  const profile = JSON.parse(
+    localStorage.getItem("user") as string
+  )?.profilePhoto;
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
   const logoutHandler = () => {
     dispatch(userActions.loggedOut());
     navigate("/login");
