@@ -9,22 +9,28 @@ import { Row } from "../../Utils/FormStyle";
 import styles from "./MyResume.module.css";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../Service/firebase";
+import { ThreeDots } from "react-loader-spinner";
 
 export const MyResumes = () => {
   const id = useAppSelector((state) => state.user.id);
-  const resumeList = useAppSelector((state) => state.resume.resumeList);
-  const dispatch = useAppDispatch();
   const [isDelete, setIsDelete] = useState(false);
   const [searchedResume, setSearchedResume] = useState<resume[]>([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const resumeList = useAppSelector((state) => state.resume.resumeList);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
+    setIsLoading(true);
     dispatch(fetchResumeList(id));
+    setIsLoading(false);
   }, [isDelete]);
 
   const deleteResumeHandler = async (id: string) => {
+    setIsLoading(true);
     await deleteDoc(doc(db, "resume", id));
     setIsDelete(!isDelete);
+    setIsLoading(false);
   };
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -51,15 +57,32 @@ export const MyResumes = () => {
           />
         </Row>
         <div className={styles.resumeList}>
-          {((isSearching == true && searchedResume) || resumeList).map(
-            (resume) => (
-              <ResumeCard
-                key={resume.id}
-                id={resume.id}
-                title={resume.resume_title}
-                deleteHandler={deleteResumeHandler}
-              />
+          {!isLoading ? (
+            ((isSearching == true && searchedResume) || resumeList).map(
+              (resume) => (
+                <ResumeCard
+                  key={resume.id}
+                  id={resume.id}
+                  title={resume.resume_title}
+                  deleteHandler={deleteResumeHandler}
+                />
+              )
             )
+          ) : (
+            <ThreeDots
+              height="80"
+              width="80"
+              radius="9"
+              color="#ea5a49"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{
+                width: "100%",
+                height: "60vh",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              visible={true}
+            />
           )}
         </div>
       </div>
