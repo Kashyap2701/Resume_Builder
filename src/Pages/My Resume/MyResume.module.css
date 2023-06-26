@@ -1,18 +1,27 @@
-.resumePage {
+.container {
+  max-width: 1305px;
+  margin: 0 auto;
   padding: 20px;
 }
 
-.resumePage h1 {
+.resumeHeader {
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.resumeHeader h1 {
   color: var(--primary-color);
-  margin-bottom: 2rem;
 }
 
 .resumeActions {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
 }
-
+.resumeActions button {
+  margin-right: 0.5rem;
+}
 .resumeList {
   display: flex;
   flex-wrap: wrap;
@@ -37,6 +46,37 @@
   color: #777;
 }
 
-.resumeActions button {
-  margin-bottom: 0.5rem;
+.noresumesection {
+  width: 100%;
+  height: 60vh;
+  text-align: center;
+  color: var(--light-color);
+}
+.noresumesection img {
+  opacity: 0.8;
+}
+
+hr {
+  margin: 10px 0;
+}
+
+@media screen and (max-width: 480px) {
+  .resumeActions {
+    flex-direction: column;
+  }
+  .resumeActions > * {
+    margin-bottom: 1rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .resumeHeader h1 {
+    margin-bottom: 1rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .resumeList {
+    justify-content: space-around;
+  }
 }

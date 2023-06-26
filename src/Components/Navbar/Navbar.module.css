@@ -38,6 +38,7 @@
 }
 
 .dropdown {
+  z-index: 99;
 }
 
 .dropdown:hover .dropdown-items {

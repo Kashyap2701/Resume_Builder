@@ -31,10 +31,12 @@ export interface resume {
 export type resumeData = Extract<resume, { resumeData: unknown }>["resumeData"];
 
 interface ResumeState {
+  status: "pending" | "fullfilled" | "rejected" | "";
   resumeList: resume[];
 }
 
 const initialState: ResumeState = {
+  status: "",
   resumeList: [],
 };
 
@@ -52,12 +54,19 @@ const resumeSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(fetchResumeList.pending, (state) => {
+      state.status = "pending";
+    });
     builder.addCase(
       fetchResumeList.fulfilled,
       (state, action: PayloadAction<any>) => {
+        state.status = "fullfilled";
         state.resumeList = action.payload;
       }
     );
+    builder.addCase(fetchResumeList.rejected, (state) => {
+      state.status = "rejected";
+    });
   },
 });
 

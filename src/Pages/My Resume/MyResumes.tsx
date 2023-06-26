@@ -2,6 +2,7 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../../Components/Navbar/Navbar";
+import noresume from "../../Assets/noresumes.png";
 import ResumeCard from "../../Components/ResumeCard/ResumeCard";
 import { useAppDispatch, useAppSelector } from "../../Store/hooks";
 import { fetchResumeList, resume } from "../../Store/resumeSlice";
@@ -16,21 +17,17 @@ export const MyResumes = () => {
   const [isDelete, setIsDelete] = useState(false);
   const [searchedResume, setSearchedResume] = useState<resume[]>([]);
   const [isSearching, setIsSearching] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const resumeList = useAppSelector((state) => state.resume.resumeList);
+  const status = useAppSelector((state) => state.resume.status);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    setIsLoading(true);
     dispatch(fetchResumeList(id));
-    setIsLoading(false);
   }, [isDelete]);
 
   const deleteResumeHandler = async (id: string) => {
-    setIsLoading(true);
     await deleteDoc(doc(db, "resume", id));
     setIsDelete(!isDelete);
-    setIsLoading(false);
   };
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -44,47 +41,64 @@ export const MyResumes = () => {
   return (
     <>
       <Navbar />
-      <div className={styles.resumePage}>
-        <h1>My Resumes</h1>
-        <Row className={styles.resumeActions}>
-          <button className="secondary-button">
-            <Link to={`/create-resume`}>Create Resume</Link>
-          </button>
-          <input
-            type="text"
-            placeholder="Search by Title"
-            onChange={changeHandler}
-          />
+      <div className={styles.container}>
+        <Row className={styles.resumeHeader}>
+          <h1>Resume List</h1>
+          <div className={styles.resumeActions}>
+            <Link to={`/create-resume`}>
+              <button className="secondary-button">Create Resume </button>
+            </Link>
+
+            <input
+              type="text"
+              placeholder="Search by Title"
+              onChange={changeHandler}
+            />
+          </div>
         </Row>
-        <div className={styles.resumeList}>
-          {!isLoading ? (
-            ((isSearching == true && searchedResume) || resumeList).map(
-              (resume) => (
+        <hr />
+        {status === "fullfilled" ? (
+          <div className={styles.resumeList}>
+            {(isSearching && searchedResume.length === 0
+              ? []
+              : isSearching
+              ? searchedResume
+              : resumeList
+            ).length !== 0 ? (
+              ((isSearching && searchedResume) || resumeList).map((resume) => (
                 <ResumeCard
                   key={resume.id}
                   id={resume.id}
                   title={resume.resume_title}
                   deleteHandler={deleteResumeHandler}
                 />
-              )
-            )
-          ) : (
+              ))
+            ) : (
+              <div className={styles.noresumesection}>
+                <img src={noresume} alt="empty-resumelist" />
+              </div>
+            )}
+          </div>
+        ) : (
+          <div
+            style={{
+              width: "100%",
+              height: "60vh",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <ThreeDots
               height="80"
               width="80"
               radius="9"
               color="#ea5a49"
               ariaLabel="three-dots-loading"
-              wrapperStyle={{
-                width: "100%",
-                height: "60vh",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
               visible={true}
             />
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </>
   );
