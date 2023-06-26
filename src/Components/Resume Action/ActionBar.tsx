@@ -118,7 +118,7 @@ const ActionBar = (props: ActionBarProps) => {
     };
     try {
       const response = await updateDoc(resumeRef, updatedResume);
-      save("Resume Saved");
+      save("Resume Updated");
       console.log(response);
       navigate("/my-resumes");
     } catch (error) {

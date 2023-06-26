@@ -17,6 +17,7 @@ import {
   curResumeActions,
   fetchResumeDetails,
 } from "../../Store/curResumeSlice";
+import { Toaster } from "react-hot-toast";
 
 const CreateResume = () => {
   const resumeRef = useRef(null);
@@ -102,6 +103,7 @@ const CreateResume = () => {
           </Modal>
         )}
       </div>
+      <Toaster position="bottom-center" reverseOrder={false} />
     </div>
   ) : (
     <ThreeDots

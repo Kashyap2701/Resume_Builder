@@ -1,14 +1,17 @@
 import { createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import { profile } from "./ResumeFormSlices/profileSlice";
-import { contact } from "./ResumeFormSlices/contactSlice";
-import { experience } from "./ResumeFormSlices/workSlice";
-import { degree } from "./ResumeFormSlices/educationSlice";
-import { interest } from "./ResumeFormSlices/interestSlice";
-import { language } from "./ResumeFormSlices/languageSlice";
-import { skill } from "./ResumeFormSlices/skillSlice";
+
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../Service/firebase";
+import {
+  profile,
+  contact,
+  experience,
+  degree,
+  skill,
+  interest,
+  language,
+} from "../Utils/Types";
 
 export interface resume {
   id: string;
@@ -28,10 +31,12 @@ export interface resume {
 export type resumeData = Extract<resume, { resumeData: unknown }>["resumeData"];
 
 interface ResumeState {
+  status: "pending" | "fullfilled" | "rejected" | "";
   resumeList: resume[];
 }
 
 const initialState: ResumeState = {
+  status: "",
   resumeList: [],
 };
 
@@ -49,12 +54,19 @@ const resumeSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(fetchResumeList.pending, (state) => {
+      state.status = "pending";
+    });
     builder.addCase(
       fetchResumeList.fulfilled,
       (state, action: PayloadAction<any>) => {
+        state.status = "fullfilled";
         state.resumeList = action.payload;
       }
     );
+    builder.addCase(fetchResumeList.rejected, (state) => {
+      state.status = "rejected";
+    });
   },
 });
 
