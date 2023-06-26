@@ -8,6 +8,9 @@ import { ImLink } from "react-icons/im";
 import { useAppSelector } from "../../../Store/hooks";
 
 function Contacts() {
+  const resumeColor = useAppSelector(
+    (state) => state.curResume.resumeDetails.color
+  );
   const contacts = useAppSelector(
     (state) => state.curResume.resumeDetails.resumeData.contacts
   );
@@ -21,7 +24,7 @@ function Contacts() {
             {contacts.mobileno && (
               <div className={style["contact"]}>
                 <div className={style["icon"]}>
-                  <FaMobile />
+                  <FaMobile style={{ color: `${resumeColor}` }} />
                 </div>
                 <span>{contacts.mobileno}</span>
               </div>
@@ -29,7 +32,7 @@ function Contacts() {
             {contacts.email && (
               <div className={style["contact"]}>
                 <div className={style["icon"]}>
-                  <MdMail />
+                  <MdMail style={{ color: `${resumeColor}` }} />
                 </div>
                 <span>{contacts.email}</span>
               </div>
@@ -37,7 +40,7 @@ function Contacts() {
             {contacts.website && (
               <div className={style["contact"]}>
                 <div className={style["icon"]}>
-                  <ImLink />
+                  <ImLink style={{ color: `${resumeColor}` }} />
                 </div>
                 <span>
                   <a href="">{contacts.website}</a>
@@ -47,7 +50,7 @@ function Contacts() {
             {contacts.address && (
               <div className={style["contact"]}>
                 <div className={style["icon"]}>
-                  <IoLocationSharp />
+                  <IoLocationSharp style={{ color: `${resumeColor}` }}  />
                 </div>
                 <span>{contacts.address}</span>
               </div>

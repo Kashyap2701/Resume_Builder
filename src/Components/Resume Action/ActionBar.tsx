@@ -10,9 +10,10 @@ import { useNavigate, useParams } from "react-router";
 import uuid from "react-uuid";
 import { db } from "../../Service/firebase";
 import { useAppDispatch, useAppSelector } from "../../Store/hooks";
-import { resume, resumeActions } from "../../Store/resumeSlice";
+import { resumeActions } from "../../Store/resumeSlice";
 import { Input } from "../../Utils/FormStyle";
 import { save } from "../../Utils/Toster";
+import { resume } from "../../Utils/Types";
 import style from "./Actionbar.module.css";
 
 type ActionBarProps = {
@@ -48,6 +49,9 @@ const ActionBar = (props: ActionBarProps) => {
   const education = useAppSelector(
     (state) => state.curResume.resumeDetails.resumeData.education
   );
+  const resumeColor = useAppSelector(
+    (state) => state.curResume.resumeDetails.color
+  );
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -73,6 +77,7 @@ const ActionBar = (props: ActionBarProps) => {
       id: uuid(),
       resume_title: title,
       userId: id,
+      color: resumeColor,
       resumeData: {
         profileInfo,
         contacts,
@@ -100,6 +105,7 @@ const ActionBar = (props: ActionBarProps) => {
     const resumeRef = doc(db, "resume", resume_id!);
     const updatedResume = {
       resume_title: title,
+      color: resumeColor,
       resumeData: {
         profileInfo,
         contacts,
