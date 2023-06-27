@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React from "react";
-import FormHeader from "../FormHeader";
 import { useState } from "react";
 import { Formik, Form, FormikConfig, FormikHelpers } from "formik";
 import {
@@ -8,21 +8,21 @@ import {
   Divider,
   AccordianForm,
   ButtonRight,
+  FlexContainer,
+  NewItem,
+  InfoList,
 } from "../../../Utils/FormStyle";
 import { RxCross2 } from "react-icons/rx";
 import { GrFormAdd } from "react-icons/gr";
 import InputField from "../../InputField/InputField";
-import style from "./Style.module.css";
-import { initialValuefoeEducationInfo } from "../../../Utils/ResumeForm";
+import { initialValuefoeEducationInfo } from "../../../Utils/InitialValue";
 import { useAppDispatch, useAppSelector } from "../../../Store/hooks";
-import {
-  degree,
-  educationAction,
-} from "../../../Store/ResumeFormSlices/educationSlice";
 import uuid from "react-uuid";
 import { save } from "../../../Utils/Toster";
 import { validationschemaforEducation } from "../../../Utils/ValidationSchema";
 import { curResumeActions } from "../../../Store/curResumeSlice";
+import AccordianHeader from "../AccordianHeader";
+import { degree } from "../../../Utils/Types";
 
 const AddEducation = () => {
   const [isexpand, setIsExpand] = useState(false);
@@ -35,6 +35,7 @@ const AddEducation = () => {
     initialValuefoeEducationInfo
   );
 
+  // Handler to save education details
   const submitHandler: FormikConfig<degree>["onSubmit"] = (
     values: degree,
     { resetForm }: FormikHelpers<degree>
@@ -51,57 +52,67 @@ const AddEducation = () => {
     resetForm();
   };
 
-  const editEducationHandler = (e) => {
-    const id = e.target.id;
+  // Handler to edit eduacation details
+  const editEducationHandler = (e: React.MouseEvent<HTMLDivElement | null>) => {
+    const node = e.target as HTMLDivElement | null;
+    const id = node!.id;
     setButtonText("Update");
     setCurrentEducation(educations.filter((data) => data.id == id)[0]);
   };
 
-  const deleteEducationHandler = (e) => {
-    const id = e.target.parentNode.id;
+  // Handler to delete education details
+  const deleteEducationHandler = (e: React.MouseEvent<SVGElement>) => {
+    e.stopPropagation();
+    const parentNode = e.target as HTMLDivElement | null;
+    const grandParentNode = parentNode?.parentNode as HTMLDivElement;
+    const id = grandParentNode!.id;
     dispatch(curResumeActions.deleteEducation(id));
   };
 
-  const newEducationHandler = (e) => {
+  // Handler to add new education details
+  const newEducationHandler = () => {
     setButtonText("Save");
-    setCurrentEducation(currentEducation);
+    setCurrentEducation(initialValuefoeEducationInfo);
   };
 
   return (
     <div>
-      <FormHeader
+      <AccordianHeader
         title="Education"
         isexpand={isexpand}
         toggleSection={setIsExpand}
       />
       {isexpand && (
         <AccordianForm>
-          <div className={style["container"]}>
+          {/* Education History Section */}
+          <FlexContainer className="p-0-5">
             {educations.map((data) => {
               return (
-                <div
+                <InfoList
                   key={data.id}
                   id={data.id}
-                  className={style["item"]}
                   onClick={editEducationHandler}
                 >
                   <span>{data.title}</span>
                   <RxCross2 onClick={deleteEducationHandler} />
-                </div>
+                </InfoList>
               );
             })}
+            {/* Button for add new education */}
             {educations.length != 0 && (
-              <div className={style["new-item"]} onClick={newEducationHandler}>
+              <NewItem onClick={newEducationHandler}>
                 <GrFormAdd />
                 <span>New</span>
-              </div>
+              </NewItem>
             )}
-          </div>
+          </FlexContainer>
+
+          {/* Education Editor Section */}
           <Formik
             initialValues={currentEducation}
-            onSubmit={submitHandler}
             validationSchema={validationschemaforEducation}
             enableReinitialize={true}
+            onSubmit={submitHandler}
           >
             <Form>
               <Column>
@@ -141,7 +152,9 @@ const AddEducation = () => {
                 />
               </Column>
               <ButtonRight>
-                <button className="secondary-button">Save</button>
+                <button className="secondary-button" type="submit">
+                  {buttonText}
+                </button>
               </ButtonRight>
             </Form>
           </Formik>

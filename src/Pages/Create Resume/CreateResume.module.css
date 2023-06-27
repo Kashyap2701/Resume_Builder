@@ -1,7 +1,7 @@
 .container {
-  height: calc(100vh - 50px);
-  width: 100%;
-  position: relative;
+  /* height: calc(100vh - 50px); */
+  /* width: 100%;
+  position: relative; */
 }
 
 .resume-container {
@@ -10,9 +10,11 @@
 
 .resume-form {
   width: 50%;
-  height: 100%;
   background-color: white;
+  height: 100vh;
+  overflow-y: auto;
   position: relative;
+  padding: 2rem;
 }
 
 .resume-preview {
@@ -24,24 +26,17 @@
   position: relative;
 }
 
-.form-section {
-  height: 100vh;
-  overflow-y: auto;
-  position: relative;
-  padding: 2rem;
-}
-
-.form-section::-webkit-scrollbar {
+.resume-form::-webkit-scrollbar {
   width: 8px;
   position: absolute;
   right: -10px;
 }
 
-.form-section::-webkit-scrollbar-track {
+.resume-form::-webkit-scrollbar-track {
   border-radius: 7px;
 }
 
-.form-section::-webkit-scrollbar-thumb {
+.resume-form::-webkit-scrollbar-thumb {
   background-color: var(----primary-color-opacity-light);
   border-radius: 7px;
 }
@@ -72,7 +67,7 @@
     display: none;
   }
 
-  .form-section {
+  .resume-form {
     padding: 1rem;
   }
 }

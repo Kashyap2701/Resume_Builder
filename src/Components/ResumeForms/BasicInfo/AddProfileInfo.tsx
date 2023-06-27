@@ -1,24 +1,26 @@
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
-import { initialValueforProfileInfo } from "../../../Utils/ResumeForm";
-import style from "./BasicInfo.module.css";
+import { initialValueforProfileInfo } from "../../../Utils/InitialValue";
 import InputField from "../../InputField/InputField";
 import {
   AccordianForm,
   ButtonRight,
   Divider,
+  FlexContainerCenter,
+  ProfileUploadSection,
   Row,
 } from "../../../Utils/FormStyle";
 import { FaUserEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import FormHeader from "../FormHeader";
 import noprofile from "../../../Assets/no-profile.png";
 import { Toaster } from "react-hot-toast";
 import { save } from "../../../Utils/Toster";
 import { useAppDispatch, useAppSelector } from "../../../Store/hooks";
-import { profile } from "../../../Store/ResumeFormSlices/profileSlice";
 import { useParams } from "react-router";
 import { curResumeActions } from "../../../Store/curResumeSlice";
+import { profile } from "../../../Utils/Types";
+import Avatar from "../../Avatar";
+import AccordianHeader from "../AccordianHeader";
 
 const AddProfileInfo = () => {
   const [isexpand, setIsExpand] = useState(true);
@@ -53,7 +55,7 @@ const AddProfileInfo = () => {
   return (
     <div>
       {/* Profile Info section */}
-      <FormHeader
+      <AccordianHeader
         title="Profile Info"
         isexpand={isexpand}
         toggleSection={setIsExpand}
@@ -68,12 +70,10 @@ const AddProfileInfo = () => {
           >
             {({ setFieldValue }) => (
               <Form>
-                <div className={style["profile-upload-container"]}>
-                  {/* profile photo section */}
-                  <div className={style["profile-preview"]}>
-                    <div className={style["profile-image"]}>
-                      <img src={previewImage} alt="profile-image" />
-                    </div>
+                {/* profile photo section */}
+                <ProfileUploadSection>
+                  <FlexContainerCenter>
+                    <Avatar size="4rem" src={previewImage} />
                     <label htmlFor="profilePhoto">
                       <FaUserEdit />
                     </label>
@@ -94,8 +94,9 @@ const AddProfileInfo = () => {
                         setPreviewImage(noprofile);
                       }}
                     />
-                  </div>
-                </div>
+                  </FlexContainerCenter>
+                </ProfileUploadSection>
+                {/* profile details section */}
                 <Row>
                   <InputField
                     id="firstname"

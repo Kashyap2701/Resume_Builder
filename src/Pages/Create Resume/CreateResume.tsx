@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from "react";
 import style from "./CreateResume.module.css";
 import Preview from "../../Components/Resume Privew/Preview";
@@ -5,24 +6,20 @@ import ActionBar from "../../Components/Resume Action/ActionBar";
 import { useReactToPrint } from "react-to-print";
 import { useParams } from "react-router";
 import { useAppDispatch, useAppSelector } from "../../Store/hooks";
-import ResumeForms from "../../Components/ResumeForms/ResumeForms";
-import Modal from "react-modal";
-import {
-  customStyles,
-  modalActionButton,
-  modalActionButtonContainer,
-} from "../../Utils/ModalStyle";
-import { ThreeDots } from "react-loader-spinner";
 import {
   curResumeActions,
   fetchResumeDetails,
 } from "../../Store/curResumeSlice";
 import { Toaster } from "react-hot-toast";
+import LoadingDots from "../../Components/LoadingDots";
+import { Container, FlexContainer } from "../../Utils/FormStyle";
+import PreviewModal from "../../Components/PreviewModal";
+import ResumeEditor from "../../Components/ResumeForms/ResumeEditor";
 
 const CreateResume = () => {
   const resumeRef = useRef(null);
   const resumeId = useParams().id as string;
-  const iseditMode = resumeId ? true : false;
+  const iseditMode = !!resumeId;
   const resume = useAppSelector(
     (state) =>
       state.resume.resumeList.filter((resume) => resume.id == resumeId)[0]
@@ -30,7 +27,6 @@ const CreateResume = () => {
   const status = useAppSelector((state) => state.curResume.status);
   const [isOpen, setIsOpen] = useState(false);
   const screenWidth = window.innerWidth;
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -40,17 +36,19 @@ const CreateResume = () => {
     return () => {
       dispatch(curResumeActions.resetState());
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Handler for open preview modal
   function openModal() {
     setIsOpen(true);
   }
 
+  // Handler for close preview modal
   function closeModal() {
     setIsOpen(false);
   }
 
+  // Handler for download resume to
   const downloadresumeHandler = useReactToPrint({
     content: () => resumeRef.current,
     pageStyle: `
@@ -61,65 +59,33 @@ const CreateResume = () => {
   });
 
   return status == "fulfilled" || status == "" ? (
-    <div className={style["container"]}>
+    <Container>
       <ActionBar
         downloadresumeHandler={downloadresumeHandler}
         title={resume ? resume.resume_title : ""}
         openModal={openModal}
       />
-      <div className={style["resume-container"]}>
+      <FlexContainer>
         <div className={style["resume-form"]}>
-          <div className={style["form-section"]}>
-            <ResumeForms editMode={iseditMode} currentResume={resume} />
-          </div>
+          <ResumeEditor />
         </div>
         <div className={style["resume-preview"]}>
           <Preview ref={resumeRef} />
         </div>
+        {/* if screen width less then 1024, resume preview will convert to Modal */}
         {screenWidth <= 1024 && (
-          <Modal
+          <PreviewModal
             isOpen={isOpen}
-            contentLabel="Example Modal"
-            ariaHideApp={false}
-            style={customStyles}
-          >
-            <div style={modalActionButtonContainer}>
-              <button
-                className="secondary-button"
-                style={modalActionButton}
-                onClick={() => closeModal()}
-              >
-                Close
-              </button>
-              <button
-                className="secondary-button"
-                style={modalActionButton}
-                onClick={downloadresumeHandler}
-              >
-                Download
-              </button>
-            </div>
-            <Preview ref={resumeRef} />
-          </Modal>
+            closeModal={closeModal}
+            downloadresumeHandler={downloadresumeHandler}
+            resumeRef={resumeRef}
+          />
         )}
-      </div>
+      </FlexContainer>
       <Toaster position="bottom-center" reverseOrder={false} />
-    </div>
+    </Container>
   ) : (
-    <ThreeDots
-      height="80"
-      width="80"
-      radius="9"
-      color="#ea5a49"
-      ariaLabel="three-dots-loading"
-      wrapperStyle={{
-        width: "100%",
-        height: "100vh",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-      visible={true}
-    />
+    <LoadingDots />
   );
 };
 

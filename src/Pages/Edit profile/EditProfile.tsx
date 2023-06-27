@@ -15,10 +15,14 @@ import { auth, uploadPhoto } from "../../Service/firebase";
 import { updateProfile } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 import { ThreeDots } from "react-loader-spinner";
+import noprofile from "../../Assets/no-profile.png";
+import LoadingDots from "../../Components/LoadingDots";
 
 const EditProfile = () => {
   const currentUser: user = JSON.parse(localStorage.getItem("user")!);
-  const [previewImage, setPreviewImage] = useState(currentUser?.profilePhoto);
+  const [previewImage, setPreviewImage] = useState(
+    currentUser?.profilePhoto || noprofile
+  );
   const [isPhotoUpdated, setPhotoUpdate] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const dispatch = useAppDispatch();
@@ -29,6 +33,7 @@ const EditProfile = () => {
     profilePhoto: "",
   };
 
+  // Handler for preview image
   const handlePreviewImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file: File | undefined = e.target.files?.[0];
     const reader: FileReader = new FileReader();
@@ -41,6 +46,7 @@ const EditProfile = () => {
     }
   };
 
+  // Handler to update profile details
   const profileUpdateHandler = async (values: user) => {
     setLoading(true);
     const curUser = auth.currentUser!;
@@ -92,11 +98,13 @@ const EditProfile = () => {
               {({ setFieldValue }) => (
                 <Form>
                   <Column className={styles.profile}>
+                    {/* preview photo that uploaded */}
                     <Avatar
                       size="3rem"
                       src={previewImage as string}
                       classname={styles.profilephoto}
                     />
+                    {/* Input for upload profile photo */}
                     <Field
                       id="profilePhoto"
                       name="profilePhoto"
@@ -116,6 +124,7 @@ const EditProfile = () => {
                     label="Email"
                     readOnly={true}
                   />
+                  {/* Button for update profile */}
                   <button className="primary-button" type="submit">
                     Update
                   </button>
@@ -126,20 +135,7 @@ const EditProfile = () => {
           </div>
         </div>
       ) : (
-        <ThreeDots
-          height="80"
-          width="80"
-          radius="9"
-          color="#ea5a49"
-          ariaLabel="three-dots-loading"
-          wrapperStyle={{
-            width: "100%",
-            height: "100vh",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          visible={true}
-        />
+        <LoadingDots />
       )}
     </>
   );

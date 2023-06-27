@@ -1,3 +1,15 @@
+export interface loginFormData {
+  email: string;
+  password: string;
+}
+
+export interface signupFormData {
+  fullName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
 export interface profile {
   profilePhoto: string;
   firstname: string;

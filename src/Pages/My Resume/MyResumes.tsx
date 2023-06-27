@@ -10,7 +10,7 @@ import { Row } from "../../Utils/FormStyle";
 import styles from "./MyResume.module.css";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../Service/firebase";
-import { ThreeDots } from "react-loader-spinner";
+import LoadingDots from "../../Components/LoadingDots";
 
 export const MyResumes = () => {
   const id = useAppSelector((state) => state.user.id);
@@ -25,14 +25,18 @@ export const MyResumes = () => {
     dispatch(fetchResumeList(id));
   }, [isDelete]);
 
+  // Handler to delete single resume
   const deleteResumeHandler = async (id: string) => {
     await deleteDoc(doc(db, "resume", id));
     setIsDelete(!isDelete);
   };
 
-  const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  // Handler to search resume
+  const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const filteredResumeList = resumeList.filter((resume) =>
-      resume.resume_title.toLocaleLowerCase().includes(e.target.value)
+      resume.resume_title
+        .toLocaleLowerCase()
+        .includes(e.target.value.toLocaleLowerCase())
     );
     setSearchedResume(filteredResumeList);
     setIsSearching(true);
@@ -48,11 +52,11 @@ export const MyResumes = () => {
             <Link to={`/create-resume`}>
               <button className="secondary-button">Create Resume </button>
             </Link>
-
+            {/* input-box for search resume */}
             <input
               type="text"
               placeholder="Search by Title"
-              onChange={changeHandler}
+              onChange={searchHandler}
             />
           </div>
         </Row>
@@ -74,30 +78,14 @@ export const MyResumes = () => {
                 />
               ))
             ) : (
+              // no resume found background image
               <div className={styles.noresumesection}>
                 <img src={noresume} alt="empty-resumelist" />
               </div>
             )}
           </div>
         ) : (
-          <div
-            style={{
-              width: "100%",
-              height: "60vh",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <ThreeDots
-              height="80"
-              width="80"
-              radius="9"
-              color="#ea5a49"
-              ariaLabel="three-dots-loading"
-              visible={true}
-            />
-          </div>
+          <LoadingDots />
         )}
       </div>
     </>

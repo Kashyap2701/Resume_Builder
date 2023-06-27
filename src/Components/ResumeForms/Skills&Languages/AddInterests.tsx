@@ -1,12 +1,17 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React from "react";
 import { useState } from "react";
-import FormHeader from "../FormHeader";
-import { AccordianForm, Input, Wrapper } from "../../../Utils/FormStyle";
+import {
+  AccordianForm,
+  FlexWrapContainer,
+  Input,
+  ListItem,
+} from "../../../Utils/FormStyle";
 import { RxCross2 } from "react-icons/rx";
-import style from "./Style.module.css";
 import { useAppDispatch, useAppSelector } from "../../../Store/hooks";
 import uuid from "react-uuid";
 import { curResumeActions } from "../../../Store/curResumeSlice";
+import AccordianHeader from "../AccordianHeader";
 
 const AddInterests = () => {
   const [isexpand, setIsExpand] = useState(false);
@@ -15,7 +20,8 @@ const AddInterests = () => {
   );
   const dispatch = useAppDispatch();
 
-  const addinteresthandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  // Handler to add new interest
+  const addInteresthandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const interestName = e.target as HTMLInputElement;
     if (e.key === "Enter" && interestName.value.trim() != "") {
       const newInterest = {
@@ -27,14 +33,15 @@ const AddInterests = () => {
     }
   };
 
-  const deleteHandler = (e) => {
-    console.log(e.target.parentNode?.id);
-    dispatch(curResumeActions.deleteinterest(e.target.parentNode.id));
+  // Handler to delete interest
+  const deleteInterestHandler = (e: React.MouseEvent<SVGElement>) => {
+    const parentNode = e.currentTarget.parentNode as HTMLDivElement | null;
+    dispatch(curResumeActions.deleteinterest(parentNode!.id));
   };
 
   return (
     <div>
-      <FormHeader
+      <AccordianHeader
         title="Interests"
         isexpand={isexpand}
         toggleSection={setIsExpand}
@@ -45,27 +52,18 @@ const AddInterests = () => {
             type="text"
             defaultValue=""
             placeholder="Type Your Hobbies or Interest Here & Press 'Enter'"
-            onKeyDown={addinteresthandler}
+            onKeyDown={addInteresthandler}
           />
-          <Wrapper>
-            <div className={style["container"]}>
-              {interests.map((interest) => {
-                return (
-                  <div
-                    key={interest.id}
-                    id={interest.id}
-                    className={style["item"]}
-                  >
-                    <span className={style["text"]}>{interest.name}</span>
-                    <RxCross2
-                      className={style["cancel-icon"]}
-                      onClick={deleteHandler}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          </Wrapper>
+          <FlexWrapContainer className="p-0-5">
+            {interests.map((interest) => {
+              return (
+                <ListItem key={interest.id} id={interest.id}>
+                  <span>{interest.name}</span>
+                  <RxCross2 onClick={deleteInterestHandler} />
+                </ListItem>
+              );
+            })}
+          </FlexWrapContainer>
         </AccordianForm>
       )}
     </div>

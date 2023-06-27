@@ -2,7 +2,7 @@ import React from "react";
 import style from "./ColorPicker.module.css";
 
 type ColorPickerType = {
-  colorHandler: (e) => void;
+  colorHandler: (e: React.MouseEvent) => void;
 };
 
 const ColorPicker = ({ colorHandler }: ColorPickerType) => {

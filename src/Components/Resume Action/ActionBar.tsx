@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import React, {
   ChangeEvent,
@@ -28,6 +29,8 @@ const ActionBar = (props: ActionBarProps) => {
   );
   const id = useAppSelector((state) => state.user.id);
   const resume_id = useParams().id;
+
+  // Get data from redux to show the live preview
   const profileInfo = useAppSelector(
     (state) => state.curResume.resumeDetails.resumeData.profileInfo
   );
@@ -56,6 +59,7 @@ const ActionBar = (props: ActionBarProps) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  // Adjust preview button regarding size
   useEffect(() => {
     window.addEventListener("resize", () => {
       setScreenWidth(window.innerWidth);
@@ -101,7 +105,6 @@ const ActionBar = (props: ActionBarProps) => {
 
   // Handler for updating an existing resume
   const updateresumeHandler = async () => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const resumeRef = doc(db, "resume", resume_id!);
     const updatedResume = {
       resume_title: title,
@@ -138,6 +141,7 @@ const ActionBar = (props: ActionBarProps) => {
       </div>
       <div className={style["resume-actions"]}>
         {screenWidth <= 1024 && (
+          // Button for preview resume
           <button onClick={() => props.openModal()}>
             <span>
               <FaEye /> <span>Preview</span>

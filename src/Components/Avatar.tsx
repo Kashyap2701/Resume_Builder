@@ -15,7 +15,16 @@ const Avatar = ({ size, src = noprofile, classname }: AvatarProps) => {
 
   return (
     <div className={classname} style={profile}>
-      <img src={src} alt="profile-photo" />
+      <img
+        src={src}
+        alt="profile-photo"
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          borderRadius: "50%",
+        }}
+      />
     </div>
   );
 };

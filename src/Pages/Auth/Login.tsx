@@ -3,10 +3,8 @@ import style from "./Auth.module.css";
 import loginImage from "../../Assets/login-image.jpg";
 import InputField from "../../Components/InputField/InputField";
 import { Form, Formik } from "formik";
-import {
-  initialValuesForLoginForm,
-  validationSchemaForLogin,
-} from "./AuthFormUtil";
+import { initialValuesForLoginForm } from "../../Utils/InitialValue";
+import { validationSchemaForLogin } from "../../Utils/ValidationSchema";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../Service/firebase";
@@ -15,34 +13,29 @@ import { userActions } from "../../Store/userSlice";
 import { error } from "../../Utils/Toster";
 import { Toaster } from "react-hot-toast";
 import { FirebaseError } from "firebase/app";
-
-type LoginData = {
-  email: string;
-  password: string;
-};
+import { loginFormData } from "../../Utils/Types";
 
 const Login = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const submitHandler = async (values: LoginData) => {
+
+  // Handler to login user 
+  const submitHandler = async (values: loginFormData) => {
     try {
       const response = await signInWithEmailAndPassword(
         auth,
         values.email,
         values.password
       );
-
       const currentUser = {
         fullname: response.user.displayName,
         email: response.user.email,
         profilePhoto: response.user.photoURL,
       };
-
       dispatch(
         userActions.loggedIn({ id: response.user.uid, user: currentUser })
       );
       navigate("/");
-      console.log(response);
     } catch (e) {
       if (e instanceof FirebaseError) error(e.message);
     }
@@ -82,7 +75,7 @@ const Login = () => {
           </div>
         </div>
         <div className={style["image-section"]}>
-          <img src={loginImage} alt="" />
+          <img src={loginImage} alt="login-image" />
         </div>
       </div>
     </div>

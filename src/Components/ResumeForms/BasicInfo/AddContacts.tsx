@@ -1,8 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Formik, Form } from "formik";
-import FormHeader from "../FormHeader";
-import { initialValueforContactInfo } from "../../../Utils/ResumeForm";
+import { initialValueforContactInfo } from "../../../Utils/InitialValue";
 import {
   AccordianForm,
   ButtonRight,
@@ -17,6 +16,7 @@ import { useAppDispatch, useAppSelector } from "../../../Store/hooks";
 import { useParams } from "react-router";
 import { curResumeActions } from "../../../Store/curResumeSlice";
 import { contact } from "../../../Utils/Types";
+import AccordianHeader from "../AccordianHeader";
 
 const AddContactsForm = () => {
   const [isexpand, setIsExpand] = useState(false);
@@ -26,13 +26,15 @@ const AddContactsForm = () => {
     (state) =>
       state.resume.resumeList.filter((resume) => resume.id == resumeId)[0]
   );
+
+  // Handler to save contact details
   const submitHandler = (values: contact) => {
     dispatch(curResumeActions.addContacts(values));
     save("Contacts Added");
   };
   return (
     <div>
-      <FormHeader
+      <AccordianHeader
         title="Contacts"
         isexpand={isexpand}
         toggleSection={setIsExpand}
