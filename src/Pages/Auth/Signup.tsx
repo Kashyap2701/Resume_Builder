@@ -4,39 +4,29 @@ import InputField from "../../Components/InputField/InputField";
 import signupImg from "../../Assets/signup-image.jpg";
 import { Form, Formik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  initialValuesForSignupForm,
-  validationSchemaForSignup,
-} from "./AuthFormUtil";
+import { initialValuesForSignupForm } from "../../Utils/ResumeForm";
+import { validationSchemaForSignup } from "../../Utils/ValidationSchema";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../../Service/firebase";
 import { error, save } from "../../Utils/Toster";
 import { Toaster } from "react-hot-toast";
 import { FirebaseError } from "firebase/app";
-
-type FormData = {
-  fullName: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-};
+import { signupFormData } from "../../Utils/Types";
 
 const Signup = () => {
   const navigate = useNavigate();
-
-  const submitHandler = async (values: FormData) => {
+  const submitHandler = async (values: signupFormData) => {
     try {
       const response = await createUserWithEmailAndPassword(
         auth,
         values.email,
         values.password
       );
+      save("User Successfully Registered");
       const user = response.user;
       await updateProfile(user, {
         displayName: values.fullName,
       });
-      console.log(user);
-      save("User Successfully Registered");
       navigate("/login");
     } catch (e) {
       if (e instanceof FirebaseError) error(e.message);

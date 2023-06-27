@@ -7,8 +7,10 @@ import Avatar from "../Avatar";
 import style from "./Navbar.module.css";
 
 const Navbar = () => {
+  // Retrieve the login status from the app state
   const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
-  const profile = JSON.parse(localStorage.getItem("user")!).profilePhoto;
+  // Retrieve the profile photo from local storage
+  const profile = JSON.parse(localStorage.getItem("user") || "")?.profilePhoto;
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -27,6 +29,7 @@ const Navbar = () => {
         </div>
         <div className={style["navbar-right-section"]}>
           <ul>
+            {/* Render login button if the user is not logged in */}
             {!isLoggedIn && (
               <li>
                 <Link to="/login">
@@ -34,6 +37,7 @@ const Navbar = () => {
                 </Link>
               </li>
             )}
+            {/* Render user dropdown menu if the user is logged in */}
             {isLoggedIn && (
               <li className={style["dropdown"]}>
                 <Avatar

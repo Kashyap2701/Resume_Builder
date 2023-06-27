@@ -1,3 +1,15 @@
+export const initialValuesForLoginForm = {
+  email: "",
+  password: "",
+};
+
+export const initialValuesForSignupForm = {
+  fullName: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
+
 export const initialValueforProfileInfo = {
   jobtitle: "",
   firstname: "",

@@ -40,3 +40,9 @@ export const AccordianForm = styled.div`
   padding: 1rem;
   margin-bottom: 1rem;
 `;
+
+export const ContainerFlexCenter = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
