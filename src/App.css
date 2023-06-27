@@ -72,6 +72,54 @@ svg:active {
   transform: scale(0.95);
 }
 
+/* 
+------------------------------------
+---------REUSED CLASSES-------------
+------------------------------------ 
+*/
+.p-0-5 {
+  padding: 0.5rem;
+}
+
+.p-1 {
+  padding: 1rem;
+}
+.p-2 {
+  padding: 2rem;
+}
+.p-3 {
+  padding: 3rem;
+}
+
+.m-1 {
+  margin: 1rem;
+}
+.m-2 {
+  margin: 2rem;
+}
+.m-3 {
+  margin: 3rem;
+}
+
+.pos-relative {
+  position: relative;
+}
+.pos-absolute {
+  position: absolute;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.bg-extra-light {
+  background-color: var(--extra-light-color);
+}
+
 .container {
   width: 100vw;
   margin: 0 auto;

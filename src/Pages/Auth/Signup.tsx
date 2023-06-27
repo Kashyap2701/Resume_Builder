@@ -4,7 +4,7 @@ import InputField from "../../Components/InputField/InputField";
 import signupImg from "../../Assets/signup-image.jpg";
 import { Form, Formik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
-import { initialValuesForSignupForm } from "../../Utils/ResumeForm";
+import { initialValuesForSignupForm } from "../../Utils/InitialValue";
 import { validationSchemaForSignup } from "../../Utils/ValidationSchema";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../../Service/firebase";

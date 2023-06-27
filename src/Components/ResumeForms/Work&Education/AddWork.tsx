@@ -1,25 +1,28 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React from "react";
-import FormHeader from "../FormHeader";
 import { useState } from "react";
 import { Formik, Form, FormikHelpers, FormikConfig } from "formik";
-import style from "./Style.module.css";
 import {
   Row,
   Column,
   Divider,
   ButtonRight,
   AccordianForm,
+  NewItem,
+  FlexContainer,
+  InfoList,
 } from "../../../Utils/FormStyle";
 import { RxCross2 } from "react-icons/rx";
 import { GrFormAdd } from "react-icons/gr";
 import InputField from "../../InputField/InputField";
-import { initialValueforWorkInfo } from "../../../Utils/ResumeForm";
+import { initialValueforWorkInfo } from "../../../Utils/InitialValue";
 import uuid from "react-uuid";
 import { save } from "../../../Utils/Toster";
 import { useAppDispatch, useAppSelector } from "../../../Store/hooks";
-import { experience } from "../../../Store/ResumeFormSlices/workSlice";
 import { validationschemaforWork } from "../../../Utils/ValidationSchema";
 import { curResumeActions } from "../../../Store/curResumeSlice";
+import AccordianHeader from "../AccordianHeader";
+import { experience } from "../../../Utils/Types";
 
 const AddWork = () => {
   const experiences = useAppSelector(
@@ -32,7 +35,7 @@ const AddWork = () => {
     initialValueforWorkInfo
   );
 
-  // add or edit experience
+  // Handler to save experiences details
   const submitHandler: FormikConfig<experience>["onSubmit"] = (
     values: experience,
     { resetForm }: FormikHelpers<experience>
@@ -49,28 +52,34 @@ const AddWork = () => {
     resetForm();
   };
 
-  // create new experience
+  // Handler to add new experiences details
   const newExperienceHandler = () => {
     setButtonText("Save");
     setSelectedExperience(initialValueforWorkInfo);
   };
 
-  // edit single experience
-  const editExperienceHandler = (e) => {
-    const id = e.target.id;
+  // Handler to edit single experience details
+  const editExperienceHandler = (
+    e: React.MouseEvent<HTMLDivElement | null>
+  ) => {
+    const node = e.target as HTMLDivElement | null;
+    const id = node!.id;
     setButtonText("Update");
     setSelectedExperience(experiences.filter((data) => data.id == id)[0]);
   };
 
-  // delete single experience
-  const deleteExperienceHandler = (e) => {
-    const id = e.target.parentNode.id;
+  // Handler to delete single experience details
+  const deleteExperienceHandler = (e: React.MouseEvent<SVGElement>) => {
+    e.stopPropagation();
+    const parentNode = e.target as HTMLDivElement | null;
+    const grandParentNode = parentNode?.parentNode as HTMLDivElement;
+    const id = grandParentNode!.id;
     dispatch(curResumeActions.deleteExperience(id));
   };
 
   return (
     <div>
-      <FormHeader
+      <AccordianHeader
         title="Work Experience"
         isexpand={isexpand}
         toggleSection={setIsExpand}
@@ -78,28 +87,30 @@ const AddWork = () => {
 
       {isexpand && (
         <AccordianForm>
-          {/* all the experiences that are added */}
-          <div className={style["container"]}>
+          {/* Experiences History Section */}
+          <FlexContainer className="p-0-5">
             {experiences.map((data) => {
               return (
-                <div
+                <InfoList
                   key={data.id}
                   id={data.id}
-                  className={style["item"]}
                   onClick={editExperienceHandler}
                 >
                   <span>{data.title}</span>
                   <RxCross2 onClick={deleteExperienceHandler} />
-                </div>
+                </InfoList>
               );
             })}
+            {/* Button for add new experience */}
             {experiences.length != 0 && (
-              <div className={style["new-item"]} onClick={newExperienceHandler}>
+              <NewItem onClick={newExperienceHandler}>
                 <GrFormAdd />
                 <span>New</span>
-              </div>
+              </NewItem>
             )}
-          </div>
+          </FlexContainer>
+
+          {/* Experience Editor Section */}
           <Formik
             initialValues={selectedExperience}
             onSubmit={submitHandler}

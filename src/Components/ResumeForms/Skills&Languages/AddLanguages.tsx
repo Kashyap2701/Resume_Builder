@@ -1,12 +1,17 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React from "react";
 import { useState } from "react";
-import FormHeader from "../FormHeader";
-import { Input, Wrapper, AccordianForm } from "../../../Utils/FormStyle";
+import {
+  Input,
+  AccordianForm,
+  FlexWrapContainer,
+  ListItem,
+} from "../../../Utils/FormStyle";
 import { RxCross2 } from "react-icons/rx";
-import style from "./Style.module.css";
 import { useAppDispatch, useAppSelector } from "../../../Store/hooks";
 import uuid from "react-uuid";
 import { curResumeActions } from "../../../Store/curResumeSlice";
+import AccordianHeader from "../AccordianHeader";
 
 const AddLanguages = () => {
   const [isexpand, setIsExpand] = useState(false);
@@ -15,6 +20,7 @@ const AddLanguages = () => {
   );
   const dispatch = useAppDispatch();
 
+  // Handler to add new language
   const addLanguagehandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const languageName = e.target as HTMLInputElement;
     if (e.key === "Enter" && languageName.value.trim() != "") {
@@ -27,14 +33,15 @@ const AddLanguages = () => {
     }
   };
 
-  const deleteLanguageHandler = (e) => {
-    console.log(e.target.parentNode?.id);
-    dispatch(curResumeActions.deletelanguage(e.target.parentNode.id));
+  // Handler to delete language
+  const deleteLanguageHandler = (e: React.MouseEvent<SVGElement>) => {
+    const parentNode = e.currentTarget.parentNode as HTMLDivElement | null;
+    dispatch(curResumeActions.deletelanguage(parentNode!.id));
   };
 
   return (
     <div>
-      <FormHeader
+      <AccordianHeader
         title="Languages"
         isexpand={isexpand}
         toggleSection={setIsExpand}
@@ -46,21 +53,16 @@ const AddLanguages = () => {
             placeholder="Type Languages that you can speak & Press 'Enter'"
             onKeyDown={addLanguagehandler}
           />
-          <Wrapper>
-            <div className={style["container"]}>
-              {languages.map((data) => {
-                return (
-                  <div key={data.id} id={data.id} className={style["item"]}>
-                    <span className={style["text"]}>{data.name}</span>
-                    <RxCross2
-                      className={style["cancel-icon"]}
-                      onClick={deleteLanguageHandler}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          </Wrapper>
+          <FlexWrapContainer className="p-0-5">
+            {languages.map((interest) => {
+              return (
+                <ListItem key={interest.id} id={interest.id}>
+                  <span>{interest.name}</span>
+                  <RxCross2 onClick={deleteLanguageHandler} />
+                </ListItem>
+              );
+            })}
+          </FlexWrapContainer>
         </AccordianForm>
       )}
     </div>

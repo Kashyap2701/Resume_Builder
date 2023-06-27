@@ -3,7 +3,7 @@ import style from "./Auth.module.css";
 import loginImage from "../../Assets/login-image.jpg";
 import InputField from "../../Components/InputField/InputField";
 import { Form, Formik } from "formik";
-import { initialValuesForLoginForm } from "../../Utils/ResumeForm";
+import { initialValuesForLoginForm } from "../../Utils/InitialValue";
 import { validationSchemaForLogin } from "../../Utils/ValidationSchema";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
