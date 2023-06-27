@@ -23,6 +23,7 @@ const PreviewModal = (props: PreviewModalProps) => (
       style={customStyles}
     >
       <div style={modalActionButtonContainer}>
+        {/* Button for close preview modal */}
         <button
           className="secondary-button"
           style={modalActionButton}
@@ -30,6 +31,7 @@ const PreviewModal = (props: PreviewModalProps) => (
         >
           Close
         </button>
+        {/* Button for download resume */}
         <button
           className="secondary-button"
           style={modalActionButton}
@@ -38,6 +40,7 @@ const PreviewModal = (props: PreviewModalProps) => (
           Download
         </button>
       </div>
+      {/* Resume preview  */}
       <Preview ref={props.resumeRef} />
     </Modal>
   </div>

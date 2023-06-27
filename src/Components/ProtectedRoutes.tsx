@@ -12,6 +12,7 @@ const ProtectedRoutes = ({ Component }: ProtectedRoutesProps) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // if user is not logged in then navigate to login page
     !isLoggedIn && navigate("/login");
   }, [isLoggedIn]);
 

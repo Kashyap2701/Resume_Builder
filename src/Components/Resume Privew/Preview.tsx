@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import style from "./Preview.module.css";
 import Contacts from "./Resume Sections/Contacts";
 import ProfilePhoto from "./Resume Sections/ProfilePhoto";
@@ -13,6 +14,7 @@ import ColorPicker from "../Color Picker/ColorPicker";
 import { useAppSelector } from "../../Store/hooks";
 import { useDispatch } from "react-redux";
 import { curResumeActions } from "../../Store/curResumeSlice";
+import { Container } from "../../Utils/FormStyle";
 
 type PreviewType = {
   ref: React.MutableRefObject<HTMLDivElement | null>;
@@ -24,16 +26,20 @@ const Preview = forwardRef<null, PreviewType>((props, ref) => {
   );
   const dispatch = useDispatch();
 
-  const colorHandler = (e) => {
-    // console.log(e.target.style.backgroundColor);
-    dispatch(curResumeActions.changeColor(e.target.style.backgroundColor));
+  // Handler to select resume-color
+  const colorHandler = (e: React.MouseEvent) => {
+    const node = e.target as HTMLDivElement | null;
+    dispatch(curResumeActions.changeColor(node!.style.backgroundColor));
   };
 
   return (
     <>
-      <div className={style["container"]}>
+      <Container className="p-1">
+        {/* Color picker for select different color  */}
         <ColorPicker colorHandler={colorHandler} />
+        {/* resume preview  */}
         <div id="resume" className={style["resume-preview-wrapper"]} ref={ref}>
+          {/* resume preview left section */}
           <div
             className={style["left-section"]}
             style={{ backgroundColor: `${resumeColor}` }}
@@ -43,6 +49,7 @@ const Preview = forwardRef<null, PreviewType>((props, ref) => {
             <Skills />
             <Interest />
           </div>
+          {/* resume preview right section */}
           <div className={style["right-section"]}>
             <ProfileInfo />
             <About />
@@ -51,7 +58,7 @@ const Preview = forwardRef<null, PreviewType>((props, ref) => {
             <Languages />
           </div>
         </div>
-      </div>
+      </Container>
     </>
   );
 });

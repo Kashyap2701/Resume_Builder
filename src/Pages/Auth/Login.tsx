@@ -19,6 +19,7 @@ const Login = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  // Handler to login user 
   const submitHandler = async (values: loginFormData) => {
     try {
       const response = await signInWithEmailAndPassword(

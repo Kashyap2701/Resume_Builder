@@ -17,12 +17,13 @@ const InputField = (props: InputFieldProps) => {
   const [isVisible, setIsVisble] = useState(false);
   const [passwordType, setPasswordType] = useState("password");
 
+  // Handler for toggle password visible or invisible
   const togglePassword = () => {
     setIsVisble(!isVisible);
     !isVisible ? setPasswordType("text") : setPasswordType("password");
   };
 
-  // logic for passwordField
+  // Input type password
   const PasswordField = () => {
     return (
       <div className={style["password-field"]}>
@@ -44,13 +45,16 @@ const InputField = (props: InputFieldProps) => {
   return (
     <div className={style["form-field"]}>
       <div>
+        {/* Label for input */}
         {props.label && <label htmlFor={props.id}>{props.label}</label>}
+        {/* Error message for input */}
         <ErrorMessage
           className={style["error-message"]}
           name={props.name}
           component="p"
         />
       </div>
+      {/* Input field */}
       {props.id === "password" ? (
         PasswordField()
       ) : (

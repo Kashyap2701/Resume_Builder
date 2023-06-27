@@ -5,12 +5,14 @@ import { useAppDispatch, useAppSelector } from "../../Store/hooks";
 import { userActions } from "../../Store/userSlice";
 import Avatar from "../Avatar";
 import style from "./Navbar.module.css";
+import noprofile from "../../Assets/no-profile.png";
 
 const Navbar = () => {
   // Retrieve the login status from the app state
   const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
   // Retrieve the profile photo from local storage
-  const profile = JSON.parse(localStorage.getItem("user") || "")?.profilePhoto;
+  const profile =
+    JSON.parse(localStorage.getItem("user") || "")?.profilePhoto || noprofile;
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -22,6 +24,7 @@ const Navbar = () => {
   return (
     <div className={style["container"]}>
       <div className={style["navbar-container"]}>
+        {/* Logo of wesite */}
         <div className={style["navbar-left-section"]}>
           <Link to="/">
             <h2>Resume.io</h2>

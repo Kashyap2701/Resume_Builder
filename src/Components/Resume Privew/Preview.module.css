@@ -1,7 +1,4 @@
-.container {
-  padding: 1em;
-  margin: 0 auto;
-}
+
 .strip {
   width: 100%;
   background-color: var(--light-color);
@@ -44,7 +41,6 @@
   font-size: calc(var(--a4) / 50);
   width: calc(var(--a4));
   height: calc(var(--a4) * 1.41);
-  /* min-height: 100vh; */
   display: flex;
   background-color: var(--light-color);
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;

@@ -15,6 +15,8 @@ import { signupFormData } from "../../Utils/Types";
 
 const Signup = () => {
   const navigate = useNavigate();
+
+  // Handler for signup user
   const submitHandler = async (values: signupFormData) => {
     try {
       const response = await createUserWithEmailAndPassword(
@@ -37,7 +39,7 @@ const Signup = () => {
     <div className={style.container}>
       <div className={style["signup-form-wrapper"]}>
         <div className={style["image-section"]}>
-          <img src={signupImg} alt="" />
+          <img src={signupImg} alt="signup-form-image" />
         </div>
         <div className={style["form-section"]}>
           <div className={style["form-header"]}>
@@ -70,7 +72,7 @@ const Signup = () => {
                 type="password"
               />
               <button className="primary-button" type="submit">
-                Singup
+                Signup
               </button>
               <Toaster position="bottom-center" reverseOrder={false} />
             </Form>
