@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -71,4 +72,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default React.memo(Navbar);

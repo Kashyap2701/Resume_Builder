@@ -1,11 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
-import React, {
-  ChangeEvent,
-  useEffect,
-  useLayoutEffect,
-  useState,
-} from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { FaDownload, FaEye, FaSave } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router";
 import uuid from "react-uuid";
