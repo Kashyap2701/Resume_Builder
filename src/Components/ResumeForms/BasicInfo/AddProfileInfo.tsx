@@ -23,7 +23,7 @@ import Avatar from "../../Avatar";
 import AccordianHeader from "../AccordianHeader";
 
 const AddProfileInfo = () => {
-  const [isexpand, setIsExpand] = useState(true);
+  const [isexpand, setIsExpand] = useState(false);
   const [previewImage, setPreviewImage] = useState(noprofile);
   const resumeId = useParams().id;
   const resume = useAppSelector(

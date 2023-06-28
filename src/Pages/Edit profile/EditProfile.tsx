@@ -14,7 +14,6 @@ import Navbar from "../../Components/Navbar/Navbar";
 import { auth, uploadPhoto } from "../../Service/firebase";
 import { updateProfile } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
-import { ThreeDots } from "react-loader-spinner";
 import noprofile from "../../Assets/no-profile.png";
 import LoadingDots from "../../Components/LoadingDots";
 
