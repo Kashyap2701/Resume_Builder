@@ -88,9 +88,8 @@ const ActionBar = (props: ActionBarProps) => {
       },
     };
     try {
-      const response = await addDoc(resumeCollectionRef, newResume);
+      await addDoc(resumeCollectionRef, newResume);
       save("Resume Saved");
-      console.log(response);
       dispatch(resumeActions.addResume(newResume));
       navigate("/my-resumes");
     } catch (error) {

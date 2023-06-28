@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../Service/firebase";
@@ -51,12 +52,15 @@ const curResumeSlice = createSlice({
   name: "curResume",
   initialState,
   reducers: {
+    // reducers for profile operation
     addprofileInfo: (state, action: PayloadAction<profile>) => {
       state.resumeDetails.resumeData.profileInfo = action.payload;
     },
+    // reducers for contacts operation
     addContacts: (state, action: PayloadAction<contact>) => {
       state.resumeDetails.resumeData.contacts = action.payload;
     },
+    // reducers for experience operation
     addExperience: (state, action: PayloadAction<experience>) => {
       state.resumeDetails.resumeData.experiences.push(action.payload);
     },
@@ -74,6 +78,7 @@ const curResumeSlice = createSlice({
             : data
         );
     },
+    // reducers for education operation
     addEducation: (state, action: PayloadAction<degree>) => {
       state.resumeDetails.resumeData.education.push(action.payload);
     },
@@ -91,6 +96,7 @@ const curResumeSlice = createSlice({
             : data
         );
     },
+    // reducers for skill operation
     addskill: (state, action: PayloadAction<skill>) => {
       state.resumeDetails.resumeData.skills.push(action.payload);
     },
@@ -100,6 +106,7 @@ const curResumeSlice = createSlice({
           (skill) => skill.id != action.payload
         );
     },
+    // reducers for language operation
     addlanguage: (state, action: PayloadAction<language>) => {
       state.resumeDetails.resumeData.languages.push(action.payload);
     },
@@ -109,6 +116,7 @@ const curResumeSlice = createSlice({
           (language) => language.id != action.payload
         );
     },
+    // reducers for interest operation
     addinterest: (state, action: PayloadAction<interest>) => {
       state.resumeDetails.resumeData.interests.push(action.payload);
     },
@@ -118,13 +126,16 @@ const curResumeSlice = createSlice({
           (interest) => interest.id != action.payload
         );
     },
+    // reducer for change color of resume 
     changeColor: (state, action: PayloadAction<string>) => {
       state.resumeDetails.color = action.payload;
     },
+    // reset all the state
     resetState: () => {
       return initialState;
     },
   },
+  // reducer for set the resume details into redux state
   extraReducers: (builder) => {
     builder.addCase(fetchResumeDetails.pending, (state) => {
       state.status = "pending";
@@ -142,16 +153,16 @@ const curResumeSlice = createSlice({
   },
 });
 
+// Async thunk for fetch resume details from firebase
 export const fetchResumeDetails = createAsyncThunk(
   "curResume/fetchResumeDetails",
   async (resumeId: string) => {
     const resumeRef = doc(db, "resume", resumeId);
     try {
       const doc = await getDoc(resumeRef);
-      console.log(doc.data());
       return doc.data();
     } catch (error) {
-      console.log(error);
+      return error;
     }
   }
 );

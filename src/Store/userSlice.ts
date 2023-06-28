@@ -22,6 +22,7 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    // reducers for auth operation 
     loggedIn: (state, action: PayloadAction<{ id: string; user: user }>) => {
       state.id = action.payload.id;
       state.user = action.payload.user;
