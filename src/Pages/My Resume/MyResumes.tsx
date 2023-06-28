@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../../Components/Navbar/Navbar";
 import noresume from "../../Assets/noresumes.png";
@@ -26,10 +26,10 @@ export const MyResumes = () => {
   }, [isDelete]);
 
   // Handler to delete single resume
-  const deleteResumeHandler = async (id: string) => {
+  const deleteResumeHandler = useCallback(async (id: string) => {
     await deleteDoc(doc(db, "resume", id));
-    setIsDelete(!isDelete);
-  };
+    setIsDelete((prevState) => !prevState);
+  }, []);
 
   // Handler to search resume
   const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
