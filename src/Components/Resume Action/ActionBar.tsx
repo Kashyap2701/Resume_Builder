@@ -1,20 +1,17 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
-import React, {
-  ChangeEvent,
-  useEffect,
-  useLayoutEffect,
-  useState,
-} from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { FaDownload, FaEye, FaSave } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router";
 import uuid from "react-uuid";
 import { db } from "../../Service/firebase";
+import { curResumeActions } from "../../Store/curResumeSlice";
 import { useAppDispatch, useAppSelector } from "../../Store/hooks";
 import { resumeActions } from "../../Store/resumeSlice";
 import { Input } from "../../Utils/FormStyle";
 import { save } from "../../Utils/Toster";
 import { resume } from "../../Utils/Types";
+import ColorPicker from "../Color Picker/ColorPicker";
 import style from "./Actionbar.module.css";
 
 type ActionBarProps = {
@@ -56,6 +53,7 @@ const ActionBar = (props: ActionBarProps) => {
     (state) => state.curResume.resumeDetails.color
   );
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [isOpen, setIsOpen] = useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -93,9 +91,8 @@ const ActionBar = (props: ActionBarProps) => {
       },
     };
     try {
-      const response = await addDoc(resumeCollectionRef, newResume);
+      await addDoc(resumeCollectionRef, newResume);
       save("Resume Saved");
-      console.log(response);
       dispatch(resumeActions.addResume(newResume));
       navigate("/my-resumes");
     } catch (error) {
@@ -127,6 +124,12 @@ const ActionBar = (props: ActionBarProps) => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  // Handler to select resume-color
+  const colorHandler = (e: React.MouseEvent) => {
+    const node = e.target as HTMLDivElement | null;
+    dispatch(curResumeActions.changeColor(node!.style.backgroundColor));
   };
 
   return (
@@ -169,6 +172,13 @@ const ActionBar = (props: ActionBarProps) => {
             <FaDownload /> <span>Download</span>
           </span>
         </button>
+        <div
+          className={style["current-color"]}
+          style={{ backgroundColor: `${resumeColor}` }}
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {isOpen && <ColorPicker colorHandler={colorHandler} />}
+        </div>
       </div>
     </div>
   );

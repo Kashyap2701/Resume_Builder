@@ -1,9 +1,3 @@
-.container {
-  /* height: calc(100vh - 50px); */
-  /* width: 100%;
-  position: relative; */
-}
-
 .resume-container {
   display: flex;
 }
@@ -11,9 +5,7 @@
 .resume-form {
   width: 50%;
   background-color: white;
-  height: 100vh;
   overflow-y: auto;
-  position: relative;
   padding: 2rem;
 }
 
@@ -23,7 +15,6 @@
   align-items: center;
   width: 50%;
   background-color: var(--extra-light-color);
-  position: relative;
 }
 
 .resume-form::-webkit-scrollbar {

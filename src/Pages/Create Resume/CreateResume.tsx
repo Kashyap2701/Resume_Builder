@@ -65,7 +65,11 @@ const CreateResume = () => {
         title={resume ? resume.resume_title : ""}
         openModal={openModal}
       />
-      <FlexContainer>
+      <FlexContainer
+        style={{
+          height: "calc(100vh - 50px)",
+        }}
+      >
         <div className={style["resume-form"]}>
           <ResumeEditor />
         </div>

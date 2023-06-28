@@ -1,32 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../Service/firebase";
-import {
-  profile,
-  contact,
-  experience,
-  degree,
-  skill,
-  interest,
-  language,
-} from "../Utils/Types";
-
-export interface resume {
-  id: string;
-  resume_title: string;
-  userId: string;
-  resumeData: {
-    profileInfo: profile;
-    contacts: contact;
-    experiences: experience[];
-    education: degree[];
-    skills: skill[];
-    interests: interest[];
-    languages: language[];
-  };
-}
+import { resume } from "../Utils/Types";
 
 export type resumeData = Extract<resume, { resumeData: unknown }>["resumeData"];
 
@@ -44,6 +21,7 @@ const resumeSlice = createSlice({
   name: "resume",
   initialState,
   reducers: {
+    // reducers for resume operation
     addResume: (state, action: PayloadAction<resume>) => {
       state.resumeList.push(action.payload);
     },
@@ -53,6 +31,7 @@ const resumeSlice = createSlice({
       );
     },
   },
+  // reducer for set the list of resume to redux state
   extraReducers: (builder) => {
     builder.addCase(fetchResumeList.pending, (state) => {
       state.status = "pending";
@@ -70,6 +49,7 @@ const resumeSlice = createSlice({
   },
 });
 
+// Async thunk for fetching list of resumes from firebase
 export const fetchResumeList = createAsyncThunk(
   "resume/fetchResumeList",
   async (userId: string) => {

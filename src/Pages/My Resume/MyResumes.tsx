@@ -1,16 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../../Components/Navbar/Navbar";
 import noresume from "../../Assets/noresumes.png";
 import ResumeCard from "../../Components/ResumeCard/ResumeCard";
 import { useAppDispatch, useAppSelector } from "../../Store/hooks";
-import { fetchResumeList, resume } from "../../Store/resumeSlice";
+import { fetchResumeList } from "../../Store/resumeSlice";
 import { Row } from "../../Utils/FormStyle";
 import styles from "./MyResume.module.css";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../Service/firebase";
 import LoadingDots from "../../Components/LoadingDots";
+import { resume } from "../../Utils/Types";
 
 export const MyResumes = () => {
   const id = useAppSelector((state) => state.user.id);
@@ -26,10 +27,10 @@ export const MyResumes = () => {
   }, [isDelete]);
 
   // Handler to delete single resume
-  const deleteResumeHandler = async (id: string) => {
+  const deleteResumeHandler = useCallback(async (id: string) => {
     await deleteDoc(doc(db, "resume", id));
-    setIsDelete(!isDelete);
-  };
+    setIsDelete((prevState) => !prevState);
+  }, []);
 
   // Handler to search resume
   const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {

@@ -112,8 +112,18 @@ svg:active {
   width: 50%;
 }
 
+.cur-pointer {
+  cursor: pointer;
+}
+
 .bg-extra-light {
   background-color: var(--extra-light-color);
+}
+.text-primary-color {
+  color: var(--primary-color);
+}
+.justify-space-between {
+  justify-content: space-between;
 }
 
 .container {
