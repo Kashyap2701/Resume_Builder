@@ -16,7 +16,6 @@ const Navbar = () => {
     JSON.parse(localStorage.getItem("user") || "")?.profilePhoto || noprofile;
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
   const logoutHandler = () => {
     dispatch(userActions.loggedOut());
     navigate("/login");
