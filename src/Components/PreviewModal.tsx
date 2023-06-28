@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React from "react";
 import Preview from "./Resume Privew/Preview";
 import Modal from "react-modal";
@@ -6,6 +7,9 @@ import {
   modalActionButton,
   modalActionButtonContainer,
 } from "../Utils/ModalStyle";
+import { FaDownload } from "react-icons/fa";
+import { AiFillCloseSquare } from "react-icons/ai";
+import { FlexContainer } from "../Utils/FormStyle";
 
 type PreviewModalProps = {
   isOpen: boolean;
@@ -14,36 +18,40 @@ type PreviewModalProps = {
   resumeRef: React.MutableRefObject<null>;
 };
 
-const PreviewModal = (props: PreviewModalProps) => (
-  <div>
+const PreviewModal = (props: PreviewModalProps) => {
+  return (
     <Modal
       isOpen={props.isOpen}
       contentLabel="Example Modal"
       ariaHideApp={false}
       style={customStyles}
     >
-      <div style={modalActionButtonContainer}>
+      <FlexContainer
+        style={modalActionButtonContainer}
+        className="justify-space-between"
+      >
         {/* Button for close preview modal */}
         <button
           className="secondary-button"
           style={modalActionButton}
           onClick={() => props.closeModal()}
         >
-          Close
+          <AiFillCloseSquare /> Close
         </button>
         {/* Button for download resume */}
         <button
           className="secondary-button"
-          style={modalActionButton}
           onClick={() => props.downloadresumeHandler()}
+          style={modalActionButton}
         >
-          Download
+          <FaDownload /> Download
         </button>
-      </div>
+      </FlexContainer>
+
       {/* Resume preview  */}
       <Preview ref={props.resumeRef} />
     </Modal>
-  </div>
-);
+  );
+};
 
 export default PreviewModal;

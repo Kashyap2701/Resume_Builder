@@ -10,10 +10,7 @@ import WorkExperience from "./Resume Sections/WorkExperience";
 import Education from "./Resume Sections/Education";
 import Languages from "./Resume Sections/Languages";
 import { forwardRef } from "react";
-import ColorPicker from "../Color Picker/ColorPicker";
 import { useAppSelector } from "../../Store/hooks";
-import { useDispatch } from "react-redux";
-import { curResumeActions } from "../../Store/curResumeSlice";
 import { Container } from "../../Utils/FormStyle";
 
 type PreviewType = {
@@ -24,19 +21,10 @@ const Preview = forwardRef<null, PreviewType>((props, ref) => {
   const resumeColor = useAppSelector(
     (state) => state.curResume.resumeDetails.color
   );
-  const dispatch = useDispatch();
-
-  // Handler to select resume-color
-  const colorHandler = (e: React.MouseEvent) => {
-    const node = e.target as HTMLDivElement | null;
-    dispatch(curResumeActions.changeColor(node!.style.backgroundColor));
-  };
 
   return (
     <>
       <Container className="p-1">
-        {/* Color picker for select different color  */}
-        <ColorPicker colorHandler={colorHandler} />
         {/* resume preview  */}
         <div id="resume" className={style["resume-preview-wrapper"]} ref={ref}>
           {/* resume preview left section */}

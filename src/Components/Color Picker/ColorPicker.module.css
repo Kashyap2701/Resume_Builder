@@ -1,19 +1,19 @@
 .container {
-  width: 300px;
   background-color: white;
-  padding: 1rem;
+  padding: 0.5rem;
   box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
   position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, 0%);
+  border-radius: 3px;
+  right: 0;
+  top: 20px;
 }
 .color-boxs {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
 }
 
 .color {
+  margin: 0.5rem 0rem;
   padding: 0.5rem;
   height: 20px;
   width: 20px;

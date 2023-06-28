@@ -49,11 +49,12 @@ export const AccordianFormHeader = styled.div`
   margin-bottom: 1rem;
   color: var(--primary-color);
   border-left: 3px solid var(--dark-color);
+  cursor: pointer;
   svg {
     cursor: pointer;
     font-size: large;
   }
-  &:hover {
+  & :hover {
     background-color: var(--extra-light-color);
     cursor: pointer;
   }
