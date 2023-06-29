@@ -12,10 +12,13 @@ import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../Service/firebase";
 import LoadingDots from "../../Components/LoadingDots";
 import { resume } from "../../Utils/Types";
+import ConfirmDeleteModal from "../../Components/ConfirmDeleteModal";
 
 export const MyResumes = () => {
   const id = useAppSelector((state) => state.user.id);
   const [isDelete, setIsDelete] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [resumeIdToDelete, setResumeIdToDelete] = useState("");
   const [searchedResume, setSearchedResume] = useState<resume[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const resumeList = useAppSelector((state) => state.resume.resumeList);
@@ -26,11 +29,11 @@ export const MyResumes = () => {
     dispatch(fetchResumeList(id));
   }, [isDelete]);
 
-  // Handler to delete single resume
-  const deleteResumeHandler = useCallback(async (id: string) => {
-    await deleteDoc(doc(db, "resume", id));
-    setIsDelete((prevState) => !prevState);
-  }, []);
+  // Handler to open confirm delete modal
+  const openConfirmModal = (id: string) => {
+    setResumeIdToDelete(id);
+    setIsModalOpen(true);
+  };
 
   // Handler to search resume
   const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -42,6 +45,18 @@ export const MyResumes = () => {
     setSearchedResume(filteredResumeList);
     setIsSearching(true);
   };
+
+  // Handler to cancle delete resume
+  const cancleDelete = () => {
+    setIsModalOpen(false);
+  };
+
+  // Handler to delete resume
+  const confirmDelete = useCallback(async (id: string) => {
+    await deleteDoc(doc(db, "resume", id));
+    setIsDelete((prevState) => !prevState);
+    setIsModalOpen(false);
+  }, []);
 
   return (
     <>
@@ -75,7 +90,7 @@ export const MyResumes = () => {
                   key={resume.id}
                   id={resume.id}
                   title={resume.resume_title}
-                  deleteHandler={deleteResumeHandler}
+                  onDelete={() => openConfirmModal(resume.id)}
                 />
               ))
             ) : (
@@ -87,6 +102,14 @@ export const MyResumes = () => {
           </div>
         ) : (
           <LoadingDots />
+        )}
+        {isModalOpen && (
+          <ConfirmDeleteModal
+            id={resumeIdToDelete}
+            isOpen={isModalOpen}
+            onCancel={cancleDelete}
+            onConfirm={confirmDelete}
+          />
         )}
       </div>
     </>
