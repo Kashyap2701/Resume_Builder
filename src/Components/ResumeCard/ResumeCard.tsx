@@ -6,10 +6,10 @@ import { Link } from "react-router-dom";
 type ResumeCardProp = {
   id: string;
   title: string;
-  deleteHandler: (id: string) => void;
+  onDelete: (id: string) => void;
 };
 
-const ResumeCard = ({ id, title, deleteHandler }: ResumeCardProp) => {
+const ResumeCard = ({ id, title, onDelete }: ResumeCardProp) => {
   return (
     <div className={styles.resumeCard}>
       <div className={styles.resumeContent}>
@@ -25,7 +25,7 @@ const ResumeCard = ({ id, title, deleteHandler }: ResumeCardProp) => {
           </button>
         </Link>
         {/* Button for delete resume */}
-        <button className="secondary-button" onClick={() => deleteHandler(id)}>
+        <button className="secondary-button" onClick={() => onDelete(id)}>
           <MdDelete /> Delete
         </button>
       </div>
