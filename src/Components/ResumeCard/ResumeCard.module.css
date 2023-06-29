@@ -1,0 +1,47 @@
+.resumeCard {
+  background-color: var(--extra-light-color);
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  margin: 0.5rem;
+  width: 300px;
+}
+
+.resumeHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.resumeTitle {
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.resumeDescription {
+  font-size: 16px;
+  color: #777777;
+}
+
+.resumeActions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.resumeActions button {
+  display: flex;
+  min-width: fit-content !important;
+  align-items: center;
+  justify-content: center;
+  margin-left: 1rem;
+}
+
+button svg {
+  margin-right: 0.5rem;
+}

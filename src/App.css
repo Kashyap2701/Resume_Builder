@@ -1,0 +1,162 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&family=Trocchi&display=swap");
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+  --primary-color: #fe715b;
+  --secondary-color: #ea5a49;
+  --extra-light-color: #f4f4f4;
+  --light-color: #e1e1e1;
+  --extra-dark-color: #192d34;
+  --dark-color: #385a64;
+  --text-color-white: white;
+  --text-color-black: black;
+  --text-color-light: #8f8f8f;
+  --error: red;
+  --primary-color-opacity-light: #fe715bc8;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style-type: none;
+}
+input {
+  padding: 0.5rem;
+  font-weight: 500;
+  border-radius: 3px;
+  border: 1px solid var(--light-color);
+  background-color: var(--extra-light-color);
+}
+
+textarea {
+  padding: 0.5rem;
+  font-weight: 500;
+  border-radius: 3px;
+  border: 1px solid var(--light-color);
+  background-color: var(--extra-light-color);
+}
+
+input:focus,
+textarea:focus {
+  outline-style: none;
+}
+
+input::placeholder,
+textarea::placeholder {
+  opacity: 0.5;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+svg:active {
+  transform: scale(0.95);
+}
+
+/* 
+------------------------------------
+---------REUSED CLASSES-------------
+------------------------------------ 
+*/
+.p-0-5 {
+  padding: 0.5rem;
+}
+
+.p-1 {
+  padding: 1rem;
+}
+.p-2 {
+  padding: 2rem;
+}
+.p-3 {
+  padding: 3rem;
+}
+
+.m-1 {
+  margin: 1rem;
+}
+.m-2 {
+  margin: 2rem;
+}
+.m-3 {
+  margin: 3rem;
+}
+
+.pos-relative {
+  position: relative;
+}
+.pos-absolute {
+  position: absolute;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.cur-pointer {
+  cursor: pointer;
+}
+
+.bg-extra-light {
+  background-color: var(--extra-light-color);
+}
+.text-primary-color {
+  color: var(--primary-color);
+}
+.justify-space-between {
+  justify-content: space-between;
+}
+
+.container {
+  width: 100vw;
+  margin: 0 auto;
+}
+
+.primary-button {
+  color: var(--text-color-white);
+  border-radius: 3px;
+  padding: 0.5rem;
+  min-width: 100px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: medium;
+  background-color: var(--primary-color);
+}
+
+.primary-button:hover {
+  background-color: var(--secondary-color);
+}
+
+.secondary-button {
+  color: var(--text-color-white);
+  border-radius: 3px;
+  padding: 0.5rem;
+  min-width: 70px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  background-color: var(--dark-color);
+}
+.secondary-button:hover {
+  background-color: var(--extra-dark-color);
+}

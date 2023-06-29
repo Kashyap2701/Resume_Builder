@@ -1,0 +1,64 @@
+.resume-container {
+  display: flex;
+}
+
+.resume-form {
+  width: 50%;
+  background-color: white;
+  overflow-y: auto;
+  padding: 2rem;
+}
+
+.resume-preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  background-color: var(--extra-light-color);
+}
+
+.resume-form::-webkit-scrollbar {
+  width: 8px;
+  position: absolute;
+  right: -10px;
+}
+
+.resume-form::-webkit-scrollbar-track {
+  border-radius: 7px;
+}
+
+.resume-form::-webkit-scrollbar-thumb {
+  background-color: var(----primary-color-opacity-light);
+  border-radius: 7px;
+}
+
+.resume-form .section {
+  padding: 1rem;
+}
+
+.resume-form .section .section-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.print-page {
+  background-color: blue;
+}
+
+@media screen and (max-width: 1024px) {
+  .container {
+    flex-direction: column;
+  }
+  .resume-form,
+  .resume-preview {
+    width: 100%;
+  }
+
+  .resume-preview {
+    display: none;
+  }
+
+  .resume-form {
+    padding: 1rem;
+  }
+}

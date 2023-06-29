@@ -1,0 +1,26 @@
+.container {
+  background-color: white;
+  padding: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
+  position: absolute;
+  border-radius: 3px;
+  right: 0;
+  top: 20px;
+}
+.color-boxs {
+  display: flex;
+  flex-direction: column;
+}
+
+.color {
+  margin: 0.5rem 0rem;
+  padding: 0.5rem;
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
+  border-radius: 3px;
+}
+.color:active {
+  transform: scale(0.89);
+}
