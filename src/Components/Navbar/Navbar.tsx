@@ -13,7 +13,8 @@ const Navbar = () => {
   const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
   // Retrieve the profile photo from local storage
   const profile =
-    JSON.parse(localStorage.getItem("user") || "")?.profilePhoto || noprofile;
+    JSON.parse(localStorage.getItem("user")!)?.profilePhoto || noprofile;
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const logoutHandler = () => {

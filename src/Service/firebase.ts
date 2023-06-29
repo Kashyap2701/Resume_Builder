@@ -6,13 +6,13 @@ import uuid from "react-uuid";
 
 // All the configuration for firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyAYkxnsMKdXVWq-CrQnY45_pFRq9iFmnLo",
-  authDomain: "resume-builder-a08b1.firebaseapp.com",
-  projectId: "resume-builder-a08b1",
-  storageBucket: "resume-builder-a08b1.appspot.com",
-  messagingSenderId: "930601004657",
-  appId: "1:930601004657:web:38c2c548e58b140b22b5d0",
-};
+  apiKey: import.meta.env.VITE_APP_API_KEY,
+  authDomain: import.meta.env.VITE_APP_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_APP_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_APP_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_APP_MESSAGE_SENDER_ID,
+  appId: import.meta.env.VITE_APP_APP_ID,
+};  
 
 // Initialize the Firebase app using the provided configuration
 const app = initializeApp(firebaseConfig);
