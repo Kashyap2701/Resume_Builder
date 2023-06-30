@@ -82,7 +82,7 @@ const EditProfile = () => {
     setLoading(false);
   };
 
-  return (
+  return (  
     <>
       <Navbar />
       {!isLoading ? (

@@ -34,6 +34,25 @@
   margin-top: 16px;
 }
 
+.resumeAction {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-left: 1rem;
+  color: var(--text-color-light);
+}
+.resumeAction span {
+  margin-left: 0.3rem;
+}
+
+.resumeAction:hover {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+.resumeAction:active {
+  transform: scale(0.9);
+}
+
 .resumeActions button {
   display: flex;
   min-width: fit-content !important;

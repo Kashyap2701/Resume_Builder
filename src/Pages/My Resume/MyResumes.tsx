@@ -12,13 +12,16 @@ import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../Service/firebase";
 import LoadingDots from "../../Components/LoadingDots";
 import { resume } from "../../Utils/Types";
-import ConfirmDeleteModal from "../../Components/ConfirmDeleteModal";
+import ConfirmDeleteModal from "../../Modal/ConfirmDeleteModal";
+import ShareLinkModal from "../../Modal/ShareLinkModal";
+import { Toaster } from "react-hot-toast";
 
 export const MyResumes = () => {
   const id = useAppSelector((state) => state.user.id);
   const [isDelete, setIsDelete] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [resumeIdToDelete, setResumeIdToDelete] = useState("");
+  const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
+  const [showShareLinkModal, setShowShareLinkModal] = useState(false);
+  const [resumeId, setresumeId] = useState("");
   const [searchedResume, setSearchedResume] = useState<resume[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const resumeList = useAppSelector((state) => state.resume.resumeList);
@@ -31,8 +34,8 @@ export const MyResumes = () => {
 
   // Handler to open confirm delete modal
   const openConfirmModal = (id: string) => {
-    setResumeIdToDelete(id);
-    setIsModalOpen(true);
+    setresumeId(id);
+    setShowConfirmDeleteModal(true);
   };
 
   // Handler to search resume
@@ -46,17 +49,26 @@ export const MyResumes = () => {
     setIsSearching(true);
   };
 
-  // Handler to cancle delete resume
+  // Handler to cancle deleteModal resume
   const cancleDelete = () => {
-    setIsModalOpen(false);
+    setShowConfirmDeleteModal(false);
   };
 
   // Handler to delete resume
   const confirmDelete = useCallback(async (id: string) => {
     await deleteDoc(doc(db, "resume", id));
     setIsDelete((prevState) => !prevState);
-    setIsModalOpen(false);
+    setShowConfirmDeleteModal(false);
   }, []);
+
+  const openShareLinkModal = (id: string) => {
+    setresumeId(id);
+    setShowShareLinkModal(true);
+  };
+
+  const closeShareLinkModal = () => {
+    setShowShareLinkModal(false);
+  };
 
   return (
     <>
@@ -91,6 +103,7 @@ export const MyResumes = () => {
                   id={resume.id}
                   title={resume.resume_title}
                   onDelete={() => openConfirmModal(resume.id)}
+                  onShare={() => openShareLinkModal(resume.id)}
                 />
               ))
             ) : (
@@ -103,15 +116,23 @@ export const MyResumes = () => {
         ) : (
           <LoadingDots />
         )}
-        {isModalOpen && (
+        {showConfirmDeleteModal && (
           <ConfirmDeleteModal
-            id={resumeIdToDelete}
-            isOpen={isModalOpen}
+            id={resumeId}
+            isOpen={showConfirmDeleteModal}
             onCancel={cancleDelete}
             onConfirm={confirmDelete}
           />
         )}
+        {showShareLinkModal && (
+          <ShareLinkModal
+            id={resumeId}
+            isOpen={showShareLinkModal}
+            closeModal={closeShareLinkModal}
+          />
+        )}
       </div>
+      <Toaster position="bottom-center" reverseOrder={false} />
     </>
   );
 };

@@ -1,10 +1,18 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React from "react";
-import styled from "styled-components";
 import Modal from "react-modal";
-
-Modal.setAppElement("#root");
+import {
+  Button,
+  ButtonContainer,
+  Message,
+  OutlineButton,
+  Title,
+} from "../Modal/ModalStyle";
 
 const customStyles = {
+  overlay: {
+    background: "rgb(0 0 0 / 70%)",
+  },
   content: {
     top: "50%",
     left: "50%",
@@ -20,46 +28,7 @@ const customStyles = {
   },
 };
 
-const Title = styled.h3`
-  color: var(--extra-dark-color);
-  margin-bottom: 1rem;
-`;
-
-const Message = styled.p`
-  color: var(--text-color-light);
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 20px;
-`;
-
-const OutlineButton = styled.button`
-  color: var(--secondary-color);
-  border: 1px solid var(--secondary-color);
-  border-radius: 4px;
-  padding: 10px 16px;
-  margin-left: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-`;
-
-const Button = styled.button`
-  background-color: var(--primary-color);
-  color: var(--text-color-white);
-  border: none;
-  border-radius: 4px;
-  padding: 10px 16px;
-  margin-left: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: var(--secondary-color);
-  }
-`;
-
+Modal.setAppElement("#root");
 interface ConfirmDeleteModalProps {
   id: string;
   isOpen: boolean;
