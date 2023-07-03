@@ -8,6 +8,7 @@ import Home from "./Pages/Home/Home";
 import { MyResumes } from "./Pages/My Resume/MyResumes";
 import EditProfile from "./Pages/Edit profile/EditProfile";
 import ProtectedRoutes from "./Components/ProtectedRoutes";
+import SharedResume from "./Pages/Resume/SharedResume";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           path="/edit-resume/:id"
           element={<ProtectedRoutes Component={CreateResume} />}
         />
+        <Route path="/resume/:id" element={<SharedResume />} />
       </Routes>
     </div>
   );
